@@ -1,0 +1,107 @@
+#!/bin/zsh
+
+#####################################################
+#                                                   #
+# MAKE COLLECTION                                   #
+#                                                   #
+#####################################################
+
+# What is this script making:
+export PANDOC_ACTION='Collection'
+
+# Include the shared script:
+. ${0:a:h:h}/includes/shared.zsh
+
+# Logging
+start_log $0
+
+metadata_file='assets/make-collection.md'
+
+# Kill if there is no metadata found:
+if [[ ! -f $metadata_file ]]; then
+    echo "Metadata for collection not found!" >&2
+    exit 1
+fi
+
+# Setup the variables:
+. ${local}/includes/variables.zsh
+
+# Collect dir. Replace spaces with dashes.
+collect_dir=$TMPBOOKS/collections/$(safe_string $belongs_to_collection)
+
+#####################################################
+#                                                   #
+# Functions                                         #
+#                                                   #
+#####################################################
+
+collect() {
+    # Make the build directory
+    mkdir -p $collect_dir/images
+    # Sync the original files with build directory
+    rsync --recursive --update --delete . $collect_dir
+    # Rename the metadata file, but keep the original date/time
+    # or else Make thinks the file is new and will rebuild.
+    mv $collect_dir/assets/make-collection.md $collect_dir/assets/make-book.md
+    touch -r assets/make-collection.md $collect_dir/assets/make-book.md
+    # Find our books and process it:
+    find $books -name make-book.md -exec grep -lw 'belongs-to-collection: '$belongs_to_collection {} + \
+        | while read file; do process "$file"; done
+}
+
+process() {
+    cd $file:h:h
+    if find "images" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
+        rsync -r -u images/. $collect_dir/images/
+    fi
+    # Reset and reload the variables.
+    export=$EXPORT_DIR
+    clear_variables
+    . $local/includes/variables.zsh
+    export EXPORT_DIR=$export
+    export BUILD_DIR=$collect_dir
+    export BUILD_TITLE=$book_position
+    export PANDOC_ACTION='Prepair'
+    $local/terminal/make-book collect
+}
+
+build() {
+    # Use the proper metadata
+    metadata_file='assets/make-book.md'
+    # Collect all books:
+    collect
+    # Go to the collection dir:
+    cd $collect_dir
+    # Reset the variables:
+    clear_variables
+    # Make the collection:
+    export PANDOC_ACTION='Collection'
+    $local/terminal/make-book ${config[@]} $(echo $*)
+}
+
+# Do it!
+
+################################################################
+#                                                              #
+# Make will run multiple targets at once to speed things up.   #
+# The 'clean' target does not like this; so if will run first. #
+#                                                              #
+################################################################
+
+# No arguments ('all' will be the target)
+if [[ ! $* ]]; then
+    build
+fi
+# Clean... do it before anything else
+if [[ $1 = 'clean' ]]; then
+    if [[ -d "$collect_dir" ]]; then rm -Rf "$collect_dir"; fi
+    make --file=$local/make/Makefile clean 2>&1 | tee -a $LOGFILE
+    shift
+fi
+# Do all other targets if they are still there
+if [[ $* ]]; then
+    build $(echo $*)
+fi
+
+# Logging
+stop_log $0

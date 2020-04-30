@@ -1,0 +1,35 @@
+% -------------------------------------------------
+% Pandoc template for pdf file from single MD
+%
+% Based on below custom class who is based on
+% the Memoir class.
+%
+% -------------------------------------------------
+\documentclass[$papersize$,$fontsize$]{desbeers-six-by-nine}
+
+\title{PDF}
+\author{Pandoc}
+\date{2020}
+$if(lang)$
+  \usepackage[$babel-lang$]{babel}
+$endif$
+$if(use-colours)$
+  \pagecolor{pagecolour}
+  \color{textcolour}
+$endif$
+% Override chapter style
+$if(chapter-style)$
+  \chapterstyle{$chapter-style$}
+$endif$
+%%% BEGIN DOCUMENT
+\begin{document}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\frontmatter
+
+$body$
+
+\end{document}

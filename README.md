@@ -4,6 +4,8 @@
 
 I like to write books and I like to make books. Both literarily. They have a lot in common and even more _not_ in common. Writing is a creative process. Words, words and words. On the other hand, _making_ books is mostly a technical process.
 
+![](includes/make-books-project-logo.png)
+
 It’s a nice combination.
 
 For years and years I’m searching for the “perfect” book environment. Perfect for writing, perfect for self publishing. It’s been a long journey, I made my first books around 2004. Half the time was writing; the other half programming. At that time, I was much into web programming so my “publishing system” was home-made in PHP and MySQL. Fun to do, impossible to maintain.

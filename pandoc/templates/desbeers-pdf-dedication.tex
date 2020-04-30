@@ -1,0 +1,15 @@
+%%% Dedication template
+% See https://tex.stackexchange.com/questions/2326/vertically-center-text-on-a-page
+$if(body)$
+% Temporarily change the 'section style'
+\setsecheadstyle{\noindent\scshape\large\centering}
+\thispagestyle{empty}
+\begin{vplace}[0.3]
+\begin{center}
+$body$
+\end{center}
+\end{vplace}
+\cleardoublepage
+% Restore 'section style'
+\setsecheadstyle{\noindent\scshape\textnormal\raggedright}
+$endif$

@@ -1,0 +1,97 @@
+#!/bin/zsh
+
+#####################################################
+#                                                   #
+# MAKE BOOK                                         #
+#                                                   #
+#####################################################
+
+# What is this script making:
+: ${PANDOC_ACTION='Book'}
+
+# Include the shared script:
+. ${0:a:h:h}/includes/shared.zsh
+
+# Logging
+start_log $0
+
+metadata_file='assets/make-book.md'
+
+# Kill if there is no metadata found:
+if [[ ! -f $metadata_file ]]; then
+    echo "Metadata for book not found!" >&2
+    exit 1
+fi
+
+# Setup the variables:
+. $local/includes/variables.zsh
+
+# Print what we are making:
+print "$BOLD_RED$PANDOC_ACTION: $BOLD_GREEN$title$RESET by $BOLD_CYAN$author$RESET"
+echo "$PANDOC_ACTION: $title by $author" >> $LOGFILE
+echo "log += \"$PANDOC_ACTION: <strong>$title</strong> by $author<br />\";" >> $JSLOGFILE
+
+
+# Do it!
+
+#####################################################
+#                                                   #
+# Functions                                         #
+#                                                   #
+#####################################################
+
+collect() {
+    print "Source is newer..."
+    echo "log += \"<p class='make info'>✭ $title is updated...</p>\";" >> $JSLOGFILE
+    mkdir -p $SOURCE_DIR
+    # Sync the original files with the source directory
+    rsync --recursive --update --delete . $SOURCE_DIR
+    cd $SOURCE_DIR
+    # Optional dedication file, create an empty one if not exists
+    if [[ ! -f assets/dedication.md ]]; then
+       touch assets/dedication.md
+    fi
+    # Rename all markdown files with spaces; Make does not like them
+    autoload -U zmv
+    zmv '*.md' '$f:gs/ /_'
+}
+
+build() {
+    # Use ZSH's stat version to be compatible with linux and macOS
+    zmodload -F zsh/stat b:zstat
+    # Our mini-Make; check if source is newer than destination.
+    # It's very smart of me; it also works if you update images :-)
+    dest=0
+    source=$(zstat '+mtime' **/*(.om[1]))
+    if [[ -d $EXPORT_DIR ]]; then dest=$(zstat '+mtime' $EXPORT_DIR); fi
+    if [[ $source > $dest ]]; then collect; fi
+    # Go to the source dir:
+    cd $SOURCE_DIR    
+    # make it!
+    make --jobs --file=$local/make/Makefile $(echo $*) 2>&1 | tee -a $LOGFILE
+}
+
+################################################################
+#                                                              #
+# Make will run multiple targets at once to speed things up.   #
+# The 'clean' target does not like this; so if will run first. #
+#                                                              #
+################################################################
+
+# No arguments ('all' will be the target)
+if [[ ! $* ]]; then
+    build
+fi
+# Clean... do it before anything else
+if [[ $1 = 'clean' ]]; then
+    make --file=$local/make/Makefile clean 2>&1 | tee -a $LOGFILE
+    #if [ -d "$EXPORT_DIR" ]; then rm -Rf "$EXPORT_DIR/"; fi
+    shift
+fi
+# Do all other targets if they are still there
+if [[ $* ]]; then
+    build $(echo $*)
+fi
+
+# Logging
+stop_log $0

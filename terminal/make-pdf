@@ -1,0 +1,51 @@
+#!/bin/zsh
+
+#####################################################
+#                                                   #
+# MAKE PDF                                          #
+#                                                   #
+# Make a PDF's from selected files to the Desktop   #
+#                                                   #
+#####################################################
+
+# Include the shared script:
+. ${0:a:h:h}/includes/shared.zsh
+
+# Setup the variables:
+. ${0:a:h:h}/includes/variables.zsh
+
+# Do it!
+
+for file in "$@"
+do
+    output=${file%%.*}.pdf
+    # Print what book we are making:
+    print $BOLD_RED"Make PDF:$RESET convert $BOLD_GREEN$file:t$RESET to $BOLD_CYAN$output:t$RESET"
+    output=~/Desktop/$output:t
+    pandoc "$file" -o "$output" \
+        --variable=chapter-style:plain \
+        --lua-filter $PANDOC_FILTERS/desbeers-metadata.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-hashtags.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-dropcaps.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-linebreaks.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-chapterprecis.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-matters.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-images.lua \
+        --lua-filter $PANDOC_FILTERS/desbeers-quotes.lua \
+        --template=$PANDOC_TEMPLATES/desbeers-pdf-single-page.tex \
+        --variable documentclass=memoir \
+        --top-level-division=chapter \
+        --metadata=use-colours \
+        --metadata=papersize:$papersize \
+        --metadata=fontsize:$fontsize \
+        --pdf-engine lualatex
+done
+
+# Alter the following to the Pandoc option to change page and font size:
+#
+# --metadata=papersize:a4paper \
+# --metadata=fontsize:14pt \
+#
+# To have a slightly coloured background:
+#
+# --metadata=use-colours

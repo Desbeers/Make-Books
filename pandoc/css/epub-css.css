@@ -1,0 +1,252 @@
+/* A minimal CSS for ePub */
+
+body {
+    line-height: 1.4em;
+    font-size: 1em;
+    text-align: justify;
+}
+
+/* Cover page */
+
+/* Title page */
+
+section.titlepage h1 {
+    text-align: center;
+    padding: 4em 0 2em 0;
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 1.6em;
+    font-weight: 100;
+}
+
+section.titlepage p {
+    text-align: center;
+    padding: 1em 0 1em 0;
+    font-style: normal;
+    font-size: 1em;
+    font-weight: 100;
+    text-indent: 0; 
+}
+
+section.titlepage div#copyright {
+    position: absolute;
+    bottom: 5em;
+    left: 5em;
+    font-size: 0.7em;
+    width: 20em;
+}
+section.titlepage div#copyright p {
+    text-align: left;
+    padding: 0 0 0.5em 0;   
+}
+/* TOC */
+
+h1#toc-title {
+    font-style: normal;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 100;
+}
+
+nav ol {
+  list-style: none;
+}
+nav li {
+  padding: 0.4em 0 0 0;
+  margin: 0em 0;
+}
+
+nav li li {
+  padding: 0.4em 0 0 0;
+  margin: 0;
+}
+
+nav ol ol {
+  margin: 0;
+  padding: 0 0 0 1em;
+}
+
+nav ol li a {
+    color: black;
+    font-weight: bold;
+    text-transform: none;
+}
+
+nav ol li li a {
+    color: black;
+    font-weight: 100;
+    text-transform: none;
+}
+
+nav span.counter,
+nav span.counterspacer {
+    display: none;
+}
+
+
+/* Chapters (#) */
+section.frontmatter .frontmatter,
+section.chapter .chapter,
+section.backmatter .backmatter {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* Chapter counter */
+
+.chapter .counter {
+  width: 20%;
+  display: block;
+  text-align: center;
+  border-bottom: 1px solid;
+  margin: 0 auto 0.5em;
+  padding-bottom: 0.5em;
+}
+
+/* Hide above with simple chapter style */
+
+.chapter-plain .counter {
+  display: none;
+}
+
+.chapter .counterspacer {
+    display: none;
+}
+
+/* Sections (##) */
+
+div.section {
+    /* font-variant: small-caps; */
+    text-transform: uppercase;
+    font-size: 0.92em;
+    /* letter-spacing: 0.06em; */
+    margin: 1em 0;
+    font-weight: 100;
+    font-style: normal; 
+}
+
+/* Sub Sections (###) */
+
+div.subsection {
+    margin: 0.5em 0;
+    padding: 0;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1em;
+}
+
+/* \bigskip HTML version */
+
+div.bigskip {
+    height: 0.75em;
+}
+
+/* Date and place */
+
+div.chapterprecis {
+    font-variant: small-caps;
+    text-align: center;
+    font-size: 0.92em;
+    letter-spacing: 0.06em;
+    margin: 0 0 1em 0;
+}
+
+/* Book or Part title */
+
+section.book .book,
+section.part .part {
+    text-align: center;
+    padding: 1em 0 1em;
+    font-style: normal;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+section.book .book {
+    padding: 2em 0 1em;
+    font-size: 2.2em;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4em;
+    orphans: 3;
+    widows: 3;
+}
+
+p+p {
+  text-indent: 1em; 
+}
+
+/* Lists */
+
+/* Quotes */
+
+blockquote {
+    padding: 0;
+    margin: 0.25em 2em 0.25em 2em;
+}
+
+blockquote p {
+    text-indent: 0;
+    padding: 0.25em 0;
+}
+
+/* Pre */
+
+pre {
+    font-size: 0.9em;
+    margin-left: 2em;   
+}
+
+/* Section breaks */
+
+section.frontmatter,
+section.book,
+h1.book,
+section.part,
+section.backmatter {
+    page-break-after: always;
+}
+
+.header1.inpart {
+    page-break-before: always;
+}
+
+/* Dedication */
+
+div#dedication {
+    page-break-before: always;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+div#dedication h1 {
+    padding-top:30vh;
+    font-size: 1.2em;
+    text-align: center;
+    font-variant: small-caps;
+}
+
+/* Images */
+
+figure {
+    text-align: center;
+    page-break-inside: avoid;
+}
+
+figcaption {
+    font-size: 0.8em;
+}
+
+p img {
+  display: block;
+  margin: 0.5em auto;
+}

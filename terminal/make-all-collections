@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+#####################################################
+#                                                   #
+# MAKE ALL COLLECTIONS                              #
+#                                                   #
+#####################################################
+
+# What is this script making:
+export PANDOC_ACTION='Collection'
+
+# Include the shared script:
+. ${0:a:h:h}/includes/shared.zsh
+
+# Arguments passed to the scripts
+arg=($(echo $*))
+
+# Logging
+start_log $0
+
+process() {
+    cd ${book:a:h:h}
+    # Double check if it actualy a collection or just a file with the same name
+    if [ -f ./assets/make-collection.md ]; then
+        $local/terminal/make-collection ${config[@]} $arg
+    fi
+}
+
+find  $books -name make-collection.md -type f | while read book; do process "$book"; done
+
+# Logging
+stop_log $0

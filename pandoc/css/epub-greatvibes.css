@@ -1,0 +1,153 @@
+@font-face {
+    font-family: GreatVibes;
+    font-style: normal;
+    font-weight: normal;
+    src:url("../fonts/GreatVibes.otf");
+}
+
+
+/* Part 1 */
+
+span.dropante {
+    float: left;
+}
+
+span.dropcap {
+    float: left;
+    line-height: 1.2;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    font-family: "GreatVibes";
+    margin-top: 0em;
+    margin-right: 0.2em;
+    margin-bottom: -0.26em;
+    margin-left: 0em;
+    font-size: 275%;
+}
+
+span.smallcaps {
+    font-size: 1.1em;
+    font-variant: small-caps;
+}
+
+/* Part 2 */
+
+span.dropcap-a {
+    margin-right: 0.28em;
+}
+
+span.dropcap-b {
+    margin-right: 0.16em;
+}
+
+span.dropcap-c {
+    margin-right: 0.28em;
+}
+
+span.dropcap-d {
+
+}
+
+span.dropcap-f {
+    font-size: 300%;
+    margin-top: -0.2em;
+}
+
+span.dropcap-g {
+    margin-left: 0.1em;
+    margin-top: -0.2em;
+}
+
+span.dropcap-h {
+    margin-left: 0.1em;
+    margin-top: -0.1em;
+}
+
+span.dropcap-i {
+    margin-left: 0.1em;
+    margin-top: -0.1em;
+}
+
+span.dropcap-j {
+    margin-left: 0.1em;
+    margin-top: -0.2em;
+}
+
+span.dropcap-k {
+    margin-left: 0.1em;
+    margin-top: -0.1em;
+    margin-right: 0.4em;
+}
+
+span.dropcap-l {
+    margin-left: 0.1em;
+    margin-top: -0.18em;
+    margin-right: 0.3em;
+}
+
+span.dropcap-m {
+    margin-right: 0.25em;
+    margin-top: -0.2em;
+}
+
+span.dropcap-n {
+    margin-right: 0.25em;
+}
+
+span.dropcap-o {
+    font-size: 300%;
+    margin-top: -0.18em;
+    margin-right: 0.25em;
+}
+
+span.dropcap-p {
+    font-size: 285%;
+    margin-left: 0.1em;
+    margin-right: 0.3em;
+}
+
+span.dropcap-q {
+    margin-top: -0.1em;
+    margin-right: 0.15em;
+}
+
+span.dropcap-r {
+
+}
+
+span.dropcap-s {
+
+}
+
+span.dropcap-t {
+    font-size: 300%;
+    margin-top: -0.18em;
+}
+
+span.dropcap-u {
+    font-size: 300%;
+    margin-top: -0.18em;
+}
+
+span.dropcap-v {
+    margin-top: -0.1em;
+}
+
+span.dropcap-w {
+    margin-top: -0.1em;
+}
+
+span.dropcap-x {
+
+}
+
+span.dropcap-y {
+    margin-top: -0.18em;
+}
+
+span.dropcap-z {
+    margin-right: 0.5em;
+    margin-top: -0.1em;
+}

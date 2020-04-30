@@ -1,0 +1,46 @@
+%% lines=<integer> sets how many lines the dropped capital will occupy (default=2);
+%% depth=<integer> sets the number of lines to be reserved under the baseline, this is meant for dropped capital with positive depth, like Q (default=0);
+%% lhang=<decimal> (0 ≤ lhang ≤ 1) sets how much of the dropped capital’s width should hang into the margin (default=0);
+%% loversize=<decimal> (−1 < loversize ≤ 1) enlarges the dropped capital’s height: with loversize=0.1 its height is enlarged by 10% so that it raises above the top paragraph’s line (default=0);
+%% lraise=<decimal> does not affect the dropped capital’s height, but moves it up (if positive), down (if negative); useful with capitals like J or Q which have a positive depth, (default=0);
+%% findent=<dimen> (positive or negative) controls the horizontal gap between the dropped capital and the indented block of text (default=0pt);
+%% nindent=<dimen> shifts all indented lines, starting from the second one, horizontally by <dimen> (this shift is relative to the first line, default=0.5em);
+
+\ProvidesFile{greatvibes.cfl}[2006/03/19 v0.1 Kevin M. Dunn]
+
+\LettrineOptionsFor{A}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.40\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{B}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{C}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.38\LettrineWidth,nindent= 0.30\LettrineWidth}
+\LettrineOptionsFor{D}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.22\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{E}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.24\LettrineWidth,nindent= 0.20\LettrineWidth}
+
+\LettrineOptionsFor{F}{loversize= 0.40,lraise= 0.30,lhang= 0.00,findent= 0.30\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{G}{loversize= 0.40,lraise= 0.50,lhang= 0.00,findent= 0.30\LettrineWidth,nindent= 0.30\LettrineWidth}
+
+\LettrineOptionsFor{H}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.18\LettrineWidth,nindent= 0.18\LettrineWidth}
+
+\LettrineOptionsFor{I}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.30\LettrineWidth,nindent= 0.26\LettrineWidth}
+
+\LettrineOptionsFor{J}{loversize= 0.40,lraise= 0.50,lhang= 0.00,findent= 0.30\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{K}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.35\LettrineWidth,nindent= 0.20\LettrineWidth}
+
+\LettrineOptionsFor{L}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.44\LettrineWidth,nindent= 0.30\LettrineWidth}
+
+\LettrineOptionsFor{M}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.15\LettrineWidth}
+\LettrineOptionsFor{N}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{O}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.40\LettrineWidth,nindent= 0.30\LettrineWidth}
+\LettrineOptionsFor{P}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.38\LettrineWidth,nindent= 0.30\LettrineWidth}
+
+\LettrineOptionsFor{Q}{loversize= 0.40,lraise= 0.30,lhang= 0.00,findent= 0.28\LettrineWidth,nindent= 0.30\LettrineWidth}
+
+\LettrineOptionsFor{R}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.25\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{S}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.15\LettrineWidth,nindent= 0.25\LettrineWidth}
+\LettrineOptionsFor{T}{loversize= 0.40,lraise= 0.30,lhang= 0.00,findent= 0.40\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{U}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.25\LettrineWidth,nindent= 0.22\LettrineWidth}
+\LettrineOptionsFor{V}{loversize= 0.40,lraise= 0.26,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{W}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.15\LettrineWidth,nindent= 0.15\LettrineWidth}
+\LettrineOptionsFor{X}{loversize= 0.40,lraise= 0.16,lhang= 0.00,findent= 0.35\LettrineWidth,nindent= 0.30\LettrineWidth}
+\LettrineOptionsFor{Y}{loversize= 0.40,lraise= 0.50,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{Z}{loversize= 0.40,lraise= 0.30,lhang= 0.00,findent= 0.50\LettrineWidth,nindent= 0.30\LettrineWidth}
+
+\endinput

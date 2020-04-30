@@ -1,0 +1,104 @@
+% -------------------------------------------------
+% Pandoc template for tex and pdf books
+%
+% Based on below custom class who is based on
+% the Memoir class.
+%
+% -------------------------------------------------
+\documentclass[$papersize$,$fontsize$]{desbeers-six-by-nine}
+\title{$title$}
+\author{$author$}
+\date{$date$}
+$if(lang)$
+  \usepackage[$babel-lang$]{babel}
+$endif$
+
+% The Makefile will set this option when we make a printable output.
+$if(hide-links)$
+  \hypersetup{urlcolor=black}
+$endif$
+% The Makefile will set this option when we make a PDF.
+$if(use-colours)$
+  \pagecolor{pagecolour}
+  \color{textcolour}
+$endif$
+
+% Override chapter style
+% -------------------------------------------------
+% Style can be overwritted by the Pandoc template
+% with 'chapter-style: plain' or any other style
+% avaiable in the Memoir class.
+$if(chapter-style)$
+  \chapterstyle{$chapter-style$}
+$endif$
+
+%%% BEGIN DOCUMENT
+% -------------------------------------------------
+\begin{document}
+% The cover page is an optional include set by the Makefile.
+$if(have-cover)$
+  \thispagestyle{empty}\BgThispage\null\cleardoublepage
+$endif$
+
+$for(header-includes)$
+  $header-includes$
+$endfor$
+
+%%% FRONT MATTER
+% -------------------------------------------------
+\frontmatter
+% Halftitle page
+\thispagestyle{empty}
+\begin{center}
+\null\vfill\huge{\thetitle}\null\vfill\null\vfill
+\end{center}
+\cleardoublepage
+% Title page
+\thispagestyle{empty}
+\begin{center}
+\null\vfill\huge{\thetitle}\vskip2em\large{\theauthor}\null\vfill\null\vfill
+\end{center}
+\clearpage
+% Copyright page
+\begingroup
+    \thispagestyle{empty}
+    \scriptsize
+    \null\vfill\noindent 
+    © \thedate\space\theauthor
+    $if(revision)$
+      \bigskip\par
+      \noindent $revision$
+    $endif$
+    $if(rights)$
+      \bigskip\par
+      \noindent $rights$
+    $endif$
+    $if(publisher)$
+      \bigskip\par
+      \noindent $publisher$
+    $endif$
+    \clearpage
+\endgroup
+% The dedication page is an optional include.
+$for(include-before)$
+  $include-before$
+$endfor$
+% Table of content
+\thispagestyle{empty}
+\microtypesetup{protrusion=false}
+  \tableofcontents* % the asterisk means that the contents itself isn't put into the ToC
+\microtypesetup{protrusion=true}
+
+%%% CONTENT
+% -------------------------------------------------
+% There is no \mainmatter in this template.
+% It's still possible to add more \frontmatter
+% pages. They must have {.frontmatter} in the MD.
+%
+% First page without that class will get the
+% \mainmatter in front. All done by a lua filter.
+$body$
+
+%%% END DOCUMENT
+% -------------------------------------------------
+\end{document}
