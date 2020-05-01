@@ -10,7 +10,7 @@
 : ${PANDOC_ACTION='Book'}
 
 # Include the shared script:
-. ${0:a:h:h}/includes/shared.zsh
+. "${0:a:h:h}/includes/shared.zsh"
 
 # Logging
 start_log $0

@@ -6,7 +6,7 @@
 
 # The base directory of this build system:
 # See man zshexpn
-local=${0:a:h:h}
+local="${0:a:h:h}"
 
 # Configuration file:
 . $local/config.zsh

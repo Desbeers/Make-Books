@@ -12,7 +12,7 @@
 . ${0:a:h:h}/includes/shared.zsh
 
 # Setup the variables:
-. ${0:a:h:h}/includes/variables.zsh
+. "${0:a:h:h}/includes/shared.zsh"
 
 # Do it!
 

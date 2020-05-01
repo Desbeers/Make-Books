@@ -18,20 +18,20 @@ LUALATEX := lualatex
 PANDOC_OPTIONS := \
     --metadata-file=assets/make-book.md \
     --from native \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-metadata.lua \
-	--lua-filter $(PANDOC_FILTERS)/desbeers-hashtags.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-dropcaps.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-linebreaks.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-chapterprecis.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-headers.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-matters.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-images.lua \
-    --lua-filter $(PANDOC_FILTERS)/desbeers-quotes.lua \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-metadata.lua" \
+	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-dropcaps.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-linebreaks.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-chapterprecis.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-headers.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-matters.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-images.lua" \
+    --lua-filter "$(PANDOC_FILTERS)/desbeers-quotes.lua" \
     --file-scope \
     --toc-depth=2
     
 PANDOC_TEX := \
-	--template=$(PANDOC_TEMPLATES)/desbeers-pdf.tex \
+	--template="$(PANDOC_TEMPLATES)/desbeers-pdf.tex" \
 	--variable documentclass=memoir \
 	--top-level-division=chapter \
 	--metadata=defaultpaper:$(PANDOC_PAPER) \
@@ -50,17 +50,17 @@ PANDOC_PRINT := $(PANDOC_TEX) \
 	--metadata=hide-links
 
 PANDOC_EPUB := \
-    --template=$(PANDOC_TEMPLATES)/desbeers-epub.html \
+    --template="$(PANDOC_TEMPLATES)/desbeers-epub.html" \
 	--toc \
-	--epub-embed-font=$(PANDOC_FONTS)/GreatVibes.otf \
-	--css=$(PANDOC_CSS)/epub-css.css \
-	--css=$(PANDOC_CSS)/epub-greatvibes.css \
-	--include-before-body=$(BUILD_DIR)/dedication.epub \
+	--epub-embed-font="$(PANDOC_FONTS)/GreatVibes.otf" \
+	--css="$(PANDOC_CSS)/epub-css.css" \
+	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
+	--include-before-body="$(BUILD_DIR)/dedication.epub" \
 	+RTS -K100000000 -RTS \
 	
 PANDOC_HTML := \
 	--toc \
-	--css=$(PANDOC_CSS)/html-css.css \
+	--css="$(PANDOC_CSS)/html-css.css" \
 	--self-contained \
 	--standalone \
 
@@ -68,14 +68,14 @@ PANDOC_DOCX := \
 	--toc \
 	
 PANDOC_MD := \
-	--lua-filter $(PANDOC_FILTERS)/desbeers-hashtags.lua
+	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua"
 
 PANDOC_MD := \
-	--lua-filter $(PANDOC_FILTERS)/desbeers-hashtags.lua \
+	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
 	--file-scope
 
 PANDOC_NATIVE := \
-	--lua-filter $(PANDOC_FILTERS)/desbeers-hashtags.lua \
+	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
 	--file-scope \
 	--to=native \
 	+RTS -K100000000 -RTS \
@@ -136,18 +136,18 @@ $(BUILD_DIR)/$(BUILD_TITLE)-book.md: assets/make-book.md
 $(BUILD_DIR)/dedication.tex: assets/dedication.md
 	$(call prepare)
 	@$(PANDOC) \
-		--template=$(PANDOC_TEMPLATES)/desbeers-pdf-dedication.tex \
-		--lua-filter $(PANDOC_FILTERS)/desbeers-linebreaks.lua \
+		--template="$(PANDOC_TEMPLATES)/desbeers-pdf-dedication.tex" \
+		--lua-filter "$(PANDOC_FILTERS)/desbeers-linebreaks.lua" \
 		--output $@ $^
 
 	
 $(BUILD_DIR)/dedication.epub: assets/dedication.md
 	$(call prepare)
 	@$(PANDOC) \
-		--template=$(PANDOC_TEMPLATES)/desbeers-epub-dedication.html \
+		--template="$(PANDOC_TEMPLATES)/desbeers-epub-dedication.html" \
 		--metadata-file=assets/make-book.md \
 		--write=html \
-		--lua-filter $(PANDOC_FILTERS)/desbeers-linebreaks.lua \
+		--lua-filter "$(PANDOC_FILTERS)/desbeers-linebreaks.lua" \
 		--output $@ $^
 		
 #####################################################

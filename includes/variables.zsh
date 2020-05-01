@@ -1,18 +1,18 @@
 #!/bin/zsh
 
 # For LaTeX, set TEXMFHOME to these scripts:
-export TEXMFHOME=$local/texmf
+export TEXMFHOME="$local/texmf"
 
 ### Pandoc includes
 
 # Fonts, for ePub and for PDF it should be installed on your system:
-export PANDOC_FONTS=$local/fonts
+export PANDOC_FONTS="$local/fonts"
 # Lua filters:
-export PANDOC_FILTERS=$local/pandoc/filters
+export PANDOC_FILTERS="$local/pandoc/filters"
 # Templates
-export PANDOC_TEMPLATES=$local/pandoc/templates
+export PANDOC_TEMPLATES="$local/pandoc/templates"
 # CSS for ePubs:
-export PANDOC_CSS=$local/pandoc/css
+export PANDOC_CSS="$local/pandoc/css"
 # Default papersize:
 export PANDOC_PAPER=$papersize
 # Default fontsize:

@@ -10,7 +10,7 @@
 export PANDOC_ACTION='Book'
 
 # Include the shared script:
-. ${0:a:h:h}/includes/shared.zsh
+. "${0:a:h:h}/includes/shared.zsh"
 
 # Arguments passed to the scripts
 arg=($(echo $*))
