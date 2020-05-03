@@ -9,10 +9,10 @@
 #####################################################
 
 # Include the shared script:
-. ${0:a:h:h}/includes/shared.zsh
+. "${0:a:h:h}/includes/shared.zsh"
 
 # Setup the variables:
-. "${0:a:h:h}/includes/shared.zsh"
+. $local/includes/variables.zsh
 
 # Do it!
 
