@@ -52,7 +52,7 @@ PANDOC_PRINT := $(PANDOC_TEX) \
 PANDOC_EPUB := \
     --template="$(PANDOC_TEMPLATES)/desbeers-epub.html" \
 	--toc \
-	--epub-embed-font="$(PANDOC_FONTS)/GreatVibes.otf" \
+	--epub-embed-font="$(PANDOC_FONTS)/GreatVibes.ttf" \
 	--css="$(PANDOC_CSS)/epub-css.css" \
 	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \

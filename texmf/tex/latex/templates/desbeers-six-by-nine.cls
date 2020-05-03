@@ -168,8 +168,8 @@
 % -------------------------------------------------
 \RequirePackage{lettrine}
 \setcounter{DefaultLines}{2}
-\newfontfamily\GreatVibes{GreatVibes}
-\renewcommand{\LettrineFontHook}{\GreatVibes}
+\newfontfamily\DropCaps{Great Vibes}
+\renewcommand{\LettrineFontHook}{\DropCaps}
 \renewcommand{\DefaultOptionsFile}{GreatVibes.cfl}
 \setlength{\parindent}{0.5cm}
 \renewcommand*{\DefaultLhang}{0}
