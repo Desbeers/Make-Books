@@ -14,6 +14,7 @@ PANDOC := pandoc
 RM := rm
 MKDIR := mkdir
 LUALATEX := lualatex
+KINDLEGEN := kindlegen
 
 PANDOC_OPTIONS := \
     --metadata-file=assets/make-book.md \
@@ -245,6 +246,19 @@ $(BUILD_DIR)/$(BUILD_TITLE)-proof.epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUI
 	@$(shell $(MKDIR) -p "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub")
 
 	@unzip -q -o -d "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub" $(BUILD_DIR)/$(BUILD_TITLE)-proof.zip
+
+#####################################################
+#													#
+# Kindle											#
+#													#
+#####################################################
+
+kindle: $(BUILD_DIR)/$(BUILD_TITLE).mobi
+	@cp $< "$(EXPORT_DIR)/$(EXPORT_TITLE).mobi"
+	$(call log,✓ Your Kindle file is done.,done)
+
+$(BUILD_DIR)/$(BUILD_TITLE).mobi: $(BUILD_DIR)/$(BUILD_TITLE).epub
+	@$(KINDLEGEN) $<
 
 #####################################################
 #													#
