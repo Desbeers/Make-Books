@@ -12,7 +12,7 @@ body {
 
 section.titlepage h1 {
     text-align: center;
-    padding: 4em 0 2em 0;
+    padding: 4em 0 1em 0;
     font-style: normal;
     text-transform: uppercase;
     font-size: 1.6em;
@@ -29,9 +29,7 @@ section.titlepage p {
 }
 
 section.titlepage div#copyright {
-    position: absolute;
-    bottom: 5em;
-    left: 5em;
+    padding-top:10em;
     font-size: 0.7em;
     width: 20em;
 }
@@ -79,12 +77,6 @@ nav ol li li a {
     text-transform: none;
 }
 
-nav span.counter,
-nav span.counterspacer {
-    display: none;
-}
-
-
 /* Chapters (#) */
 section.frontmatter .frontmatter,
 section.chapter .chapter,
@@ -96,25 +88,25 @@ section.backmatter .backmatter {
     font-style: normal;
 }
 
-/* Chapter counter */
+/* Chapter counter, Kindle doesn't like percents */
 
 .chapter .counter {
-  width: 20%;
-  display: block;
-  text-align: center;
-  border-bottom: 1px solid;
-  margin: 0 auto 0.5em;
-  padding-bottom: 0.5em;
+    width: 100px;
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid;
+    margin: 0 auto 0.5em;
+    padding-bottom: 0.5em;
 }
 
 /* Hide above with simple chapter style */
 
 .chapter-plain .counter {
-  display: none;
+    visibility: hidden;
 }
 
 .chapter .counterspacer {
-    display: none;
+    visibility: hidden;
 }
 
 /* Sections (##) */
@@ -142,7 +134,7 @@ div.subsection {
 /* \bigskip HTML version */
 
 div.bigskip {
-    height: 0.75em;
+    height: 12px;
 }
 
 /* Date and place */
@@ -216,7 +208,8 @@ section.backmatter {
     page-break-after: always;
 }
 
-.header1.inpart {
+/* h2 in a part is a shifted chapter; break it! */
+h2.inpart {
     page-break-before: always;
 }
 

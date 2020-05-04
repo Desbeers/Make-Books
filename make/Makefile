@@ -58,7 +58,14 @@ PANDOC_EPUB := \
 	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \
 	+RTS -K100000000 -RTS \
-	
+
+PANDOC_MOBI := \
+    --template="$(PANDOC_TEMPLATES)/desbeers-epub.html" \
+	--toc \
+	--css="$(PANDOC_CSS)/mobi-css.css" \
+	--include-before-body="$(BUILD_DIR)/dedication.epub" \
+	+RTS -K100000000 -RTS \
+
 PANDOC_HTML := \
 	--toc \
 	--css="$(PANDOC_CSS)/html-css.css" \
@@ -91,6 +98,7 @@ PANDOC_NATIVE := \
 COVER := assets/cover-screen.jpg
 ifneq ("$(wildcard $(COVER))","")
 	PANDOC_EPUB+= --epub-cover-image=$(COVER)
+	PANDOC_MOBI+= --epub-cover-image=$(COVER)
 	PANDOC_PDF+= --metadata=have-cover
 endif
 
@@ -253,12 +261,17 @@ $(BUILD_DIR)/$(BUILD_TITLE)-proof.epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUI
 #													#
 #####################################################
 
-kindle: $(BUILD_DIR)/$(BUILD_TITLE).mobi
+kindle: $(BUILD_DIR)/$(BUILD_TITLE)-mobi.mobi
 	@cp $< "$(EXPORT_DIR)/$(EXPORT_TITLE).mobi"
 	$(call log,✓ Your Kindle file is done.,done)
 
-$(BUILD_DIR)/$(BUILD_TITLE).mobi: $(BUILD_DIR)/$(BUILD_TITLE).epub
+$(BUILD_DIR)/$(BUILD_TITLE)-mobi.mobi: $(BUILD_DIR)/$(BUILD_TITLE)-mobi.epub
 	@$(KINDLEGEN) $<
+	
+$(BUILD_DIR)/$(BUILD_TITLE)-mobi.epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUILD_DIR)/dedication.epub assets/make-book.md
+	$(call prepare)
+	$(call log,❁ Making your Kindle file...,making)
+	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_MOBI) --output $@ $<
 
 #####################################################
 #													#
