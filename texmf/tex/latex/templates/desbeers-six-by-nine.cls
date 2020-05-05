@@ -74,6 +74,10 @@
 \setlength{\cftbeforechapterskip}{0.5em}
 % No \book numbers.
 \renewcommand{\booknumberline}[1]{}
+% No \part numbers.
+\renewcommand{\partnumberline}[1]{}
+% No \chapter numbers.
+\renewcommand{\chapternumberline}[1]{}
 % Uppercase \part. See Memoir manual page 158.
 \makeatletter
 \settocpreprocessor{part}{%

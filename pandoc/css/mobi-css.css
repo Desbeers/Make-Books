@@ -37,6 +37,7 @@ section.titlepage div#copyright p {
     text-align: left;
     padding: 0 0 0.5em 0;   
 }
+
 /* TOC */
 
 h1#toc-title {
@@ -133,6 +134,8 @@ div.subsection {
 
 /* \bigskip HTML version */
 
+/* Kindle doesn't like em sizes */
+
 div.bigskip {
     height: 12px;
 }
@@ -209,7 +212,7 @@ section.backmatter {
 }
 
 /* h2 in a part is a shifted chapter; break it! */
-h2.inpart {
+.inpart {
     page-break-before: always;
 }
 
