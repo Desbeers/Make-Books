@@ -18,7 +18,7 @@
 
 for file in "$@"
 do
-    output=${file%%.*}.pdf
+    output=${file%.*}.pdf
     # Print what book we are making:
     print $BOLD_RED"Make PDF:$RESET convert $BOLD_GREEN$file:t$RESET to $BOLD_CYAN$output:t$RESET"
     output=~/Desktop/$output:t
