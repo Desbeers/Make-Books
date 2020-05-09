@@ -9,6 +9,10 @@ function Meta(meta)
     if not meta['fontsize'] then
       meta['fontsize'] = meta['defaultfont']
     end
+    if meta['group-position'] then
+      meta.series =  pandoc.utils.stringify(meta['belongs-to-collection']) .. " " ..
+          pandoc.utils.to_roman_numeral(pandoc.utils.stringify(meta['group-position']))
+    end
     return meta
 end
 

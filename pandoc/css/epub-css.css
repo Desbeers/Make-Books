@@ -12,7 +12,7 @@ body {
 
 section.titlepage h1 {
     text-align: center;
-    padding: 4em 0 2em 0;
+    padding: 4em 0 0 0;
     font-style: normal;
     text-transform: uppercase;
     font-size: 1.6em;
@@ -21,11 +21,20 @@ section.titlepage h1 {
 
 section.titlepage p {
     text-align: center;
-    padding: 1em 0 1em 0;
+    padding: 0 0 1em 0;
     font-style: normal;
     font-size: 1em;
     font-weight: 100;
     text-indent: 0; 
+}
+
+section.titlepage p.series {
+    padding-top: 0.5em;
+    font-size: 0.8em;
+}
+
+section.titlepage p.author {
+    padding-top: 2em;
 }
 
 section.titlepage div#copyright {
