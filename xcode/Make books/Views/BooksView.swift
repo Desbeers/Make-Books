@@ -24,6 +24,7 @@ struct BooksView: View {
                         VStack(alignment: .leading) {
                             Text(book.title).fontWeight(.bold)
                             Text(book.author)
+                            Text(book.type).font(.caption).foregroundColor(Color.secondary)
                         }
                         /// Push all above to the left
                         Spacer()
@@ -45,7 +46,7 @@ struct BooksView: View {
                     makeBook.arguments = [
                         "--login","-c", "cd '" +
                         self.books.bookSelected!.path +
-                        "' && make-book " +
+                        "' && " + self.books.bookSelected!.script + " " +
                         GetArgs(self.books)
                     ]
                     makeBook.terminationHandler =  {

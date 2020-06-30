@@ -17,7 +17,9 @@ func GetBooks() -> [MetaBooks] {
     let base = UserDefaultsConfig.pathBooks
     /// Prepair the vars
     var meta = [String: String]()
-    var books = [[String: String]]()
+    
+    // Below not needed??
+    //var books = [[String: String]]()
     /// Convert path to an url
     let directoryURL = URL(fileURLWithPath: base)
     
@@ -27,7 +29,7 @@ func GetBooks() -> [MetaBooks] {
     /// Get a list of all files
     if let enumerator = FileManager.default.enumerator(atPath: directoryURL.path) {
         for case let path as String in enumerator {
-            if path.hasSuffix("/make-book.md") {
+            if path.hasSuffix("/make-book.md") || path.hasSuffix("/make-collection.md") {
                 meta = GetMeta(base + "/" + path)
                 var bookURL = URL(fileURLWithPath: (base + "/" + path))
                 bookURL.deleteLastPathComponent()
@@ -36,12 +38,23 @@ func GetBooks() -> [MetaBooks] {
                 bookURL.deleteLastPathComponent()
                 bookURL.deleteLastPathComponent()
                 meta["path"] = bookURL.path
-                books.append(meta)
+                
+                if path.hasSuffix("/make-book.md") {
+                    meta["type"] = "Book"
+                    meta["script"] = "make-book"
+                }
+                if path.hasSuffix("/make-collection.md") {
+                    meta["type"] = "Collection"
+                    meta["script"] = "make-collection"
+                }
+                //books.append(meta)
                 metaBooks.append(MetaBooks(
                     title: meta["title"]!,
                     author: meta["author"]!,
                     cover: meta["cover"]!,
-                    path: meta["path"]!
+                    path: meta["path"]!,
+                    type: meta["type"]!,
+                    script: meta["script"]!
                 ))
             }
         }
@@ -57,6 +70,8 @@ struct MetaBooks: Hashable {
     var author: String = ""
     var cover: String = ""
     var path: String = ""
+    var type: String = ""
+    var script: String = ""
 }
 
 // GetMeta(path)
