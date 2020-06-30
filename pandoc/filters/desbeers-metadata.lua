@@ -9,6 +9,10 @@ function Meta(meta)
     if not meta['fontsize'] then
       meta['fontsize'] = meta['defaultfont']
     end
+    -- Cheap and dirty "date to year" for ePub. LateX is smarter and does nit need this.
+    if meta['date'] then
+      meta['year'] = string.sub(pandoc.utils.stringify(meta['date']),1, 4)
+    end
     if meta['group-position'] then
       meta.series =  pandoc.utils.stringify(meta['belongs-to-collection']) .. " " ..
           pandoc.utils.to_roman_numeral(pandoc.utils.stringify(meta['group-position']))
