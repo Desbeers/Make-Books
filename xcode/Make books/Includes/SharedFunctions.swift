@@ -51,6 +51,7 @@ func GetBooks() -> [MetaBooks] {
                 metaBooks.append(MetaBooks(
                     title: meta["title"]!,
                     author: meta["author"]!,
+                    date: meta["date"]!,
                     cover: meta["cover"]!,
                     path: meta["path"]!,
                     type: meta["type"]!,
@@ -59,8 +60,8 @@ func GetBooks() -> [MetaBooks] {
             }
         }
     }
-    /// Sort by author name
-    metaBooks.sort(by: { $0.author < $1.author })
+    /// Sort by author name and then by date.
+    metaBooks.sort { $0.author == $1.author ? $0.date < $1.date : $0.author < $1.author  }
     return metaBooks
 }
 
@@ -68,6 +69,7 @@ struct MetaBooks: Hashable {
     var id = UUID()
     var title: String = ""
     var author: String = ""
+    var date: String = ""
     var cover: String = ""
     var path: String = ""
     var type: String = ""

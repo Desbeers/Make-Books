@@ -24,7 +24,7 @@ struct BooksView: View {
                         VStack(alignment: .leading) {
                             Text(book.title).fontWeight(.bold)
                             Text(book.author)
-                            Text(book.type).font(.caption).foregroundColor(Color.secondary)
+                            Text(book.type + " ∙ " + book.date).font(.caption).foregroundColor(Color.secondary)
                         }
                         /// Push all above to the left
                         Spacer()
