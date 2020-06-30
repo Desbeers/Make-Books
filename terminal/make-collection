@@ -45,7 +45,7 @@ collect() {
     mv $collect_dir/assets/make-collection.md $collect_dir/assets/make-book.md
     touch -r assets/make-collection.md $collect_dir/assets/make-book.md
     # Find our books and process it:
-    find $books -name make-book.md -exec grep -lw 'belongs-to-collection: '$belongs_to_collection {} + \
+    find $books -name make-book.md -exec grep -lw 'belongs-to-collection:.*'$belongs_to_collection {} + \
         | while read file; do process "$file"; done
 }
 

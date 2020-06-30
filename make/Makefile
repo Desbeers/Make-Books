@@ -78,9 +78,7 @@ PANDOC_DOCX := \
 PANDOC_MD := \
 	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua"
 
-PANDOC_MD := \
-	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
-	--file-scope
+PANDOC_COLLECT := \
 
 PANDOC_NATIVE := \
 	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
