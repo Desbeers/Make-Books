@@ -33,7 +33,6 @@ struct ContentView: View {
                 }
                 
             }
-            //.frame(width: geometry.size.width)
         }
         /// Do something with menu selections
         .onReceive(showLogMenuItemSelected) { _ in self.books.showSheet.toggle(); self.books.activeSheet = "log" }
@@ -49,7 +48,7 @@ struct ContentView: View {
         }
     }
     func ListWidth(width: CGFloat) -> CGFloat {
-        let minWidth = width * 0.25
+        let minWidth = width * 0.35
         if minWidth > 180 {
             return minWidth
         } else {

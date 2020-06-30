@@ -17,15 +17,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var lightModeMenuItem: NSMenuItem!
     @IBOutlet weak var systemModeMenuItem: NSMenuItem!
     // Settings that should be saved
-    
     @UserDefault("system_mode", defaultValue: "dark") var systemMode: String
-
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setStoredSystemMode()
-
-
-        
         /// Create the SwiftUI view that provides the window contents.
         let mainView = ContentView()
             /// Get the books object
@@ -42,24 +36,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.title = "Make books"
         window.center()
         window.setFrameAutosaveName("Main Window")
-
-        //window?.contentView?.wantsLayer = true
         window.contentView = NSHostingView(rootView: mainView)
-        //window?.contentView?.layer?.contents = NSImage(named: NSImage.Name("MainBackground"))
-        
-        //window.titlebarAppearsTransparent = true
-
-        
         /// Set this window front and center
         window.makeKeyAndOrderFront(nil)
-        
         /// Switch to dark mode when going full screen
         NotificationCenter.default.addObserver(forName: NSWindow.willEnterFullScreenNotification,
                                                object: nil, queue: OperationQueue.main, using: { note in
             NSApp.appearance = NSAppearance(named: .darkAqua)
             print("Entered Fullscreen")
         })
-        // Go back to default when exiting full screen
+        /// Go back to default when exiting full screen
         NotificationCenter.default.addObserver(forName: NSWindow.willExitFullScreenNotification,
                                                object: nil, queue: OperationQueue.main, using: { note in
             self.setStoredSystemMode()
