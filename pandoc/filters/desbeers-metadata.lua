@@ -9,7 +9,7 @@ function Meta(meta)
     if not meta['fontsize'] then
       meta['fontsize'] = meta['defaultfont']
     end
-    -- Cheap and dirty "date to year" for ePub. LateX is smarter and does nit need this.
+    -- Cheap and dirty "date to year".
     if meta['date'] then
       meta['year'] = string.sub(pandoc.utils.stringify(meta['date']),1, 4)
     end
