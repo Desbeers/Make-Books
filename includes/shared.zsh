@@ -62,7 +62,7 @@ stop_log() {
 
 # Parse metadata
 metadata() {
-    echo ${$(grep "$1:" $2 | sed -e "s/^$1: *//")}
+    echo ${$(grep "^$1:" $2 | sed -e "s/^$1: *//")}
 }
 
 # Make strings 'safe', replace spaces and other funny characters

@@ -57,6 +57,9 @@ $endfor$
 \thispagestyle{empty}
 \begin{center}
 \null\vfill\huge{\thetitle}
+$if(subtitle)$
+  \vskip1em\large $subtitle$ \vskip1em
+$endif$
 \vskip2em\large{\theauthor}\null\vfill\null\vfill
 \end{center}
 \clearpage
