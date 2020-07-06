@@ -17,11 +17,12 @@ function Image (el)
         local theimage
         theimage = '\\medskip\n'
         theimage = theimage .. '\\begin{figure}[h]\n'
-        theimage = theimage .. '\\centering\n'   
+        theimage = theimage .. '\\centering\n'
+        theimage = theimage .. '\\captionsetup{width=.92\\linewidth}\n'
         if el['attributes']['width'] then
             theimage = theimage .. string.format('\\includegraphics[width=%s\\textwidth]',(
                 string.gsub(el['attributes']['width'],'%%','') / 100))
-            else
+        else
             theimage = theimage .. '\\includegraphics[width=0.92\\textwidth]'        
         end 
         theimage = theimage .. string.format('{%s}\n', el["src"])
