@@ -88,8 +88,9 @@ span.dropcap-l {
 }
 
 span.dropcap-m {
+    font-size: 300%;
     margin-right: 0.25em;
-    margin-top: -0.2em;
+    margin-top: -0.12em;
 }
 
 span.dropcap-n {
@@ -97,8 +98,8 @@ span.dropcap-n {
 }
 
 span.dropcap-o {
-    font-size: 300%;
-    margin-top: -0.18em;
+    font-size: 310%;
+    margin-top: -0.10em;
     margin-right: 0.25em;
 }
 
@@ -128,7 +129,7 @@ span.dropcap-t {
 
 span.dropcap-u {
     font-size: 300%;
-    margin-top: -0.18em;
+    margin-top: -0.16em;
 }
 
 span.dropcap-v {
@@ -150,4 +151,64 @@ span.dropcap-y {
 span.dropcap-z {
     margin-right: 0.5em;
     margin-top: -0.1em;
+}
+
+span.dropcap-0 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-1 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-2 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-3 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-4 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-5 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-6 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-7 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-8 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
+}
+
+span.dropcap-9 {
+    font-size: 400%;
+    margin-top: -0.3em;
+    margin-right: 0.1em;
 }

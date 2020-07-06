@@ -37,7 +37,7 @@
 \LettrineOptionsFor{S}{loversize= 0.40,lraise= 0.10,lhang= 0.00,findent= 0.15\LettrineWidth,nindent= 0.25\LettrineWidth}
 \LettrineOptionsFor{T}{loversize= 0.40,lraise= 0.30,lhang= 0.00,findent= 0.40\LettrineWidth,nindent= 0.20\LettrineWidth}
 \LettrineOptionsFor{U}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.25\LettrineWidth,nindent= 0.22\LettrineWidth}
-\LettrineOptionsFor{V}{loversize= 0.40,lraise= 0.26,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
+\LettrineOptionsFor{V}{loversize= 0.40,lraise= 0.22,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
 \LettrineOptionsFor{W}{loversize= 0.40,lraise= 0.20,lhang= 0.00,findent= 0.15\LettrineWidth,nindent= 0.15\LettrineWidth}
 \LettrineOptionsFor{X}{loversize= 0.40,lraise= 0.16,lhang= 0.00,findent= 0.35\LettrineWidth,nindent= 0.30\LettrineWidth}
 \LettrineOptionsFor{Y}{loversize= 0.40,lraise= 0.50,lhang= 0.00,findent= 0.20\LettrineWidth,nindent= 0.20\LettrineWidth}
