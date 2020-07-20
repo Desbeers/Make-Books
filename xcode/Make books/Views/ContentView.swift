@@ -49,10 +49,10 @@ struct ContentView: View {
     }
     func ListWidth(width: CGFloat) -> CGFloat {
         let minWidth = width * 0.35
-        if minWidth > 180 {
+        if minWidth > 220 {
             return minWidth
         } else {
-            return 180
+            return 220
         }
     }
 }

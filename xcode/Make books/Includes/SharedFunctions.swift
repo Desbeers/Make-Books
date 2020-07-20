@@ -53,6 +53,8 @@ func GetBooks() -> [MetaBooks] {
                     author: meta["author"]!,
                     date: meta["date"]!,
                     cover: meta["cover"]!,
+                    collection: meta["belongs-to-collection"]!,
+                    position: meta["group-position"]!,
                     path: meta["path"]!,
                     type: meta["type"]!,
                     script: meta["script"]!
@@ -71,6 +73,8 @@ struct MetaBooks: Hashable {
     var author: String = ""
     var date: String = ""
     var cover: String = ""
+    var collection: String = ""
+    var position: String = ""
     var path: String = ""
     var type: String = ""
     var script: String = ""
@@ -84,6 +88,8 @@ struct MetaBooks: Hashable {
 
 func GetMeta(_ path: String) -> [String: String] {
     var meta = [String: String]()
+    meta["belongs-to-collection"] = ""
+    meta["group-position"] = ""
     errno = 0
     if freopen((path), "r", stdin) == nil {
         perror((path))

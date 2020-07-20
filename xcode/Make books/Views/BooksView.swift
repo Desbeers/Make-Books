@@ -17,21 +17,23 @@ struct BooksView: View {
         VStack() {
             /// id: \.self is needed, else selection does not work
             List(books.bookList, id: \.self, selection: self.$books.bookSelected){book in
-                VStack(alignment: .leading) {
-                    HStack(alignment: .center) {
-                        Image(nsImage: GetCover(cover: book.cover))
-                            .resizable().frame(width: 30.0, height: 45.0)
-                        VStack(alignment: .leading) {
-                            Text(book.title).fontWeight(.bold)
-                            Text(book.author)
-                            Text(book.type + " ∙ " + book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
+                HStack(alignment: .center) {
+                    Image(nsImage: GetCover(cover: book.cover))
+                        .resizable().frame(width: 60.0, height: 90.0)
+                    VStack(alignment: .leading) {
+                        Text(book.title).fontWeight(.bold)
+                        HStack(spacing: 0) {
+                            Text(book.collection)
+                            Text(" ")
+                            Text(book.position)
                         }
-                        /// Push all above to the left
-                        Spacer()
+                        Text(book.author)
+                        Text(book.type + " ∙ " + book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
                     }
+                    /// Push all above to the left
+                    Spacer()
                 }
                 .padding(.vertical, 8.0)
-                //.frame(width: 160.0)
             }.listStyle(SidebarListStyle())
                 /// Hackish: get the list full width
                 .padding(.leading, -8)

@@ -11,7 +11,7 @@ books="/Users/Desbeers/Documents/Leesvoer"
 # Export directory for the books; full path.
 # Automatically created if it does not exist.
 
-export="/Users/Desbeers/Documents/Mijn boeken"
+export="/Users/Desbeers/Mijn boeken"
 
 # PDF options
 # -----------

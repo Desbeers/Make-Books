@@ -25,10 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             /// Get the books object
             .environmentObject(Books())
             /// Set the minimum size of the window
-            .frame(minWidth: 480, maxWidth: .infinity, minHeight: 570, maxHeight: .infinity)
+            .frame(minWidth: 520, maxWidth: .infinity, minHeight: 570, maxHeight: .infinity)
         /// Create the window and set the content view.
         window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 570),
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 570),
             styleMask: [.titled, .closable, .resizable, .miniaturizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         /// This apllication has no tabbing
