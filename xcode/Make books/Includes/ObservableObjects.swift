@@ -6,7 +6,7 @@
 import SwiftUI
 
 class Books: ObservableObject {
-    @Published var bookList = GetBooks()
+    var bookList = GetBooks()
     @Published var bookSelected: MetaBooks?
     //@Published var optionsPaper = PaperOptions()
     let optionsPaper = PaperOptions()

@@ -17,15 +17,10 @@ func GetBooks() -> [MetaBooks] {
     let base = UserDefaultsConfig.pathBooks
     /// Prepair the vars
     var meta = [String: String]()
-    
-    // Below not needed??
-    //var books = [[String: String]]()
     /// Convert path to an url
     let directoryURL = URL(fileURLWithPath: base)
-    
     // TODO: Why do I need [] here?
     var metaBooks = [MetaBooks]()
-    
     /// Get a list of all files
     if let enumerator = FileManager.default.enumerator(atPath: directoryURL.path) {
         for case let path as String in enumerator {
@@ -38,7 +33,8 @@ func GetBooks() -> [MetaBooks] {
                 bookURL.deleteLastPathComponent()
                 bookURL.deleteLastPathComponent()
                 meta["path"] = bookURL.path
-                
+                /// There are books and collections in the list
+                /// Assign the correct script.
                 if path.hasSuffix("/make-book.md") {
                     meta["type"] = "Book"
                     meta["script"] = "make-book"
@@ -47,7 +43,6 @@ func GetBooks() -> [MetaBooks] {
                     meta["type"] = "Collection"
                     meta["script"] = "make-collection"
                 }
-                //books.append(meta)
                 metaBooks.append(MetaBooks(
                     title: meta["title"]!,
                     author: meta["author"]!,
@@ -88,6 +83,8 @@ struct MetaBooks: Hashable {
 
 func GetMeta(_ path: String) -> [String: String] {
     var meta = [String: String]()
+    /// Below is optional in the metadata file; however, it is used in the UI
+    /// so I just make sure it is there, empty if not set.
     meta["belongs-to-collection"] = ""
     meta["group-position"] = ""
     errno = 0
