@@ -24,7 +24,7 @@ func GetBooks() -> [MetaBooks] {
     /// Get a list of all files
     if let enumerator = FileManager.default.enumerator(atPath: directoryURL.path) {
         for case let path as String in enumerator {
-            if path.hasSuffix("/make-book.md") || path.hasSuffix("/make-collection.md") {
+            if path.hasSuffix("/make-book.md") || path.hasSuffix("/make-collection.md") || path.hasSuffix("/make-tag-book.md") {
                 meta = GetMeta(base + "/" + path)
                 var bookURL = URL(fileURLWithPath: (base + "/" + path))
                 bookURL.deleteLastPathComponent()
@@ -42,6 +42,10 @@ func GetBooks() -> [MetaBooks] {
                 if path.hasSuffix("/make-collection.md") {
                     meta["type"] = "Collection"
                     meta["script"] = "make-collection"
+                }
+                if path.hasSuffix("/make-tag-book.md") {
+                    meta["type"] = "Tag: " + meta["tag"]!
+                    meta["script"] = "make-tag-book"
                 }
                 metaBooks.append(MetaBooks(
                     title: meta["title"]!,

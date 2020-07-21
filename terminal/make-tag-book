@@ -7,7 +7,7 @@
 #####################################################
 
 # What is this script making:
-export PANDOC_ACTION='Favorite'
+export PANDOC_ACTION='Tag book'
 
 # Include the shared script:
 . "${0:a:h:h}/includes/shared.zsh"
@@ -18,19 +18,23 @@ arg=($(echo $*))
 # Logging
 start_log $0
 
-# Kill if there is no metadata found:
-metadata_file=$(find $books -name make-favorites.md -type f) 
+# Kill if there is no tag-book metadata found:
+
+metadata_file='assets/make-tag-book.md'
 
 if [[ ! $metadata_file ]]; then
-    echo "Metadata for favorites not found!" >&2
+    echo "Metadata for tag-book not found!" >&2
     exit 1
 fi
+
+# Get the tag.
+: ${tag=${$(metadata 'tag' $metadata_file)}}
 
 # Go to the favorites directory
 cd $metadata_file:h:h
 
 # Collect directory
-collect_dir=$TMPBOOKS/favorites
+collect_dir=$TMPBOOKS/$tag
 
 # Clean the directory
 if [ -d "$collect_dir" ]; then rm -Rf "$collect_dir"; fi
@@ -42,7 +46,7 @@ mkdir -p $collect_dir/images
 rsync -r -u * $collect_dir
 
 # Rename the metadata file
-mv $collect_dir/assets/make-favorites.md $collect_dir/assets/make-book.md
+mv $collect_dir/assets/make-tag-book.md $collect_dir/assets/make-book.md
 
 # Result of find is in reverse order
 counter=10
@@ -55,8 +59,8 @@ process() {
         rsync --recursive images/. $collect_dir/images/
     fi
 }
-printf "Collect favorites...\n"
-find $books -name "*.md" -type f -exec grep -lw "#favorite" {} + | sort | while read file; do process "$file"; done
+printf "Collect "$tag"s...\n"
+find $books -name "*.md" -type f -exec grep -lw "$tag" {} + | sort | while read file; do process "$file"; done
 # Go back to the collection dir 
 cd $collect_dir
 $local/terminal/make-book ${config[@]} $arg

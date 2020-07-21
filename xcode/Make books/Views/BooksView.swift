@@ -12,16 +12,16 @@ import SwiftUI
 struct BooksView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    @ObservedObject var folder = Folder()
     /// The view
     var body: some View {
         VStack() {
             /// id: \.self is needed, else selection does not work
             List(books.bookList, id: \.self, selection: self.$books.bookSelected) { book in
-                /// The ist item is in a subview.
+                /// The list item is in a subview.
                 BooksItem(book: book)
             }.listStyle(SidebarListStyle())
-            /// Hackish: get the list full width
-            .padding(.leading, -8)
+           
             Divider().padding(.horizontal)
             Button(
                 action: {

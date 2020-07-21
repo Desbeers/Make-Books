@@ -47,11 +47,11 @@ struct MakeView: View {
                     self.books.showSheet = true
                     let makeFavorites = Process()
                     makeFavorites.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeFavorites.arguments = ["--login","-c", "make-favorites " + GetArgs(self.books)]
+                    makeFavorites.arguments = ["--login","-c", "make-all-tags " + GetArgs(self.books)]
                     makeFavorites.terminationHandler =  { _ in DispatchQueue.main.async {self.books.scripsRunning = false }}
                     try! makeFavorites.run()
                 }){
-                Text("Favorites")}
+                Text("All tags")}
         }.padding([.leading, .bottom, .trailing]).disabled(books.showSheet)
         // END actions buttons
     }

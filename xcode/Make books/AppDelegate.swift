@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("Exited Fullscreen")
         })
     }
-
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
