@@ -22,7 +22,7 @@ start_log $0
 
 metadata_file='assets/make-tag-book.md'
 
-if [[ ! $metadata_file ]]; then
+if [[ ! -f $metadata_file ]]; then
     echo "Metadata for tag-book not found!" >&2
     exit 1
 fi
