@@ -49,7 +49,6 @@ if [[ -f $metadata_file ]]; then
     else
         EPUB_CHAPTER_LEVEL=1
     fi
-    print "Level "$EPUB_CHAPTER_LEVEL
 fi
 
 export SOURCE_DIR BUILD_DIR BUILD_TITLE EXPORT_DIR EXPORT_TITLE EPUB_CHAPTER_LEVEL

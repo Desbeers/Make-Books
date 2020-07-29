@@ -278,7 +278,7 @@ $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUIL
 	$(call prepare)
 	$(call log,❁ Making your Kobo book...,making)
 ifneq ("$(wildcard $(COVER))","")
-	$(CONVERT) assets/cover-screen.jpg -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
+	@$(CONVERT) assets/cover-screen.jpg -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
 endif
 	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
 
