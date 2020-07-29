@@ -12,7 +12,7 @@ import SwiftUI
 struct BooksView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
-    @ObservedObject var folder = Folder()
+    ///@ObservedObject var folder = Folder()
     /// The view
     var body: some View {
         VStack() {
@@ -21,7 +21,6 @@ struct BooksView: View {
                 /// The list item is in a subview.
                 BooksItem(book: book)
             }.listStyle(SidebarListStyle())
-           
             Divider().padding(.horizontal)
             Button(
                 action: {

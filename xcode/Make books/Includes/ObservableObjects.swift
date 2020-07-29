@@ -60,15 +60,15 @@ func MakeOptions() -> [Make] {
                         text: "Also a PDF, however, no cover and a white background. Good for printing.", isSelected: false))
     options.append(Make(make: "epub", label: "Make ePub book",
                         text: "An ePub with cover; ready for any  reader that supports ePubs.", isSelected: false))
-    options.append(Make(make: "eproof", label: "Make ePub proofread",
-                        text: "An ePub you can import in Apple Books as \"proofread\".", isSelected: false))
+    options.append(Make(make: "kobo", label: "Make Kobo book",
+                        text: "Make an ePub that is optimised for the Kobo e-reader.", isSelected: false))
     options.append(Make(make: "kindle", label: "Make Kindle book",
                         text: "A .mobi file that is suitable for Amazon Kindle e-readers.", isSelected: false))
+    //options.append(Make(make: "eproof", label: "Make ePub proofread", text: "An ePub you can import in Apple Books as \"proofread\".", isSelected: false))
     //options.append(Make(make: "md", label: "Make Markdown file", text: "Glue all your seperate book files into one Markdown file.", isSelected: false))
     //options.append(Make(make: "html", label: "Make HTML file", text: "A \"one page\" HTML file including all images and styles.", isSelected: false))
     //options.append(Make(make: "tex", label: "Make LaTeX file", text: "Covert your Markdown into a LaTeX document.", isSelected: false))
     //options.append(Make(make: "docx", label: "Make Word document", text: "Just because it is possible... Not very well supported.", isSelected: false))
-    /// Return options
     return options
 }
 

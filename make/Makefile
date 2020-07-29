@@ -15,6 +15,8 @@ RM := rm
 MKDIR := mkdir
 LUALATEX := lualatex
 KINDLEGEN := kindlegen
+KOBOGEN := kepubify
+CONVERT := convert
 
 PANDOC_OPTIONS := \
     --metadata-file=assets/make-book.md \
@@ -42,7 +44,7 @@ PANDOC_TEX := \
 	--include-before-body=$(BUILD_DIR)/dedication.tex \
 	+RTS -K100000000 -RTS \
 
-# Coloured pages in the PDF output..
+# Coloured pages in the PDF output.
 PANDOC_PDF := $(PANDOC_TEX) \
 	--metadata=use-colours
 
@@ -58,6 +60,9 @@ PANDOC_EPUB := \
 	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \
 	+RTS -K100000000 -RTS \
+
+# ePub optimised for Kobo
+PANDOC_KOBO := $(PANDOC_EPUB) \
 
 PANDOC_MOBI := \
     --template="$(PANDOC_TEMPLATES)/desbeers-epub.html" \
@@ -98,6 +103,7 @@ ifneq ("$(wildcard $(COVER))","")
 	PANDOC_EPUB+= --epub-cover-image=$(COVER)
 	PANDOC_MOBI+= --epub-cover-image=$(COVER)
 	PANDOC_PDF+= --metadata=have-cover
+	PANDOC_KOBO+= --epub-cover-image=$(BUILD_DIR)/cover-screen-gray.jpg
 endif
 
 # Add optional style:
@@ -252,6 +258,27 @@ $(BUILD_DIR)/$(BUILD_TITLE)-proof.epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUI
 	@$(shell $(MKDIR) -p "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub")
 
 	@unzip -q -o -d "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub" $(BUILD_DIR)/$(BUILD_TITLE)-proof.zip
+
+#####################################################
+#													#
+# Kobo												#
+#													#
+#####################################################
+
+kobo: $(BUILD_DIR)/KOBO_$(BUILD_TITLE).kepub.epub
+	@cp $< "$(EXPORT_DIR)/KOBO_$(EXPORT_TITLE).kepub.epub"
+	$(call log,✓ Your Kobo book is done.,done)
+
+$(BUILD_DIR)/KOBO_$(BUILD_TITLE).kepub.epub: $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub	
+	@$(KOBOGEN) -i -o $(BUILD_DIR) $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub
+
+$(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUILD_DIR)/dedication.epub assets/make-book.md
+	$(call prepare)
+	$(call log,❁ Making your Kobo book...,making)
+ifneq ("$(wildcard $(COVER))","")
+	$(CONVERT) assets/cover-screen.jpg -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
+endif
+	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
 
 #####################################################
 #													#
