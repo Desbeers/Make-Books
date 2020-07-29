@@ -59,6 +59,7 @@ PANDOC_EPUB := \
 	--css="$(PANDOC_CSS)/epub-css.css" \
 	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \
+	--epub-chapter-level=$(EPUB_CHAPTER_LEVEL) \
 	+RTS -K100000000 -RTS \
 
 # ePub optimised for Kobo
@@ -69,6 +70,7 @@ PANDOC_MOBI := \
 	--toc \
 	--css="$(PANDOC_CSS)/mobi-css.css" \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \
+	--epub-chapter-level=$(EPUB_CHAPTER_LEVEL) \
 	+RTS -K100000000 -RTS \
 
 PANDOC_HTML := \
