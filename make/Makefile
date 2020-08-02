@@ -162,21 +162,6 @@ $(BUILD_DIR)/dedication.epub: assets/dedication.md
 
 #####################################################
 #													#
-# MD												#
-#													#
-#####################################################
-
-md: $(BUILD_DIR)/$(BUILD_TITLE).md
-	@cp $< "$(EXPORT_DIR)/$(EXPORT_TITLE).md"
-	$(call log,✓ Markdown file done.,done)
-
-$(BUILD_DIR)/$(BUILD_TITLE).md: $(SOURCES)
-	$(call prepare)
-	$(call log,❁ Making markdown file...,making)
-	@$(PANDOC) $(PANDOC_MD) --output $@ $^
-
-#####################################################
-#													#
 # TEX												#
 #													#
 #####################################################
@@ -237,27 +222,6 @@ $(BUILD_DIR)/$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUILD_DIR
 
 #####################################################
 #													#
-# ePub	proofreading								#
-#													#
-#####################################################
-
-eproof: $(BUILD_DIR)/$(BUILD_TITLE)-proof.epub
-	@rsync -r "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub" "$(EXPORT_DIR)"
-	$(call log,✓ ePub development file done.,done)
-
-$(BUILD_DIR)/$(BUILD_TITLE)-proof.epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUILD_DIR)/dedication.epub assets/make-book.md
-	$(call prepare)
-	$(call log,❁ Making ePub development file...,making)
-	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_EPUB) --output $@ $<
-
-	@cp $@ $(BUILD_DIR)/$(BUILD_TITLE)-proof.zip
-
-	@$(shell $(MKDIR) -p "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub")
-
-	@unzip -q -o -d "$(BUILD_DIR)/tmp/PROOF $(EXPORT_TITLE).epub" $(BUILD_DIR)/$(BUILD_TITLE)-proof.zip
-
-#####################################################
-#													#
 # Kobo												#
 #													#
 #####################################################
@@ -276,36 +240,6 @@ ifneq ("$(wildcard $(COVER))","")
 	@$(CONVERT) assets/cover-screen.jpg -resize 632x840\! -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
 endif
 	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
-
-#####################################################
-#													#
-# HTML												#
-#													#
-#####################################################
-
-html: $(BUILD_DIR)/$(BUILD_TITLE).html
-	@cp $< "$(EXPORT_DIR)/$(EXPORT_TITLE).html"
-	$(call log,✓ html file done.,done)
-	
-$(BUILD_DIR)/$(BUILD_TITLE).html: $(BUILD_DIR)/$(BUILD_TITLE).pandoc
-	$(call prepare)
-	$(call log,❁ Making html file...,making)
-	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML) --output $@ $^
-
-#####################################################
-#													#
-# DOCX												#
-#													#
-#####################################################
-
-docx: $(BUILD_DIR)/$(BUILD_TITLE).docx
-	@cp $< "$(EXPORT_DIR)/$(EXPORT_TITLE).docx"
-	$(call log,✓ docx file done.,done)
-	
-$(BUILD_DIR)/$(BUILD_TITLE).docx: $(BUILD_DIR)/$(BUILD_TITLE).pandoc
-	$(call prepare)
-	$(call log,❁ Making docx file...,making)
-	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_DOCX) --output $@ $^
 
 #####################
 #					#
