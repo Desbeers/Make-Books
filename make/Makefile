@@ -68,18 +68,6 @@ PANDOC_EPUB+= \
 	--toc \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \
 
-PANDOC_HTML := \
-	--toc \
-	--css="$(PANDOC_CSS)/html-css.css" \
-	--self-contained \
-	--standalone \
-
-PANDOC_DOCX := \
-	--toc \
-	
-PANDOC_MD := \
-	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua"
-
 PANDOC_COLLECT := \
 
 PANDOC_NATIVE := \
