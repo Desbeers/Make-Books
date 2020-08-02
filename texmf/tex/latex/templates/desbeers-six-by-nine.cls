@@ -156,10 +156,8 @@
 \setsecheadstyle{\noindent\scshape\raggedright}
 % Subsection ###
 \setsubsecheadstyle{\noindent\textnormal\raggedright}
-% Subsection #### (not in use)
-\setsubsubsecheadstyle{\noindent\textnormal\raggedright}
-% Filtered ###### to \chapterprecishere{} by lua filter
-\renewcommand{\chapterprecishere}[1]{%
+% Header ###### used as \chapterprecise
+\renewcommand{\subparagraph}[1]{%
   {\small\scshape\centering{#1}\par}}
 
 %%% IMAGES

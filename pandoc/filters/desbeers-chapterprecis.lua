@@ -2,9 +2,7 @@
     
     chapter précis Lua filter for Pandoc.
 
-    \chapterprecis = in body and TOC
-    \chapterprecishere = only in body
-    \chapterprecistoc = only in TOC
+   Only for ePub output. LaTeX sees it as 'subparagraph'.
       
 --]]
 
@@ -25,12 +23,32 @@ function Header(el)
             el = pandoc.RawBlock('html',string.format('<div class="subsubsection">%s</div>',content))
         end
     end
-    if el.level == 6 then
-        if FORMAT:match 'latex' then
-            el = pandoc.RawBlock('latex',string.format('\\chapterprecishere{%s}',content))
-        elseif FORMAT:match 'html' or FORMAT:match 'epub' then
-            el = pandoc.RawBlock('html',string.format('<div class="chapterprecis">%s</div>',content))
+    return el
+end
+
+-- debug
+function dump(t,indent)
+    local names = {}
+    if not indent then indent = "" end
+    for n,g in pairs(t) do
+        table.insert(names,n)
+    end
+    table.sort(names)
+    for i,n in pairs(names) do
+        local v = t[n]
+        if type(v) == "table" then
+            if(v==t) then -- prevent endless loop if table contains reference to itself
+                print(indent..tostring(n)..": <-")
+            else
+                print(indent..tostring(n)..":")
+                dump(v,indent.."   ")
+            end
+        else
+            if type(v) == "function" then
+                print(indent..tostring(n).."()")
+            else
+                print(indent..tostring(n)..": "..tostring(v))
+            end
         end
     end
-    return el
 end
