@@ -14,7 +14,6 @@ PANDOC := pandoc
 RM := rm
 MKDIR := mkdir
 LUALATEX := lualatex
-KINDLEGEN := kindlegen
 KOBOGEN := kepubify
 CONVERT := convert
 
@@ -54,24 +53,20 @@ PANDOC_PRINT := $(PANDOC_TEX) \
 
 PANDOC_EPUB := \
     --template="$(PANDOC_TEMPLATES)/desbeers-epub.html" \
-	--toc \
 	--epub-embed-font="$(PANDOC_FONTS)/GreatVibes.ttf" \
 	--css="$(PANDOC_CSS)/epub-css.css" \
 	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
-	--include-before-body="$(BUILD_DIR)/dedication.epub" \
 	--epub-chapter-level=$(EPUB_CHAPTER_LEVEL) \
 	+RTS -K100000000 -RTS \
 
 # ePub optimised for Kobo
 PANDOC_KOBO := $(PANDOC_EPUB) \
 
-PANDOC_MOBI := \
-    --template="$(PANDOC_TEMPLATES)/desbeers-epub.html" \
+# Add the TOC and dedication to "normal" epubs; the Kobo e-reader
+# does not need/like this.
+PANDOC_EPUB+= \
 	--toc \
-	--css="$(PANDOC_CSS)/mobi-css.css" \
 	--include-before-body="$(BUILD_DIR)/dedication.epub" \
-	--epub-chapter-level=$(EPUB_CHAPTER_LEVEL) \
-	+RTS -K100000000 -RTS \
 
 PANDOC_HTML := \
 	--toc \
@@ -164,7 +159,7 @@ $(BUILD_DIR)/dedication.epub: assets/dedication.md
 		--write=html \
 		--lua-filter "$(PANDOC_FILTERS)/desbeers-linebreaks.lua" \
 		--output $@ $^
-		
+
 #####################################################
 #													#
 # MD												#
@@ -274,31 +269,13 @@ kobo: $(BUILD_DIR)/KOBO_$(BUILD_TITLE).kepub.epub
 $(BUILD_DIR)/KOBO_$(BUILD_TITLE).kepub.epub: $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub	
 	@$(KOBOGEN) -i -o $(BUILD_DIR) $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub
 
-$(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUILD_DIR)/dedication.epub assets/make-book.md
+$(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc assets/make-book.md
 	$(call prepare)
 	$(call log,❁ Making your Kobo book...,making)
 ifneq ("$(wildcard $(COVER))","")
-	@$(CONVERT) assets/cover-screen.jpg -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
+	@$(CONVERT) assets/cover-screen.jpg -resize 632x840\! -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
 endif
 	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
-
-#####################################################
-#													#
-# Kindle											#
-#													#
-#####################################################
-
-kindle: $(BUILD_DIR)/$(BUILD_TITLE)-mobi.mobi
-	@cp $< "$(EXPORT_DIR)/$(EXPORT_TITLE).mobi"
-	$(call log,✓ Your Kindle file is done.,done)
-
-$(BUILD_DIR)/$(BUILD_TITLE)-mobi.mobi: $(BUILD_DIR)/$(BUILD_TITLE)-mobi.epub
-	@$(KINDLEGEN) $<
-	
-$(BUILD_DIR)/$(BUILD_TITLE)-mobi.epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc $(BUILD_DIR)/dedication.epub assets/make-book.md
-	$(call prepare)
-	$(call log,❁ Making your Kindle file...,making)
-	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_MOBI) --output $@ $<
 
 #####################################################
 #													#
