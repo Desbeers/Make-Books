@@ -15,6 +15,7 @@ The following software must be installed on your computer:
 - The `zsh` shell; standard on macOS Catalina; install it on Ubuntu.
 - `rsync`; should be standard...
 - The `Make` program. Part of Xcode or grab it from [Homebrew](https://brew.sh) when you are on a Mac. Else; do your Linux magic.
+- For a ‘Kobo’ ePub, ‘kepubify’ is needed. Get it [here](https://pgaskin.net/kepubify/). 
 
 ## Font
 

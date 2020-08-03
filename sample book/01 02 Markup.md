@@ -28,7 +28,7 @@ So, the `horizontal rule` is not available for its normal intended use. Too bad,
 
 ## Chapter’s Précis
 
-Markup `######` has a special function. A line with this markup will be converted to a *‌Chapter's Précis*. Thats a line below the chapter name. Call it a *sub-chapter-name* or something. I use it the write the date and place underneath a story for example:
+Markup `######` has a special function. A line with this markup will be converted to a *‌Chapter's Précis*. Thats a line below the chapter name. Call it a *sub-chapter-name* or something, it’s a ‘subparagraph’ in LaTeX language. I use it to write the date and place underneath a story for example:
 
 ![Chapter's Précis](images/chapter-precis.png){width=85%}
 
