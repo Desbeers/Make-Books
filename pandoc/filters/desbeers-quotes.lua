@@ -5,7 +5,7 @@
 --]]
 
 function Quoted(el)
-    el.quotetype = 'DoubleQuote'   
+    el.quotetype = 'DoubleQuote'
     for i in pairs(el.content) do
         if el.content[i].quotetype then
             el.content[i].quotetype = 'SingleQuote'

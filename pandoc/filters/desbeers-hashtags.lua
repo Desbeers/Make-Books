@@ -1,6 +1,8 @@
 --[[
     
     Hashtags Lua filter for Pandoc.
+
+    Used in iAwriter; handy, however, not in the output.
             
 --]]
 

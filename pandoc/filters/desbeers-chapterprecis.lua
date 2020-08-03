@@ -1,8 +1,8 @@
 --[[
     
-    chapter précis Lua filter for Pandoc.
+    'chapter précis' Lua filter for Pandoc.
 
-   Only for ePub output. LaTeX is smarter.
+    Only for ePub output. LaTeX is smarter, it is a 'subparagraph' and I can style it as I like.
       
 --]]
 
