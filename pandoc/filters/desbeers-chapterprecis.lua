@@ -19,7 +19,7 @@ function Header(el)
             el = pandoc.RawBlock('html',string.format('<div class="subsubsection">%s</div>',content))
         end
         if el.level == 6 then
-            el = pandoc.RawBlock('html',string.format('<div class="chapterprecis">%s</div>',content))
+            el = pandoc.RawBlock('html',string.format('<div class="subparagraph">%s</div>',content))
         end
     end
     return el
