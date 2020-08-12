@@ -48,7 +48,7 @@ function Dropcap(el)
         end
         -- TODO: this script doesn't like '...' in the quote if it is after the first word...
         -- It also doesn't like a single word in a quote.
-        dump(el.content[1])
+        -- dump(el.content[1])
     end
     return el
 end
