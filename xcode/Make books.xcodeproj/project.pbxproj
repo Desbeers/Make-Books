@@ -16,10 +16,8 @@
 		D739D2D223B3641A006EF379 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D739D2D023B3641A006EF379 /* Main.storyboard */; };
 		D73FCFBD2439A4D600FE6897 /* PrefsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FCFBC2439A4D600FE6897 /* PrefsView.swift */; };
 		D7622D232450DBA700F9DABC /* MakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622D222450DBA700F9DABC /* MakeView.swift */; };
-		D7622D252450FCD300F9DABC /* BlurryBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622D242450FCD300F9DABC /* BlurryBackground.swift */; };
 		D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704EB2446B69300AE2E97 /* ObservableObjects.swift */; };
 		D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704ED2447BBFB00AE2E97 /* ContentView.swift */; };
-		D7A1043424C67D2E00EA8780 /* FolderObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A1043324C67D2E00EA8780 /* FolderObserver.swift */; };
 		D7C2208C243437870017B570 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2208B243437870017B570 /* UserDefaults.swift */; };
 		D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9EF90244CC31F004589AE /* SharedFunctions.swift */; };
 		D7D3FCFB24399D9D00965BAE /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3FCFA24399D9D00965BAE /* LogView.swift */; };
@@ -39,10 +37,8 @@
 		D739D2D423B3641A006EF379 /* Make_books.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Make_books.entitlements; sourceTree = "<group>"; };
 		D73FCFBC2439A4D600FE6897 /* PrefsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsView.swift; sourceTree = "<group>"; };
 		D7622D222450DBA700F9DABC /* MakeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeView.swift; sourceTree = "<group>"; };
-		D7622D242450FCD300F9DABC /* BlurryBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurryBackground.swift; sourceTree = "<group>"; };
 		D78704EB2446B69300AE2E97 /* ObservableObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjects.swift; sourceTree = "<group>"; };
 		D78704ED2447BBFB00AE2E97 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D7A1043324C67D2E00EA8780 /* FolderObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderObserver.swift; sourceTree = "<group>"; };
 		D7C2208B243437870017B570 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		D7C9EF90244CC31F004589AE /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7D3FCFA24399D9D00965BAE /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
@@ -114,8 +110,6 @@
 				D7C2208B243437870017B570 /* UserDefaults.swift */,
 				D78704EB2446B69300AE2E97 /* ObservableObjects.swift */,
 				D7C9EF90244CC31F004589AE /* SharedFunctions.swift */,
-				D7622D242450FCD300F9DABC /* BlurryBackground.swift */,
-				D7A1043324C67D2E00EA8780 /* FolderObserver.swift */,
 			);
 			path = Includes;
 			sourceTree = "<group>";
@@ -160,7 +154,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Nick Berendsen";
 				TargetAttributes = {
 					D739D2C323B36419006EF379 = {
@@ -206,13 +200,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7622D232450DBA700F9DABC /* MakeView.swift in Sources */,
-				D7622D252450FCD300F9DABC /* BlurryBackground.swift in Sources */,
 				D73FCFBD2439A4D600FE6897 /* PrefsView.swift in Sources */,
 				D739D2CA23B36419006EF379 /* OptionsView.swift in Sources */,
 				D71F5869244368C00021D95F /* BooksView.swift in Sources */,
 				D7D3FCFB24399D9D00965BAE /* LogView.swift in Sources */,
 				D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */,
-				D7A1043424C67D2E00EA8780 /* FolderObserver.swift in Sources */,
 				D739D2C823B36419006EF379 /* AppDelegate.swift in Sources */,
 				D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */,
 				D7C2208C243437870017B570 /* UserDefaults.swift in Sources */,

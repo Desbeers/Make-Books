@@ -12,40 +12,13 @@ import SwiftUI
 struct BooksView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
-    ///@ObservedObject var folder = Folder()
     /// The view
     var body: some View {
-        VStack() {
             /// id: \.self is needed, else selection does not work
             List(books.bookList, id: \.self, selection: self.$books.bookSelected) { book in
                 /// The list item is in a subview.
                 BooksItem(book: book)
             }.listStyle(SidebarListStyle())
-            Divider().padding(.horizontal)
-            Button(
-                action: {
-                    self.books.scripsRunning = true
-                    self.books.activeSheet = "log"
-                    self.books.showSheet = true
-                    let makeBook = Process()
-                    makeBook.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeBook.arguments = [
-                        "--login","-c", "cd '" +
-                        self.books.bookSelected!.path +
-                        "' && " + self.books.bookSelected!.script + " " +
-                        GetArgs(self.books)
-                    ]
-                    makeBook.terminationHandler =  {
-                        _ in DispatchQueue.main.async {self.books.scripsRunning = false }
-                    }
-                    try! makeBook.run()
-                }){
-                Text("Make selected book")
-            }
-            .disabled(books.bookSelected == nil)
-            .disabled(books.showSheet)
-            .padding(.bottom)
-        }
     }
 }
 

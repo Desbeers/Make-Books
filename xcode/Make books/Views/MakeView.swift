@@ -17,6 +17,27 @@ struct MakeView: View {
         // BEGIN action buttons
         HStack {
             Button(
+             action: {
+                 self.books.scripsRunning = true
+                 self.books.activeSheet = "log"
+                 self.books.showSheet = true
+                 let makeBook = Process()
+                 makeBook.executableURL = URL(fileURLWithPath: "/bin/zsh")
+                 makeBook.arguments = [
+                     "--login","-c", "cd '" +
+                     self.books.bookSelected!.path +
+                     "' && " + self.books.bookSelected!.script + " " +
+                     GetArgs(self.books)
+                 ]
+                 makeBook.terminationHandler =  {
+                     _ in DispatchQueue.main.async {self.books.scripsRunning = false }
+                 }
+                 try! makeBook.run()
+             }){
+             Text("Selected book")
+            }
+            .disabled(books.bookSelected == nil)
+            Button(
                 action: {
                     self.books.scripsRunning = true
                     self.books.activeSheet = "log"
@@ -51,7 +72,7 @@ struct MakeView: View {
                     makeFavorites.terminationHandler =  { _ in DispatchQueue.main.async {self.books.scripsRunning = false }}
                     try! makeFavorites.run()
                 }){
-                Text("All tags")}
+                Text("Tags")}
         }.padding([.leading, .bottom, .trailing]).disabled(books.showSheet)
         // END actions buttons
     }

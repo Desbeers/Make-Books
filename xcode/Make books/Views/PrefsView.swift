@@ -5,8 +5,6 @@
 
 import SwiftUI
 
-
-
 // MARK: - Views
 
 // The prefs in a sheet
@@ -17,13 +15,8 @@ struct PrefsSheet: View {
     @State var paperSize = UserDefaultsConfig.paperSize
     @State var pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
     @State var pathExport = GetLastPath(UserDefaultsConfig.pathExport)
-    //@State var optionsPaper = GetPaperSize()
-    
     @EnvironmentObject var books: Books
-    
     var body: some View {
-        
-        
         VStack {
             Text("Preferences")
                 .font(.headline)
@@ -34,30 +27,27 @@ struct PrefsSheet: View {
                         .font(.subheadline)
                     HStack() {
                         Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathBooks)).resizable().frame(width: 32, height: 32)
-                    Text(pathBooks)
-                        .font(.caption).lineLimit(1)
-                        
-                        .truncationMode(.head)
-                    Spacer()
-                    Button(action: {self.SelectBooksFolder()}) {
-                        Text("Change")
+                        Text(pathBooks)
+                            .font(.caption).lineLimit(1)
+                            .truncationMode(.head)
+                        Spacer()
+                        Button(action: {self.SelectBooksFolder()}) {
+                            Text("Change")
+                        }
                     }
-                    }
-                    
                     Spacer()
-
                     Text("Where shall we export them?")
                         .font(.subheadline)
                     HStack () {
                         Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathExport)).resizable().frame(width: 32, height: 32)
-                    Text(pathExport)
-                        .font(.caption).lineLimit(1)
-                        
-                        .truncationMode(.head)
-                        Spacer()
-                    Button(action: {self.SelectExportFolder()}) {
-                        Text("Change")
-                    }
+                        Text(pathExport)
+                            .font(.caption).lineLimit(1)
+                            
+                            .truncationMode(.head)
+                            Spacer()
+                        Button(action: {self.SelectExportFolder()}) {
+                            Text("Change")
+                        }
                     }
                     Spacer()
                 }
@@ -74,8 +64,7 @@ struct PrefsSheet: View {
                             }
                     }
                     .labelsHidden()
-                    
-                        Spacer()
+                    Spacer()
                     Text("Font size")
                         .font(.subheadline)
                     Picker(selection: $fontSize, label: Text("Font size")
@@ -84,14 +73,12 @@ struct PrefsSheet: View {
                             Text(font.text).tag(font.id)
                         }
                     }
-                        .labelsHidden() .pickerStyle(RadioGroupPickerStyle())
-                        .horizontalRadioGroupLayout()
-                    
+                    .labelsHidden() .pickerStyle(RadioGroupPickerStyle())
+                    .horizontalRadioGroupLayout()
                     Spacer()
                 }
                 .tabItem { Text("PDF export") }.tag(1).frame(width: 320.0)
             }
-            
             .frame(height: 220)
             HStack {
                 Button("Close") {
@@ -103,7 +90,6 @@ struct PrefsSheet: View {
                 }
                 .padding(.top)
             }
-            
         }.padding().frame(width: 380)
     }
     /// Books folder selection
@@ -114,7 +100,6 @@ struct PrefsSheet: View {
         dialog.canChooseFiles = false;
         dialog.canChooseDirectories = true;
         dialog.directoryURL = URL(string: UserDefaultsConfig.pathBooks)
-        
         dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
             if result == NSApplication.ModalResponse.OK {
                 let result = dialog.url
@@ -135,7 +120,6 @@ struct PrefsSheet: View {
         dialog.canChooseFiles = false;
         dialog.canChooseDirectories = true;
         dialog.directoryURL = URL(string: UserDefaultsConfig.pathExport)
- 
         dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
             if result == NSApplication.ModalResponse.OK {
                 let result = dialog.url

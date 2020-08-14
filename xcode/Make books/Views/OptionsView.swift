@@ -32,7 +32,6 @@ struct OptionsView: View {
                         Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathBooks))
                             .resizable().frame(width: 16, height: 16)
                         Text(GetLastPath(UserDefaultsConfig.pathBooks))
-                        
                     }
                     HStack() {
                         Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathExport))
@@ -90,7 +89,6 @@ struct OptionsView: View {
                 }
                 /// No more ZStack
             }
-
             /// Warn if you really want to clean
             //if books.optionsMake[0].isSelected {
             Text(self.books.optionsMake[0].isSelected ? self.books.optionsMake[0].text : " ")

@@ -44,7 +44,7 @@ func GetBooks() -> [MetaBooks] {
                     meta["script"] = "make-collection"
                 }
                 if path.hasSuffix("/make-tag-book.md") {
-                    meta["type"] = "Tag: " + meta["tag"]!
+                    meta["type"] = meta["tag"]!
                     meta["script"] = "make-tag-book"
                 }
                 metaBooks.append(MetaBooks(

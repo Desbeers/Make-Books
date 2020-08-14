@@ -25,7 +25,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             HStack(spacing: 0) {
-                BooksView().blurryBackground()
+                BooksView()
                     .frame(width: self.ListWidth(width: geometry.size.width))
                 VStack() {
                     OptionsView()
