@@ -14,19 +14,13 @@ import SwiftUI
 struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
-    /// Get selected menu items
-    private let showLogMenuItemSelected = NotificationCenter.default
-        .publisher(for: .showLog)
-        .receive(on: RunLoop.main)
-    private let showPrefsMenuItemSelected = NotificationCenter.default
-        .publisher(for: .showPrefs)
-        .receive(on: RunLoop.main)
     /// The view
     var body: some View {
         GeometryReader { geometry in
             HStack(spacing: 0) {
                 BooksView()
                     .frame(width: self.ListWidth(width: geometry.size.width))
+                    .listStyle(SidebarListStyle())
                 VStack() {
                     OptionsView()
                     MakeView()
@@ -34,16 +28,10 @@ struct ContentView: View {
                 
             }
         }
-        /// Do something with menu selections
-        .onReceive(showLogMenuItemSelected) { _ in self.books.showSheet.toggle(); self.books.activeSheet = "log" }
-        .onReceive(showPrefsMenuItemSelected) { _ in self.books.showSheet = true; self.books.activeSheet = "prefs" }
         // Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
             if self.books.activeSheet == "log" {
                 LogSheet(showLog: self.$books.showSheet).environmentObject(self.books)
-            }
-            else {
-                PrefsSheet(showPrefs: self.$books.showSheet).environmentObject(self.books)
             }
         }
     }

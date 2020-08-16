@@ -18,7 +18,7 @@ struct BooksView: View {
             List(books.bookList, id: \.self, selection: self.$books.bookSelected) { book in
                 /// The list item is in a subview.
                 BooksItem(book: book)
-            }.listStyle(SidebarListStyle())
+            }
     }
 }
 

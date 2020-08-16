@@ -9,7 +9,6 @@ import SwiftUI
 
 // The prefs in a sheet
 struct PrefsSheet: View {
-    @Binding var showPrefs: Bool
     @State private var selectedTab = 0
     @State var fontSize = UserDefaultsConfig.fontSize
     @State var paperSize = UserDefaultsConfig.paperSize
@@ -18,17 +17,14 @@ struct PrefsSheet: View {
     @EnvironmentObject var books: Books
     var body: some View {
         VStack {
-            Text("Preferences")
-                .font(.headline)
             TabView(selection: $selectedTab) {
                 VStack(alignment: .leading) {
                     Spacer()
                     Text("Where are your books?")
-                        .font(.subheadline)
+                        .font(.headline)
                     HStack() {
                         Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathBooks)).resizable().frame(width: 32, height: 32)
                         Text(pathBooks)
-                            .font(.caption).lineLimit(1)
                             .truncationMode(.head)
                         Spacer()
                         Button(action: {self.SelectBooksFolder()}) {
@@ -37,13 +33,11 @@ struct PrefsSheet: View {
                     }
                     Spacer()
                     Text("Where shall we export them?")
-                        .font(.subheadline)
+                        .font(.headline)
                     HStack () {
                         Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathExport)).resizable().frame(width: 32, height: 32)
                         Text(pathExport)
-                            .font(.caption).lineLimit(1)
-                            
-                            .truncationMode(.head)
+                           .truncationMode(.head)
                             Spacer()
                         Button(action: {self.SelectExportFolder()}) {
                             Text("Change")
@@ -51,7 +45,9 @@ struct PrefsSheet: View {
                     }
                     Spacer()
                 }
-                .tabItem { Text("Files") }.tag(0).frame(width: 300.0)
+                .tabItem {
+                    Image(systemName: "folder")
+                    Text("General") }.tag(0).frame(width: 300.0)
                 // PDF options
                 VStack(alignment: .leading) {
                     Spacer()
@@ -77,19 +73,11 @@ struct PrefsSheet: View {
                     .horizontalRadioGroupLayout()
                     Spacer()
                 }
-                .tabItem { Text("PDF export") }.tag(1).frame(width: 320.0)
+                .tabItem {
+                    Image(systemName: "doc")
+                    Text("PDF") }.tag(1).frame(width: 320.0)
             }
             .frame(height: 220)
-            HStack {
-                Button("Close") {
-                    /// Save the settings
-                    UserDefaultsConfig.paperSize = self.paperSize
-                    UserDefaultsConfig.fontSize = self.fontSize
-                    /// Close the sheet
-                    self.showPrefs = false
-                }
-                .padding(.top)
-            }
         }.padding().frame(width: 380)
     }
     /// Books folder selection
@@ -106,9 +94,9 @@ struct PrefsSheet: View {
                 UserDefaultsConfig.pathBooks = result!.path
                 self.pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
                 /// Refresh the list of books
-                self.books.bookList = GetBooks()
+                books.bookList = GetBooks()
                 /// Clear the selected book (if any)
-                self.books.bookSelected = nil
+                books.bookSelected = nil
             }
         }
     }
@@ -132,7 +120,7 @@ struct PrefsSheet: View {
 
 struct PrefsSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PrefsSheet(showPrefs: .constant(true))
+        PrefsSheet()
     }
 }
 

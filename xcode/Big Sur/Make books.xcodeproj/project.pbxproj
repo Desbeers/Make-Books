@@ -3,17 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */; };
 		D7075A3E242EDF9800A36157 /* log.html in Resources */ = {isa = PBXBuildFile; fileRef = D7075A3D242EDF9800A36157 /* log.html */; };
 		D71F5869244368C00021D95F /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F5868244368C00021D95F /* BooksView.swift */; };
-		D739D2C823B36419006EF379 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D739D2C723B36419006EF379 /* AppDelegate.swift */; };
 		D739D2CA23B36419006EF379 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D739D2C923B36419006EF379 /* OptionsView.swift */; };
 		D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D739D2CB23B3641A006EF379 /* Assets.xcassets */; };
 		D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D739D2CE23B3641A006EF379 /* Preview Assets.xcassets */; };
-		D739D2D223B3641A006EF379 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D739D2D023B3641A006EF379 /* Main.storyboard */; };
 		D73FCFBD2439A4D600FE6897 /* PrefsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FCFBC2439A4D600FE6897 /* PrefsView.swift */; };
 		D7622D232450DBA700F9DABC /* MakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622D222450DBA700F9DABC /* MakeView.swift */; };
 		D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704EB2446B69300AE2E97 /* ObservableObjects.swift */; };
@@ -24,15 +23,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D704B53E24506D4E00470582 /* Make booksDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "Make booksDebug.entitlements"; sourceTree = "<group>"; };
 		D7075A3D242EDF9800A36157 /* log.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = log.html; sourceTree = "<group>"; };
 		D71F5868244368C00021D95F /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
 		D739D2C423B36419006EF379 /* Make books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Make books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D739D2C723B36419006EF379 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D739D2C923B36419006EF379 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		D739D2CB23B3641A006EF379 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D739D2CE23B3641A006EF379 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D739D2D123B3641A006EF379 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D739D2D323B3641A006EF379 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D739D2D423B3641A006EF379 /* Make_books.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Make_books.entitlements; sourceTree = "<group>"; };
 		D73FCFBC2439A4D600FE6897 /* PrefsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsView.swift; sourceTree = "<group>"; };
@@ -74,12 +72,11 @@
 		D739D2C623B36419006EF379 /* Make books */ = {
 			isa = PBXGroup;
 			children = (
+				01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */,
 				D7D2D8E02435851F00736F07 /* Includes */,
 				D740BC6B24306E0600DE476E /* Log */,
-				D739D2C723B36419006EF379 /* AppDelegate.swift */,
 				D7D3FCFC2439A33800965BAE /* Views */,
 				D739D2CB23B3641A006EF379 /* Assets.xcassets */,
-				D739D2D023B3641A006EF379 /* Main.storyboard */,
 				D739D2D323B3641A006EF379 /* Info.plist */,
 				D704B53E24506D4E00470582 /* Make booksDebug.entitlements */,
 				D739D2D423B3641A006EF379 /* Make_books.entitlements */,
@@ -154,7 +151,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Nick Berendsen";
 				TargetAttributes = {
 					D739D2C323B36419006EF379 = {
@@ -163,7 +160,7 @@
 				};
 			};
 			buildConfigurationList = D739D2BF23B36419006EF379 /* Build configuration list for PBXProject "Make books" */;
-			compatibilityVersion = "Xcode 11.4";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -185,7 +182,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D739D2D223B3641A006EF379 /* Main.storyboard in Resources */,
 				D7075A3E242EDF9800A36157 /* log.html in Resources */,
 				D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */,
 				D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */,
@@ -205,7 +201,7 @@
 				D71F5869244368C00021D95F /* BooksView.swift in Sources */,
 				D7D3FCFB24399D9D00965BAE /* LogView.swift in Sources */,
 				D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */,
-				D739D2C823B36419006EF379 /* AppDelegate.swift in Sources */,
+				01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */,
 				D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */,
 				D7C2208C243437870017B570 /* UserDefaults.swift in Sources */,
 				D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */,
@@ -213,17 +209,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		D739D2D023B3641A006EF379 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D739D2D123B3641A006EF379 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D739D2EB23B3641A006EF379 /* Debug */ = {
@@ -276,7 +261,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -330,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -356,7 +341,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Make-books";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -381,7 +367,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Make-books";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

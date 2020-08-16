@@ -44,15 +44,7 @@ struct OptionsView: View {
             }
             .padding(.top)
             .font(.caption)
-            /// Button to change settings
-            Button(action: {
-                /// Set the correct sheet
-                self.books.activeSheet = "prefs"
-                /// Toggle the sheett so its visible
-                self.books.showSheet.toggle()
-            }) {
-                Text("Preferences")
-            }
+
             /// END `settings overview`
             Spacer()
             /// BEGIN `options for Make`
