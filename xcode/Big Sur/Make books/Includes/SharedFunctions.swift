@@ -160,3 +160,49 @@ func GetArgs(_ books: Books) -> String {
     }
     return (makeArgs)
 }
+
+// Folder selectors
+// -------------------
+
+/// Books folder selection
+func SelectBooksFolder(_ books: Books) {
+    let dialog = NSOpenPanel();
+    dialog.showsResizeIndicator    = true;
+    dialog.showsHiddenFiles        = false;
+    dialog.canChooseFiles = false;
+    dialog.canChooseDirectories = true;
+    // This does not work
+    ///dialog.directoryURL = URL(string: pathBooks)
+    dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
+        if result == NSApplication.ModalResponse.OK {
+            let result = dialog.url
+            ///UserDefaultsConfig.pathBooks = result!.path
+            ///pathBooks = result!.path
+            UserDefaults.standard.set(result!.path, forKey: "pathBooks")
+            ///self.pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
+            /// Refresh the list of books
+            books.bookList = GetBooks()
+            /// Clear the selected book (if any)
+            books.bookSelected = nil
+        }
+    }
+}
+/// Export folder selection
+func SelectExportFolder() {
+    let dialog = NSOpenPanel();
+    dialog.showsResizeIndicator    = true;
+    dialog.showsHiddenFiles        = false;
+    dialog.canChooseFiles = false;
+    dialog.canChooseDirectories = true;
+    // This does not work in Big Sur
+    ///dialog.directoryURL = URL(string: pathExport)
+    dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
+        if result == NSApplication.ModalResponse.OK {
+            let result = dialog.url
+            ///UserDefaultsConfig.pathExport = result!.path
+            //pathExport = result!.path
+            UserDefaults.standard.set(result!.path, forKey: "pathExport")
+            ///self.pathExport = GetLastPath(UserDefaultsConfig.pathExport)
+        }
+    }
+}

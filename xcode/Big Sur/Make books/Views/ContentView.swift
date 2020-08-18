@@ -15,6 +15,11 @@ struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// The view
+    
+    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+
+    
     var body: some View {
         GeometryReader { geometry in
             HStack(spacing: 0) {

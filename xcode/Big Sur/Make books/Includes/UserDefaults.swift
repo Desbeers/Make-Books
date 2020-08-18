@@ -36,10 +36,10 @@ struct UserDefaultsConfig {
     @UserDefault("paper_size", defaultValue: 1)
     static var paperSize: Int
     
-    @UserDefault("path_books", defaultValue: FileManager.default.homeDirectoryForCurrentUser.path)
+    @UserDefault("pathBooks", defaultValue: FileManager.default.homeDirectoryForCurrentUser.path)
     static var pathBooks: String
 
-    @UserDefault("path_export", defaultValue: FileManager.default.homeDirectoryForCurrentUser.path)
+    @UserDefault("pathExport", defaultValue: FileManager.default.homeDirectoryForCurrentUser.path)
     static var pathExport: String
 
 }

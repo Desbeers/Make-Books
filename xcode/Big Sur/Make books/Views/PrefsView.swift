@@ -7,27 +7,36 @@ import SwiftUI
 
 // MARK: - Views
 
-// The prefs in a sheet
-struct PrefsSheet: View {
-    @State private var selectedTab = 0
-    @State var fontSize = UserDefaultsConfig.fontSize
-    @State var paperSize = UserDefaultsConfig.paperSize
-    @State var pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
-    @State var pathExport = GetLastPath(UserDefaultsConfig.pathExport)
+struct PrefsView: View {
+    
+    /// Get the books with all options
     @EnvironmentObject var books: Books
+    
+    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("fontSize") var fontSize: Int = 1
+    @AppStorage("paperSize") var paperSize: Int = 1
+    
+    let optionsPaper = PaperOptions()
+    let optionsFont = FontOptions()
+    
+    ///@State private var selectedTab = 0
+    ///@State var fontSize = UserDefaultsConfig.fontSize
+    ///@State var paperSize = UserDefaultsConfig.paperSize
+    ///@State var pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
+    ///@State var pathExport = GetLastPath(UserDefaultsConfig.pathExport)
+    ///@EnvironmentObject var books: Books
     var body: some View {
         VStack {
-            TabView(selection: $selectedTab) {
+            TabView() {
+
                 VStack(alignment: .leading) {
-                    Spacer()
                     Text("Where are your books?")
                         .font(.headline)
                     HStack() {
-                        Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathBooks)).resizable().frame(width: 32, height: 32)
-                        Text(pathBooks)
-                            .truncationMode(.head)
+                        Label(pathBooks, systemImage: "square.and.arrow.up.on.square").truncationMode(.head)
                         Spacer()
-                        Button(action: {self.SelectBooksFolder()}) {
+                        Button(action: {SelectBooksFolder(books)}) {
                             Text("Change")
                         }
                     }
@@ -35,11 +44,9 @@ struct PrefsSheet: View {
                     Text("Where shall we export them?")
                         .font(.headline)
                     HStack () {
-                        Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathExport)).resizable().frame(width: 32, height: 32)
-                        Text(pathExport)
-                           .truncationMode(.head)
+                        Label(pathExport, systemImage: "square.and.arrow.down.on.square").truncationMode(.head)
                             Spacer()
-                        Button(action: {self.SelectExportFolder()}) {
+                        Button(action: {SelectExportFolder()}) {
                             Text("Change")
                         }
                     }
@@ -47,25 +54,26 @@ struct PrefsSheet: View {
                 }
                 .tabItem {
                     Image(systemName: "folder")
-                    Text("General") }.tag(0).frame(width: 300.0)
+                    Text("Folder locations") }.tag(1)
+                .frame(width:340)
                 // PDF options
                 VStack(alignment: .leading) {
                     Spacer()
                     Text("Paper format")
-                        .font(.subheadline)
+                        .font(.headline)
                     Picker(selection: $paperSize, label: (Text("Paper format"))
                         ) {
-                            ForEach(books.optionsPaper, id: \.self) { paper in
+                            ForEach(optionsPaper, id: \.self) { paper in
                                 Text(paper.text).tag(paper.id)
                             }
                     }
-                    .labelsHidden()
+                    
                     Spacer()
                     Text("Font size")
-                        .font(.subheadline)
+                        .font(.headline)
                     Picker(selection: $fontSize, label: Text("Font size")
                        ) {
-                        ForEach(books.optionsFont, id: \.self) { font in
+                        ForEach(optionsFont, id: \.self) { font in
                             Text(font.text).tag(font.id)
                         }
                     }
@@ -75,52 +83,21 @@ struct PrefsSheet: View {
                 }
                 .tabItem {
                     Image(systemName: "doc")
-                    Text("PDF") }.tag(1).frame(width: 320.0)
+                    Text("PDF export") }.tag(2)
+                .frame(width:340)
             }
-            .frame(height: 220)
-        }.padding().frame(width: 380)
-    }
-    /// Books folder selection
-    func SelectBooksFolder() {
-        let dialog = NSOpenPanel();
-        dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = false;
-        dialog.canChooseFiles = false;
-        dialog.canChooseDirectories = true;
-        dialog.directoryURL = URL(string: UserDefaultsConfig.pathBooks)
-        dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
-            if result == NSApplication.ModalResponse.OK {
-                let result = dialog.url
-                UserDefaultsConfig.pathBooks = result!.path
-                self.pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
-                /// Refresh the list of books
-                books.bookList = GetBooks()
-                /// Clear the selected book (if any)
-                books.bookSelected = nil
-            }
+            
         }
-    }
-    /// Export folder selection
-    func SelectExportFolder() {
-        let dialog = NSOpenPanel();
-        dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = false;
-        dialog.canChooseFiles = false;
-        dialog.canChooseDirectories = true;
-        dialog.directoryURL = URL(string: UserDefaultsConfig.pathExport)
-        dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
-            if result == NSApplication.ModalResponse.OK {
-                let result = dialog.url
-                UserDefaultsConfig.pathExport = result!.path
-                self.pathExport = GetLastPath(UserDefaultsConfig.pathExport)
-            }
-        }
+        .padding()
+        .frame(width:360)
     }
 }
 
+
+
 struct PrefsSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PrefsSheet()
+        PrefsView()
     }
 }
 

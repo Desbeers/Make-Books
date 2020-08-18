@@ -9,12 +9,17 @@ import SwiftUI
 
 @main
 struct TestApp: App {
+    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+
+    var books = Books()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(Books())
+            ContentView().environmentObject(books)
         }
         Settings {
-                    PrefsSheet().environmentObject(Books())
-                }
+            PrefsView().environmentObject(books)
+        }
     }
 }

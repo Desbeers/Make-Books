@@ -10,43 +10,16 @@ import SwiftUI
 struct OptionsView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    
+    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("fontSize") var fontSize: Int = 1
+    @AppStorage("paperSize") var paperSize: Int = 1
+    
     /// The View
     var body: some View {
         VStack() {
-            /// BEGIN `settings overview`
-            HStack(alignment: .center) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Paper size:")
-                        .fontWeight(.semibold)
-                    Text("Font size:")
-                        .fontWeight(.semibold)
-                    Text("Books folder:")
-                        .fontWeight(.semibold)
-                    Text("Export folder:")
-                        .fontWeight(.semibold)
-                }
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(books.optionsPaper[UserDefaultsConfig.paperSize].text)
-                    Text(books.optionsFont[UserDefaultsConfig.fontSize].text)
-                    HStack() {
-                        Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathBooks))
-                            .resizable().frame(width: 16, height: 16)
-                        Text(GetLastPath(UserDefaultsConfig.pathBooks))
-                    }
-                    HStack() {
-                        Image(nsImage: GetFolderIcon(UserDefaultsConfig.pathExport))
-                            .resizable().frame(width: 16, height: 16)
-                        Text(GetLastPath(UserDefaultsConfig.pathExport))
-                   }
-                }
-                /// Below needed or else the lables are truncated
-                .fixedSize()
-            }
-            .padding(.top)
-            .font(.caption)
 
-            /// END `settings overview`
-            Spacer()
             /// BEGIN `options for Make`
             /// In a ZStack because it has a background
             ZStack() {
@@ -66,7 +39,7 @@ struct OptionsView: View {
                                 Text(self.books.optionsMake[index].label).fontWeight(.bold)
                             }
                             Text(self.books.optionsMake[index].text)
-                                .font(.caption)
+                                
                                 .foregroundColor(Color.secondary)
                                 .lineLimit(2)
                                 .frame(minHeight: 36)
