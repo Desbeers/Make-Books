@@ -26,7 +26,11 @@ struct BooksView: View {
                 /// The list item is in a subview.
                 BooksItem(book: book)
             }
+            //.frame(minWidth: 200, idealWidth: 200, maxWidth: 350, maxHeight: .infinity)
         }
+        //.frame(minWidth: 200)
+        .listStyle(SidebarListStyle())
+        .navigationSubtitle("Write a beautifull book")
         .toolbar {
             ToolbarItem {
                 
@@ -34,10 +38,11 @@ struct BooksView: View {
                     SelectBooksFolder(books)
                 } ) {
                     HStack {
-                    Image(systemName: "square.and.pencil")
+                    Image(systemName: "square.and.arrow.up.on.square")
                     Text(GetLastPath(pathBooks))
                     }
                 }
+                .help("The folder with your books")
             }
 
             ToolbarItem {
@@ -45,10 +50,10 @@ struct BooksView: View {
                 Button(action: {
                     SelectExportFolder()
                 } ) {
-                    Image(systemName: "books.vertical")
+                    Image(systemName: "square.and.arrow.down.on.square")
                     Text(GetLastPath(pathExport))
-                    
                 }
+                .help("The export folder")
             }
         }
     }
@@ -67,7 +72,7 @@ struct BooksItem: View {
             Image(nsImage: GetCover(cover: book.cover))
                 .resizable().frame(width: 60.0, height: 90.0)
             VStack(alignment: .leading) {
-                Text(book.title).fontWeight(.bold)
+                Text(book.title).fontWeight(.bold).lineLimit(2)
                 Text(book.author)
                 if !book.collection.isEmpty {
                     Text(book.collection + " " + book.position).font (.caption)
@@ -78,29 +83,5 @@ struct BooksItem: View {
             Spacer()
         }
         .padding(.vertical, 8.0)
-    }
-}
-
-struct ToolbarModifier: ViewModifier {
-    func body(content: Content) -> some View {
-
-        content
-            .toolbar {
-                ToolbarItem {
-                    Button(action: {
-                        
-                    } ) {
-
-                    }
-                }
-
-                ToolbarItem {
-                    Button(action: {
-                        
-                    } ) {
-                        Image(systemName: "uiwindow.split.2x1")
-                    }
-                }
-            }
     }
 }

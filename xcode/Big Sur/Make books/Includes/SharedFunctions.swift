@@ -161,6 +161,22 @@ func GetArgs(_ books: Books) -> String {
     return (makeArgs)
 }
 
+// ApplyTheme(scheme)
+// -------------------
+// Gets selected theme
+// Set the window appearance
+
+func ApplyTheme(_ appTheme: String) {
+    switch appTheme {
+        case "dark":
+            NSApp.appearance = NSAppearance(named: .darkAqua)
+        case "light":
+            NSApp.appearance = NSAppearance(named: .aqua)
+        default:
+            NSApp.appearance = nil
+    }
+}
+
 // Folder selectors
 // -------------------
 

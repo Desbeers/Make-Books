@@ -1,25 +1,25 @@
+//  MakeBooksApp.swift
+//  Make books
 //
-//  TestApp.swift
-//  Test
-//
-//  Created by Nick Berendsen on 16/08/2020.
-//
+//  Copyright © 2020 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
 @main
 struct TestApp: App {
-    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
-    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
-
+    /// Get the books with all options
     var books = Books()
-    
+    /// The Scene
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(books)
         }
+        .commands {
+            /// Show or hide the sidebar
+            SidebarCommands()
+        }
         Settings {
-            PrefsView().environmentObject(books)
+            PrefsView().environmentObject(books).frame(width: 400)
         }
     }
 }

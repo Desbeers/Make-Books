@@ -14,32 +14,35 @@ import SwiftUI
 struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
-    /// The view
-    
+    /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
     @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
-
-    
+    @AppStorage("appTheme") var appTheme: String = "system"
+    /// The view
     var body: some View {
         GeometryReader { geometry in
             HStack(spacing: 0) {
                 BooksView()
                     .frame(width: self.ListWidth(width: geometry.size.width))
-                    .listStyle(SidebarListStyle())
+                    //.listStyle(SidebarListStyle())
                 VStack() {
                     OptionsView()
                     MakeView()
                 }
-                
             }
         }
+        .frame(minWidth: 640, minHeight: 400)
         // Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
             if self.books.activeSheet == "log" {
                 LogSheet(showLog: self.$books.showSheet).environmentObject(self.books)
             }
         }
+        .onAppear {
+            ApplyTheme(appTheme)
+        }
     }
+    
     func ListWidth(width: CGFloat) -> CGFloat {
         let minWidth = width * 0.35
         if minWidth > 220 {

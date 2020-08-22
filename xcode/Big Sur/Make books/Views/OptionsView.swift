@@ -13,14 +13,15 @@ struct OptionsView: View {
     
     @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
     @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
-    @AppStorage("fontSize") var fontSize: Int = 1
-    @AppStorage("paperSize") var paperSize: Int = 1
+    @AppStorage("fontSize") var fontSize: String = "11pt"
+    @AppStorage("paperSize") var paperSize: String = "ebook"
     
     /// The View
     var body: some View {
         VStack() {
 
             /// BEGIN `options for Make`
+            Spacer()
             /// In a ZStack because it has a background
             ZStack() {
                 Image("MainBackground")
@@ -29,8 +30,7 @@ struct OptionsView: View {
                     .frame(width: 300, height: 300)
                     .blendMode(.softLight)
                     .opacity(0.9)
-                VStack() {
-                    Divider().padding(.horizontal)
+                VStack(alignment: .leading) {
                     /// Another VStack to align the content to the left
                     VStack(alignment: .leading) {
                         /// Start the ForEach at 1, because 0 is the "clean" option at the botom
@@ -46,14 +46,16 @@ struct OptionsView: View {
                                 .padding(.leading)
                             }
                     }.padding(.horizontal)
-                    Divider().padding(.horizontal)
-                     /// And at last, the 'clean' option
-                     Toggle(isOn: self.$books.optionsMake[0].isSelected) {
-                         Text(self.books.optionsMake[0].label)
-                     }
+                    
+
                 }
                 /// No more ZStack
             }
+            /// And at last, the 'clean' option
+            Toggle(isOn: self.$books.optionsMake[0].isSelected) {
+                Text(self.books.optionsMake[0].label)
+            }
+            .help(books.optionsMake[0].text)
             /// Warn if you really want to clean
             //if books.optionsMake[0].isSelected {
             Text(self.books.optionsMake[0].isSelected ? self.books.optionsMake[0].text : " ")

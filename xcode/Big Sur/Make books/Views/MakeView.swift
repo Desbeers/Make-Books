@@ -32,7 +32,6 @@ struct MakeView: View {
                  makeBook.terminationHandler =  {
                      _ in DispatchQueue.main.async {self.books.scripsRunning = false }
                  }
-                print(makeBook.arguments!)
                  try! makeBook.run()
              }){
              Text("Selected book")
