@@ -7,14 +7,23 @@ import SwiftUI
 
 // MARK: - Fuctions
 
+// GetDocumentsDirectory()
+// ----------
+// Returns the users Documents directory.
+// Used when no folders are selected by the user.
+
+func GetDocumentsDirectory() -> String {
+    return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+}
+
 // GetBooks()
 // ----------
 // Gets the list of all books.
-// The directory is set in the preferences
+// The directory is set in the preferences.
 
 func GetBooks() -> [MetaBooks] {
     /// The path of the books from UserDefault
-    let base = UserDefaultsConfig.pathBooks
+    let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
     /// Prepair the vars
     var meta = [String: String]()
     /// Convert path to an url
@@ -143,7 +152,6 @@ func GetArgs(_ books: Books, _ pathBooks: String, _ pathExport: String, _ pdfPap
     makeArgs += "--font " + pdfFont + " "
     makeArgs += "--books \"" + pathBooks + "\" "
     makeArgs += "--export \"" + pathExport + "\" "
-    print(makeArgs)
     for option in books.optionsMake {
         if option.isSelected == true {
             makeArgs += " " + option.make + " "
@@ -173,20 +181,19 @@ func ApplyTheme(_ appTheme: String) {
 
 /// Books folder selection
 func SelectBooksFolder(_ books: Books) {
+    let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
     let dialog = NSOpenPanel();
-    dialog.showsResizeIndicator    = true;
-    dialog.showsHiddenFiles        = false;
+    dialog.showsResizeIndicator = true;
+    dialog.showsHiddenFiles = false;
     dialog.canChooseFiles = false;
     dialog.canChooseDirectories = true;
-    // This does not work
-    ///dialog.directoryURL = URL(string: pathBooks)
+    dialog.directoryURL = URL(fileURLWithPath: base)
+    dialog.message = "Select the foder with your books"
+    dialog.prompt = "Select"
     dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
         if result == NSApplication.ModalResponse.OK {
             let result = dialog.url
-            ///UserDefaultsConfig.pathBooks = result!.path
-            ///pathBooks = result!.path
             UserDefaults.standard.set(result!.path, forKey: "pathBooks")
-            ///self.pathBooks = GetLastPath(UserDefaultsConfig.pathBooks)
             /// Refresh the list of books
             books.bookList = GetBooks()
             /// Clear the selected book (if any)
@@ -196,20 +203,19 @@ func SelectBooksFolder(_ books: Books) {
 }
 /// Export folder selection
 func SelectExportFolder() {
+    let base = UserDefaults.standard.object(forKey: "pathExport") as? String ?? GetDocumentsDirectory()
     let dialog = NSOpenPanel();
-    dialog.showsResizeIndicator    = true;
-    dialog.showsHiddenFiles        = false;
+    dialog.showsResizeIndicator = true;
+    dialog.showsHiddenFiles  = false;
     dialog.canChooseFiles = false;
     dialog.canChooseDirectories = true;
-    // This does not work in Big Sur
-    ///dialog.directoryURL = URL(string: pathExport)
+    dialog.directoryURL = URL(fileURLWithPath: base)
+    dialog.message = "Select the export folder for your books"
+    dialog.prompt = "Select"
     dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
         if result == NSApplication.ModalResponse.OK {
             let result = dialog.url
-            ///UserDefaultsConfig.pathExport = result!.path
-            //pathExport = result!.path
             UserDefaults.standard.set(result!.path, forKey: "pathExport")
-            ///self.pathExport = GetLastPath(UserDefaultsConfig.pathExport)
         }
     }
 }

@@ -14,11 +14,19 @@ struct MakeBooksApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(books)
-                .frame(minWidth: 640, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
         }
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()
+            CommandGroup(after: .sidebar)  {
+                Button(action: {
+                    books.showSheet = true
+                }) {
+                    Text("Show log")
+                }
+                .keyboardShortcut("L")
+            }
+
         }
         Settings {
             PrefsView()

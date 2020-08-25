@@ -13,8 +13,8 @@ struct MakeView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
-    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     @AppStorage("pdfFont") var pdfFont: String = "11pt"
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     /// The View
@@ -35,7 +35,7 @@ struct MakeView: View {
                             GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)
                     ]
                     makeBook.terminationHandler =  {
-                        _ in DispatchQueue.main.async {books.scripsRunning = false }
+                        _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
                     try! makeBook.run()
                 }){
@@ -48,8 +48,12 @@ struct MakeView: View {
                     books.showSheet = true
                     let makeAllBooks = Process()
                     makeAllBooks.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeAllBooks.arguments = ["--login","-c", "make-all-books " + GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeAllBooks.terminationHandler =  { _ in DispatchQueue.main.async {books.scripsRunning = false }}
+                    makeAllBooks.arguments = [
+                        "--login","-c", "make-all-books " +
+                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                    makeAllBooks.terminationHandler =  {
+                        _ in DispatchQueue.main.async { books.scripsRunning = false }
+                    }
                     try! makeAllBooks.run()
                 }){
                 Text("All books")}
@@ -59,8 +63,13 @@ struct MakeView: View {
                     books.showSheet = true
                     let makeCollection = Process()
                     makeCollection.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeCollection.arguments = ["--login","-c", "make-all-collections " + GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeCollection.terminationHandler =  { _ in DispatchQueue.main.async {books.scripsRunning = false }}
+                    makeCollection.arguments = [
+                        "--login","-c", "make-all-collections " +
+                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)
+                    ]
+                    makeCollection.terminationHandler =  {
+                        _ in DispatchQueue.main.async { books.scripsRunning = false }
+                    }
                     try! makeCollection.run()
                 }){
                 Text("Collections")}
@@ -70,8 +79,12 @@ struct MakeView: View {
                     books.showSheet = true
                     let makeFavorites = Process()
                     makeFavorites.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeFavorites.arguments = ["--login","-c", "make-all-tags " + GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeFavorites.terminationHandler =  { _ in DispatchQueue.main.async {books.scripsRunning = false }}
+                    makeFavorites.arguments = [
+                        "--login","-c", "make-all-tags " +
+                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                    makeFavorites.terminationHandler =  {
+                        _ in DispatchQueue.main.async { books.scripsRunning = false }
+                    }
                     try! makeFavorites.run()
                 }){
                 Text("Tags")}

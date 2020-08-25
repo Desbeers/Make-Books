@@ -12,9 +12,9 @@ struct PrefsView: View {
     var body: some View {
         VStack {
             TabView() {
-                PrefsGeneral().tabItem { Image(systemName: "gearshape"); Text("General") }.tag(0)
-                PrefsFolders().tabItem { Image(systemName: "folder"); Text("Folders") }.tag(1)
-                PrefsPdf().tabItem { Image(systemName: "doc"); Text("PDF") }.tag(2)
+                PrefsGeneral().tabItem { Image(systemName: "gearshape"); Text("General") }
+                PrefsFolders().tabItem { Image(systemName: "folder"); Text("Folders") }
+                PrefsPdf().tabItem { Image(systemName: "doc"); Text("PDF") }
             }
             .padding(40)
         }
@@ -47,8 +47,8 @@ struct PrefsFolders: View {
     // Get the books with all options
     @EnvironmentObject var books: Books
     // Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
-    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     // The View
     var body: some View {
         VStack() {

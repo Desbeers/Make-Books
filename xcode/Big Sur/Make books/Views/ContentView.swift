@@ -16,35 +16,55 @@ struct ContentView: View {
     @EnvironmentObject var books: Books
     /// Saved settings
     @AppStorage("appTheme") var appTheme: String = "system"
+    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     /// The view
     var body: some View {
-        GeometryReader { geometry in
-            HStack(spacing: 0) {
-                BooksView()
-                    .frame(width: self.ListWidth(width: geometry.size.width))
-                    //.listStyle(SidebarListStyle())
-                VStack() {
-                    OptionsView()
-                    MakeView()
-                }
+        NavigationView  {
+            BooksView()
+            VStack() {
+                OptionsView()
+                MakeView()
             }
+            .frame(minWidth: 500)
         }
-        .frame(minWidth: 640, minHeight: 400)
-        // Open the sheet if showSheet = true
+        .navigationSubtitle("Write a beautifull book")
+        /// Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
             LogSheet()
         }
+        .toolbar {
+            ToolbarItem {
+                Button(action: {
+                    SelectBooksFolder(books)
+                } ) {
+                    HStack {
+                    Image(systemName: "square.and.arrow.up.on.square")
+                    Text(GetLastPath(pathBooks))
+                    }
+                }
+                .help("The folder with your books")
+            }
+            ToolbarItem {
+                 Button(action: {
+                    SelectExportFolder()
+                } ) {
+                    Image(systemName: "square.and.arrow.down.on.square")
+                    Text(GetLastPath(pathExport))
+                }
+                .help("The export folder")
+            }
+            ToolbarItem(placement: .navigation) {
+                Button(action: {
+                    NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+                } ) {
+                    Image(systemName: "sidebar.left")
+                }
+            }
+        }
+        /// Apply the theme setting.
         .onAppear {
             ApplyTheme(appTheme)
-        }
-    }
-    
-    func ListWidth(width: CGFloat) -> CGFloat {
-        let minWidth = width * 0.35
-        if minWidth > 320 {
-            return minWidth
-        } else {
-            return 320
         }
     }
 }

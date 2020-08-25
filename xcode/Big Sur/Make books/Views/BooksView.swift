@@ -12,56 +12,52 @@ import SwiftUI
 struct BooksView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
-
-    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
-    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
-
-    //var bookList = GetTheBooks(pathBooks)
-
+    /// Saved settings
+    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
+    @State var searchText: String = ""
     /// The view
     var body: some View {
-        NavigationView  {
+        VStack() {
+            SearchBar(text: $searchText)
             /// id: \.self is needed, else selection does not work
-            List(books.bookList, id: \.self, selection: $books.bookSelected) { book in
+            List(books.bookList
+                    .filter({searchText.isEmpty ? true : $0.title.contains(searchText) || $0.author.contains(searchText) }),
+                        id: \.self, selection: $books.bookSelected) { book in
                 /// The list item is in a subview.
                 BooksItem(book: book)
             }
-            //.frame(minWidth: 200, idealWidth: 200, maxWidth: 350, maxHeight: .infinity)
         }
-        //.frame(minWidth: 200)
+        .frame(minWidth: 240)
         .listStyle(SidebarListStyle())
-        .navigationSubtitle("Write a beautifull book")
-        .toolbar {
-            ToolbarItem {
-                
-                Button(action: {
-                    SelectBooksFolder(books)
-                } ) {
-                    HStack {
-                    Image(systemName: "square.and.arrow.up.on.square")
-                    Text(GetLastPath(pathBooks))
-                    }
-                }
-                .help("The folder with your books")
-            }
-
-            ToolbarItem {
-                
-                Button(action: {
-                    SelectExportFolder()
-                } ) {
-                    Image(systemName: "square.and.arrow.down.on.square")
-                    Text(GetLastPath(pathExport))
-                }
-                .help("The export folder")
-            }
-        }
     }
 }
 
 struct BooksView_Previews: PreviewProvider {
     static var previews: some View {
         BooksView().environmentObject(Books())
+    }
+}
+
+struct SearchBar: View {
+    @Binding var text: String
+    @State private var isEditing = false
+    /// Get the books with all options
+    @EnvironmentObject var books: Books
+    var body: some View {
+        TextField("Search", text: $text)
+        .padding(.horizontal)
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+        /// Clear the selected book (if any)
+        .onTapGesture {
+            books.bookSelected = nil
+        }
+    }
+}
+
+struct SearchBar_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchBar(text: .constant(""))
     }
 }
 
@@ -82,6 +78,6 @@ struct BooksItem: View {
             /// Push all above to the left
             Spacer()
         }
-        .padding(.vertical, 8.0)
+        .padding(.vertical)
     }
 }

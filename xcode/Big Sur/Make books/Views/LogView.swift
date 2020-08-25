@@ -32,6 +32,7 @@ struct LogSheet: View {
                     Button("Close") {
                         books.showSheet = false
                     }
+                    .keyboardShortcut(.defaultAction)
                 }
             }
             .frame(minHeight: 40)
@@ -48,7 +49,7 @@ struct LogSheet_Previews: PreviewProvider {
     }
 }
 
-// View the logfile in a webkit thingy.
+// View the logfile in a webkit thingy
 struct LogView : NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView  {
         let view = WKWebView()
