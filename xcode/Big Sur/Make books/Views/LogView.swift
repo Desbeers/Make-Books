@@ -8,33 +8,43 @@ import WebKit
 
 // The sheet view
 // --------------
-// showLog: show the log file
+// showSheet: show the log file in a sheet
 // scripsRunning: the scripts are buzy
 
 struct LogSheet: View {
-    @Binding var showLog: Bool
-    
+    /// Get the books with all options
     @EnvironmentObject var books: Books
-
+    /// The view
     var body: some View {
         VStack {
-            Text(self.books.scripsRunning ? "Processing" : "Done")
-                .font(.subheadline)
-                .multilineTextAlignment(.center)
+            Text(books.scripsRunning ? "Processing" : "Done")
+                .font(.headline)
                 .padding(.top)
-            LogView().frame(width: 380)
-                .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/).background(/*@START_MENU_TOKEN@*/Color("LogColour")/*@END_MENU_TOKEN@*/).padding(.horizontal)
-            Button("Close") {
-                self.showLog = false
-            }.disabled(self.books.scripsRunning)
-        }.padding(.bottom).frame(minHeight: 300)
+            LogView()
+                .frame(width: 380)
+                .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                .background(/*@START_MENU_TOKEN@*/Color("LogColour")/*@END_MENU_TOKEN@*/)
+                .padding(.horizontal)
+            VStack() {
+                if books.scripsRunning {
+                    ProgressView()
+                } else {
+                    Button("Close") {
+                        books.showSheet = false
+                    }
+                }
+            }
+            .frame(minHeight: 40)
+        }
+        .padding(.bottom)
+        .frame(minHeight: 300)
     }
 }
 
 // Preview
 struct LogSheet_Previews: PreviewProvider {
     static var previews: some View {
-        LogSheet(showLog: .constant(true))
+        LogSheet().environmentObject(Books())
     }
 }
 

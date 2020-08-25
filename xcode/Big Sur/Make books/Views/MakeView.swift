@@ -12,64 +12,66 @@ import SwiftUI
 struct MakeView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    /// Saved settings
+    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
+    @AppStorage("pdfFont") var pdfFont: String = "11pt"
+    @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     /// The View
     var body: some View {
         // BEGIN action buttons
         HStack {
-            Button(
-             action: {
-                 self.books.scripsRunning = true
-                 self.books.activeSheet = "log"
-                 self.books.showSheet = true
-                 let makeBook = Process()
-                 makeBook.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                 makeBook.arguments = [
-                     "--login","-c", "cd '" +
-                     self.books.bookSelected!.path +
-                     "' && " + self.books.bookSelected!.script + " " +
-                     GetArgs(self.books)
-                 ]
-                 makeBook.terminationHandler =  {
-                     _ in DispatchQueue.main.async {self.books.scripsRunning = false }
-                 }
-                 try! makeBook.run()
-             }){
-             Text("Selected book")
-            }
-            .disabled(books.bookSelected == nil)
+            // Make selected book.
             Button(
                 action: {
-                    self.books.scripsRunning = true
-                    self.books.activeSheet = "log"
-                    self.books.showSheet = true
+                    books.scripsRunning = true
+                    books.showSheet = true
+                    let makeBook = Process()
+                    makeBook.executableURL = URL(fileURLWithPath: "/bin/zsh")
+                    makeBook.arguments = [
+                        "--login","-c", "cd '" +
+                            books.bookSelected!.path +
+                            "' && " + books.bookSelected!.script + " " +
+                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)
+                    ]
+                    makeBook.terminationHandler =  {
+                        _ in DispatchQueue.main.async {books.scripsRunning = false }
+                    }
+                    try! makeBook.run()
+                }){
+                Text("Selected book")}
+                /// Disable this button if no book is selected.
+                .disabled(books.bookSelected == nil)
+            Button(
+                action: {
+                    books.scripsRunning = true
+                    books.showSheet = true
                     let makeAllBooks = Process()
                     makeAllBooks.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeAllBooks.arguments = ["--login","-c", "make-all-books " + GetArgs(self.books)]
-                    makeAllBooks.terminationHandler =  { _ in DispatchQueue.main.async {self.books.scripsRunning = false }}
+                    makeAllBooks.arguments = ["--login","-c", "make-all-books " + GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                    makeAllBooks.terminationHandler =  { _ in DispatchQueue.main.async {books.scripsRunning = false }}
                     try! makeAllBooks.run()
                 }){
                 Text("All books")}
             Button(
                 action: {
-                    self.books.scripsRunning = true
-                    self.books.activeSheet = "log"
-                    self.books.showSheet = true
+                    books.scripsRunning = true
+                    books.showSheet = true
                     let makeCollection = Process()
                     makeCollection.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeCollection.arguments = ["--login","-c", "make-all-collections " + GetArgs(self.books)]
-                    makeCollection.terminationHandler =  { _ in DispatchQueue.main.async {self.books.scripsRunning = false }}
+                    makeCollection.arguments = ["--login","-c", "make-all-collections " + GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                    makeCollection.terminationHandler =  { _ in DispatchQueue.main.async {books.scripsRunning = false }}
                     try! makeCollection.run()
                 }){
                 Text("Collections")}
             Button(
                 action: {
-                    self.books.scripsRunning = true
-                    self.books.activeSheet = "log"
-                    self.books.showSheet = true
+                    books.scripsRunning = true
+                    books.showSheet = true
                     let makeFavorites = Process()
                     makeFavorites.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeFavorites.arguments = ["--login","-c", "make-all-tags " + GetArgs(self.books)]
-                    makeFavorites.terminationHandler =  { _ in DispatchQueue.main.async {self.books.scripsRunning = false }}
+                    makeFavorites.arguments = ["--login","-c", "make-all-tags " + GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                    makeFavorites.terminationHandler =  { _ in DispatchQueue.main.async {books.scripsRunning = false }}
                     try! makeFavorites.run()
                 }){
                 Text("Tags")}

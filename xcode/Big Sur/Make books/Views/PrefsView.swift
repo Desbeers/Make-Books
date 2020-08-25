@@ -60,7 +60,7 @@ struct PrefsFolders: View {
                     Text("Change")
                 }
             }
-            Spacer()
+            Divider().padding(.vertical)
             Text("Where shall we export them?")
                 .font(.headline)
             HStack () {
@@ -73,48 +73,33 @@ struct PrefsFolders: View {
     }
 }
 
+
 struct PrefsPdf: View {
+    // Saved settings
     @AppStorage("pdfFont") var pdfFont: String = "11pt"
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
-    
+    // The View
     var body: some View {
         VStack() {
-            Text("Paper format")
-                .font(.headline)
-            Picker(selection: $pdfPaper, label: Text("Select an option:")) {
-                Text("A4 paper").tag("a4paper")
-                Text("A5 paper").tag("a5paper")
-                Text("US trade (6 by 9 inch)").tag("ebook")
-            }
-            Divider().padding(.vertical)
-            Text("Font size")
-            Picker(selection: $pdfFont, label: Text("Select an option:")) {
+            Text("Font size").font(.headline)
+            Picker(selection: $pdfFont, label: Text("Font size:")) {
                 Text("10 points").tag("10pt")
                 Text("11 points").tag("11pt")
                 Text("12 points").tag("12pt")
                 Text("14 points").tag("14pt")
             }
-
-
-            
-
-//            Picker(selection: $paperSize, label: Text("Paper format")
-//                ) {
-//                    ForEach(optionsPaper, id: \.self) { paper in
-//                        Text(paper.text).tag(paper.id)
-//                    }
-//            }
-//            Spacer()
-//            Text("Font size")
-//                .font(.headline)
-//            Picker(selection: $fontSize, label: Text("Paper format")
-//                ) {
-//                    ForEach(optionsFont, id: \.self) { font in
-//                        Text(font.text).tag(font.id)
-//                    }
-//            }
-//            .labelsHidden() .pickerStyle(RadioGroupPickerStyle())
-//            .horizontalRadioGroupLayout()
+            .pickerStyle(RadioGroupPickerStyle())
+            .horizontalRadioGroupLayout()
+            .labelsHidden()
+            Divider().padding(.vertical)
+            Text("Paper format").font(.headline)
+            Picker(selection: $pdfPaper, label: Text("Paper format:")) {
+                Text("A4 paper").tag("a4paper")
+                Text("A5 paper").tag("a5paper")
+                Text("US trade (6 by 9 inch)").tag("ebook")
+            }
+            // BUG: Below makes the app crash when switching tabs.
+            /// .labelsHidden()
         }
     }
 }

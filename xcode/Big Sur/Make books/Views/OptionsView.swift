@@ -35,10 +35,10 @@ struct OptionsView: View {
                     VStack(alignment: .leading) {
                         /// Start the ForEach at 1, because 0 is the "clean" option at the botom
                         ForEach(1 ..< books.optionsMake.count) { index in
-                            Toggle(isOn: self.$books.optionsMake[index].isSelected) {
-                                Text(self.books.optionsMake[index].label).fontWeight(.bold)
+                            Toggle(isOn: $books.optionsMake[index].isSelected) {
+                                Text(books.optionsMake[index].label).fontWeight(.bold)
                             }
-                            Text(self.books.optionsMake[index].text)
+                            Text(books.optionsMake[index].text)
                                 
                                 .foregroundColor(Color.secondary)
                                 .lineLimit(2)
@@ -52,13 +52,13 @@ struct OptionsView: View {
                 /// No more ZStack
             }
             /// And at last, the 'clean' option
-            Toggle(isOn: self.$books.optionsMake[0].isSelected) {
-                Text(self.books.optionsMake[0].label)
+            Toggle(isOn: $books.optionsMake[0].isSelected) {
+                Text(books.optionsMake[0].label)
             }
             .help(books.optionsMake[0].text)
             /// Warn if you really want to clean
             //if books.optionsMake[0].isSelected {
-            Text(self.books.optionsMake[0].isSelected ? self.books.optionsMake[0].text : " ")
+            Text(books.optionsMake[0].isSelected ? books.optionsMake[0].text : " ")
                 .font(.caption)
                 .foregroundColor(Color.secondary)
                 .animation(.easeInOut)

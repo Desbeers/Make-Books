@@ -132,27 +132,18 @@ func GetLastPath(_ path: String) -> String {
     return lastPath
 }
 
-// GetFolderIcon(path)
-// -------------------
-// Gets the full path to the folder
-// Returns an image
-
-func GetFolderIcon(_ path: String) -> NSImage {
-    let fileIcon = NSWorkspace.shared.icon(forFile: path)
-    return fileIcon
-}
-
 // GetArgs(path)
 // -------------------
 // Gets the full book object
 // Returns a string with arguments
 
-func GetArgs(_ books: Books) -> String {
+func GetArgs(_ books: Books, _ pathBooks: String, _ pathExport: String, _ pdfPaper: String, _ pdfFont: String) -> String {
     var makeArgs = ""
-    makeArgs += "--paper " + books.optionsPaper[UserDefaultsConfig.paperSize].system + " "
-    makeArgs += "--font " + books.optionsFont[UserDefaultsConfig.fontSize].system + " "
-    makeArgs += "--books \"" + UserDefaultsConfig.pathBooks + "\" "
-    makeArgs += "--export \"" + UserDefaultsConfig.pathExport + "\" "
+    makeArgs += "--paper " + pdfPaper + " "
+    makeArgs += "--font " + pdfFont + " "
+    makeArgs += "--books \"" + pathBooks + "\" "
+    makeArgs += "--export \"" + pathExport + "\" "
+    print(makeArgs)
     for option in books.optionsMake {
         if option.isSelected == true {
             makeArgs += " " + option.make + " "

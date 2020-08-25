@@ -15,8 +15,6 @@ struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
-    @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
     @AppStorage("appTheme") var appTheme: String = "system"
     /// The view
     var body: some View {
@@ -34,9 +32,7 @@ struct ContentView: View {
         .frame(minWidth: 640, minHeight: 400)
         // Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
-            if self.books.activeSheet == "log" {
-                LogSheet(showLog: self.$books.showSheet).environmentObject(self.books)
-            }
+            LogSheet()
         }
         .onAppear {
             ApplyTheme(appTheme)
@@ -45,10 +41,10 @@ struct ContentView: View {
     
     func ListWidth(width: CGFloat) -> CGFloat {
         let minWidth = width * 0.35
-        if minWidth > 220 {
+        if minWidth > 320 {
             return minWidth
         } else {
-            return 220
+            return 320
         }
     }
 }

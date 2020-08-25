@@ -16,13 +16,13 @@ struct BooksView: View {
     @AppStorage("pathBooks") var pathBooks: String = FileManager.default.homeDirectoryForCurrentUser.path
     @AppStorage("pathExport") var pathExport: String = FileManager.default.homeDirectoryForCurrentUser.path
 
-    //var bookList = GetBooks()
+    //var bookList = GetTheBooks(pathBooks)
 
     /// The view
     var body: some View {
         NavigationView  {
             /// id: \.self is needed, else selection does not work
-            List(books.bookList, id: \.self, selection: self.$books.bookSelected) { book in
+            List(books.bookList, id: \.self, selection: $books.bookSelected) { book in
                 /// The list item is in a subview.
                 BooksItem(book: book)
             }
