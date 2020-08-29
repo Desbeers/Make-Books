@@ -15,14 +15,16 @@ struct BooksView: View {
     /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
-    @State var searchText: String = ""
+    @State var search: String = ""
     /// The view
     var body: some View {
         VStack() {
-            SearchBar(text: $searchText)
+            SearchField(text: $search)
+                .padding(.horizontal)
             /// id: \.self is needed, else selection does not work
             List(books.bookList
-                    .filter({searchText.isEmpty ? true : $0.title.contains(searchText) || $0.author.contains(searchText) }),
+                    .filter({search.isEmpty ? true : $0.search.contains(search)})
+                 ,
                         id: \.self, selection: $books.bookSelected) { book in
                 /// The list item is in a subview.
                 BooksItem(book: book)
@@ -39,25 +41,32 @@ struct BooksView_Previews: PreviewProvider {
     }
 }
 
-struct SearchBar: View {
+struct SearchField: NSViewRepresentable {
     @Binding var text: String
-    @State private var isEditing = false
     /// Get the books with all options
     @EnvironmentObject var books: Books
-    var body: some View {
-        TextField("Search", text: $text)
-        .padding(.horizontal)
-        .textFieldStyle(RoundedBorderTextFieldStyle())
-        /// Clear the selected book (if any)
-        .onTapGesture {
-            books.bookSelected = nil
-        }
+    func makeNSView(context: Context) -> NSSearchField {
+        let searchField = NSSearchField()
+        searchField.delegate = context.coordinator
+        return searchField
     }
-}
-
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBar(text: .constant(""))
+    func updateNSView(_ nsView: NSSearchField, context: Context) {
+        nsView.stringValue = text
+    }
+    func makeCoordinator() -> SearchField.Coordinator {
+        Coordinator(parent: self)
+    }
+    class Coordinator: NSObject, NSSearchFieldDelegate  {
+        let parent: SearchField
+        init(parent: SearchField) {
+            self.parent = parent
+        }
+        func controlTextDidChange(_ obj: Notification) {
+            let searchField = obj.object as! NSSearchField
+            parent.text = searchField.stringValue
+            /// Clear the selected book (if any)
+            parent.books.bookSelected = nil
+        }
     }
 }
 
@@ -78,6 +87,6 @@ struct BooksItem: View {
             /// Push all above to the left
             Spacer()
         }
-        .padding(.vertical)
+        .padding(.vertical, 6)
     }
 }

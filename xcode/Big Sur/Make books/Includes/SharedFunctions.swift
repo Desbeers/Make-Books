@@ -65,7 +65,8 @@ func GetBooks() -> [MetaBooks] {
                     position: meta["group-position"]!,
                     path: meta["path"]!,
                     type: meta["type"]!,
-                    script: meta["script"]!
+                    script: meta["script"]!,
+                    search: meta["title"]! + meta["author"]!
                 ))
             }
         }
@@ -86,6 +87,7 @@ struct MetaBooks: Hashable {
     var path: String = ""
     var type: String = ""
     var script: String = ""
+    var search: String = ""
 }
 
 // GetMeta(path)
