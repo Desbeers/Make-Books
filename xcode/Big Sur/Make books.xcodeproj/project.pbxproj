@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		016D359A24FC58A3001F9C66 /* MakeBooksHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = 016D359924FC58A3001F9C66 /* MakeBooksHelp.help */; };
 		01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */; };
 		D7075A3E242EDF9800A36157 /* log.html in Resources */ = {isa = PBXBuildFile; fileRef = D7075A3D242EDF9800A36157 /* log.html */; };
 		D71F5869244368C00021D95F /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F5868244368C00021D95F /* BooksView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		016D359924FC58A3001F9C66 /* MakeBooksHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MakeBooksHelp.help; sourceTree = "<group>"; };
 		01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D704B53E24506D4E00470582 /* MakeBooksDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MakeBooksDebug.entitlements; sourceTree = "<group>"; };
 		D7075A3D242EDF9800A36157 /* log.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = log.html; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		D739D2C623B36419006EF379 /* Make books */ = {
 			isa = PBXGroup;
 			children = (
+				016D359924FC58A3001F9C66 /* MakeBooksHelp.help */,
 				01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */,
 				D7D2D8E02435851F00736F07 /* Includes */,
 				D740BC6B24306E0600DE476E /* Log */,
@@ -179,6 +182,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016D359A24FC58A3001F9C66 /* MakeBooksHelp.help in Resources */,
 				D7075A3E242EDF9800A36157 /* log.html in Resources */,
 				D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */,
 				D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */,
@@ -323,7 +327,7 @@
 		D739D2EE23B3641A006EF379 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBigSur;
 				CODE_SIGN_ENTITLEMENTS = "Make books/MakeBooksDebug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -349,7 +353,7 @@
 		D739D2EF23B3641A006EF379 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBigSur;
 				CODE_SIGN_ENTITLEMENTS = "Make books/MakeBooks.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

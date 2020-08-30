@@ -66,7 +66,8 @@ func GetBooks() -> [MetaBooks] {
                     path: meta["path"]!,
                     type: meta["type"]!,
                     script: meta["script"]!,
-                    search: meta["title"]! + meta["author"]!
+                    /// Cheap solution to make both fields searchable.
+                    search: meta["title"]! + " " + meta["author"]!
                 ))
             }
         }

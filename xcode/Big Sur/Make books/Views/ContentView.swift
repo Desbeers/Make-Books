@@ -26,9 +26,9 @@ struct ContentView: View {
                 OptionsView()
                 MakeView()
             }
-            .frame(minWidth: 500)
+            .frame(minWidth: 420)
         }
-        .navigationSubtitle("Write a beautifull book")
+        .navigationSubtitle(books.bookSelected != nil ? books.bookSelected!.title : "Write a beautifull book")
         /// Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
             LogSheet()
@@ -40,19 +40,19 @@ struct ContentView: View {
                 } ) {
                     HStack {
                     Image(systemName: "square.and.arrow.up.on.square")
-                    Text(GetLastPath(pathBooks))
+                    //Text(GetLastPath(pathBooks))
                     }
                 }
-                .help("The folder with your books")
+                .help("The folder with your books: " + GetLastPath(pathBooks))
             }
             ToolbarItem {
                  Button(action: {
                     SelectExportFolder()
                 } ) {
                     Image(systemName: "square.and.arrow.down.on.square")
-                    Text(GetLastPath(pathExport))
+                    //Text(GetLastPath(pathExport))
                 }
-                .help("The export folder")
+                .help("The export folder: " + GetLastPath(pathExport))
             }
             ToolbarItem(placement: .navigation) {
                 Button(action: {

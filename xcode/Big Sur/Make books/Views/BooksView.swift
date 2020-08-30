@@ -22,13 +22,12 @@ struct BooksView: View {
             SearchField(text: $search)
                 .padding(.horizontal)
             /// id: \.self is needed, else selection does not work
-            List(books.bookList
-                    .filter({search.isEmpty ? true : $0.search.contains(search)})
-                 ,
-                        id: \.self, selection: $books.bookSelected) { book in
+            List(books.bookList.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}),
+                 id: \.self, selection: $books.bookSelected) { book in
                 /// The list item is in a subview.
                 BooksItem(book: book)
             }
+            //.id(UUID())
         }
         .frame(minWidth: 240)
         .listStyle(SidebarListStyle())
@@ -76,6 +75,9 @@ struct BooksItem: View {
         HStack(alignment: .center) {
             Image(nsImage: GetCover(cover: book.cover))
                 .resizable().frame(width: 60.0, height: 90.0)
+                .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
+                .padding(.trailing, 10)
+                .padding(.leading, 2)
             VStack(alignment: .leading) {
                 Text(book.title).fontWeight(.bold).lineLimit(2)
                 Text(book.author)

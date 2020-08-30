@@ -20,7 +20,7 @@ struct OptionsView: View {
                 Image("MainBackground")
                     /// Resizable needed or else it does not risize
                     .resizable()
-                    .frame(width: 380, height: 380)
+                    .frame(width: 300, height: 300)
                     //.blendMode(.softLight)
                     .opacity(0.1)
                 VStack(alignment: .leading) {
