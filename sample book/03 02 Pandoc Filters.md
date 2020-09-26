@@ -28,7 +28,7 @@ The `horizontal rule` is misused to get some space between two paragraphs. For L
 
 ## Chapter précis filter
 
-The `######` header has a special function for me. I use it to write the date/place of a story after the `#` header. In Latex, it will become a `\chapterprecishere` and in ePub/html a div with class `chapterprecis`.
+The `######` header has a special function for me. I use it to write the date/place of a story after the `#` header. In Latex, it is a `\subparagraph` styles as a “Chapter précis ”and in ePub/html a div with class `chapterprecis`.
 
 ## Headers filter
 

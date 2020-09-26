@@ -52,6 +52,10 @@ Well, just “normal” Markdown. Plain (haha) and simple.
 
 Lets write in *italic* or in **bold**...
 
+	I made a ~~mistake~~ stiketrough...
+
+I made a ~~mistake~~ striketrough...
+
 ### Quotations:
 
 	> "I’m a quote!"
@@ -73,6 +77,16 @@ They can have numbers as well...
 
 1. I’m a numbered list item
 2. And so am I!
+
+### Footnotes:
+
+Footnotes can be in the paragraph itself `^[This is a footnote.]` However, the Pandoc way of putting footnotes in a book also allows for naming the footnote inline like so:
+
+	Here is a footnote reference,[^1]
+
+and the footnote itself can be at the end of the document like so:
+
+	[^1]: Here is the footnote.
 
 ---
 
