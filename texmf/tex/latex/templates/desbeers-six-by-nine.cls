@@ -13,9 +13,13 @@
 % etoolbox: for disabling microsetup for verbatim.
 % fontspec: use TTF fonts; used for drop-caps.
 % caption: captions underneath images.
-\RequirePackage{graphicx,etoolbox,fontspec,caption}
+% float: exact image positioning
+\RequirePackage{graphicx,etoolbox,fontspec,caption,float}
 \captionsetup[figure]{font=small}
-
+% use a font with all funny characters
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
 % ulem: for strikethroughs. normalem needed or else italic is underlined.
 \RequirePackage[normalem]{ulem}
 
