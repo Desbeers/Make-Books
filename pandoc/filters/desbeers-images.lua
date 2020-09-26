@@ -16,7 +16,7 @@ function Image (el)
     if FORMAT:match 'latex' then
         local theimage
         theimage = '\\medskip\n'
-        theimage = theimage .. '\\begin{figure}[h]\n'
+        theimage = theimage .. '\\begin{figure}[H]\n'
         theimage = theimage .. '\\centering\n'
         theimage = theimage .. '\\captionsetup{width=.92\\linewidth}\n'
         if el['attributes']['width'] then
