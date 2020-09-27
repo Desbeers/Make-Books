@@ -1,0 +1,50 @@
+#!/bin/zsh
+
+#####################################################
+#                                                   #
+# MAKE BOOKS menu for Window Maker                  #
+#                                                   #
+#####################################################
+
+# Include the shared script:
+. "${0:a:h:h}/includes/shared.zsh"
+. $local/includes/variables.zsh
+
+process() {
+    cd ${book:a:h:h}
+    # Double check if it actualy a book or just a file with the same name
+    if [ -f ./assets/make-book.md ]; then
+        metadata_file='assets/make-book.md'
+        # Setup the variables:
+        clear_variables
+        . $local/includes/variables.zsh
+        book_list["$author","$title"]=$PWD
+    fi
+}
+
+# Open the menu
+print "\"Make books\" MENU"
+# Make an array
+declare -A book_list
+# Find all items
+find  $books -name make-book.md -type f | while read book; do process "$book"; done
+# Write the items
+for key ("${(@ko)book_list}") {
+    item=("${(@s/,/)key}")
+    if [[ $sub != $item[1] ]] {
+        if [[ $sub ]] {
+            print $sub "END"
+        }
+        print $item[1] "MENU"
+        sub=$item[1]
+    }
+    print $item[2] "MENU"
+    print "\"Make a PDF\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book pdf"
+    print "\"Make an ePub\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book epub"
+    print "\"Clean the export\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book clean"
+    print $item[2] "END"
+}
+# Close the last author
+print $sub "END"
+# Close the menu
+print "\"Make books\" END"
