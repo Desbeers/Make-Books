@@ -9,7 +9,13 @@
 local="${0:a:h:h}"
 
 # Configuration file:
-. $local/config.zsh
+if [[ -f $HOME/.config/make-books/config.zsh ]]; then
+    echo "Using local configuration." >&2
+    . $HOME/.config/make-books/config.zsh
+else
+    echo "Using system configuration." >&2
+    . $local/config.zsh
+fi
 
 # Overrule config from command line
 zparseopts -E -D -paper:=p -font:=f -export:=e -books:=b
