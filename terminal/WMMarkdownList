@@ -1,0 +1,61 @@
+#!/bin/zsh
+
+    # Get the parent dir
+    #parent=${${file%/*}##*/}
+    # Get the filename without extention
+    #item=${file:t:r}
+
+
+#####################################################
+#                                                   #
+# MAKE BOOKS menu for Window Maker                  #
+#                                                   #
+#####################################################
+
+# Include the shared script:
+. "${0:a:h:h}/includes/shared.zsh"
+. $local/includes/variables.zsh
+
+process() {
+    # Get the parent dir
+    #parent=${${book%/*}##*/}
+    
+    #parent=${book:h}
+    
+    parent=${${book:h}//\//}
+    
+    item=${book:t:r}	
+    book_list["$parent","$item"]=$book
+}
+
+#echo "Update Markdown menu for WindowMaker."
+
+menu=$HOME/GNUstep/Defaults/WMMarkdownList
+# Open the menu
+print "\"Leesvoer\" MENU" > $menu
+
+# Make an array
+declare -A book_list
+# Find all items
+find  $books -name "*.md" -type f | while read book; do process "$book"; done
+# Write the items
+for key ("${(@ko)book_list}") {
+    item=("${(@s/,/)key}")
+    if [[ $sub != $item[1] ]] {
+        if [[ $sub ]] {
+            print ""${sub}"" "END" >> $menu
+        }
+        print ""${item[1]}"" "MENU" >> $menu
+        sub=$item[1]
+    }
+    print "$item[2] EXEC geany '$book_list[$key]'" >> $menu
+    #print $item[2] "MENU" >> $menu
+    #print "\"Make a PDF\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book pdf" >> $menu
+    #print "\"Make an ePub\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book epub" >> $menu
+    #print "\"Clean the export\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book clean" >> $menu
+    #print $item[2] "END" >> $menu
+}
+# Close the last author
+print $sub "END" >> $menu
+# Close the menu
+print "\"Leesvoer\" END" >> $menu

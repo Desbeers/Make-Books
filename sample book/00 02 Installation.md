@@ -25,6 +25,8 @@ The “drop caps” font `GreatVibes` has to be be installed on your system. It�
 
 And the whole fun stops... I’ll tried to “just use the font from the folder” and, although I could get that done, it gave more troubles... LuaLaTeX remembers where fonts are and will never forget it; unless you do magic... Didn’t want to do that kind of magic; not worth the risk of breaking even more. So... just install the font, it’s gorgeous!
 
+For PDF, the font `otf-cm-unicode` is used. You have to have it installed as part of your LaTeX installation. For Arch Linux, it is in the ‘aur’.
+
 ## Place the folder
 
 The content of the `Make-books` repo can be copied to any location on your computer. Mine is in `~/Documents/Leesvoer/scripts` for example. Only one thing, don’t move any files inside this folder, keep them in place.

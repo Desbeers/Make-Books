@@ -10,10 +10,10 @@ local="${0:a:h:h}"
 
 # Configuration file:
 if [[ -f $HOME/.config/make-books/config.zsh ]]; then
-    echo "Using local configuration." >&2
+    #echo "Using local configuration." >&2
     . $HOME/.config/make-books/config.zsh
 else
-    echo "Using system configuration." >&2
+    #echo "Using system configuration." >&2
     . $local/config.zsh
 fi
 

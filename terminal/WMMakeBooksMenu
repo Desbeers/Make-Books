@@ -21,9 +21,17 @@ process() {
         book_list["$author","$title"]=$PWD
     fi
 }
+#~/GNUstep/Defaults/WMMakeBooksMenuTEST
 
+echo "Update Make Books menu for WindowMaker."
+
+menu=$HOME/GNUstep/Defaults/WMMakeBooksMenu
 # Open the menu
-print "\"Make books\" MENU"
+print "\"Make books\" MENU" > $menu
+# Options
+print "\"Options\" MENU" >> $menu
+print "\"Refresh menu\"" "EXEC gnome-terminal --title='Update Make Books menu' --geometry=80x10 -- WMMakeBooksMenu" >> $menu
+print "\"Options\" END" >> $menu
 # Make an array
 declare -A book_list
 # Find all items
@@ -33,18 +41,19 @@ for key ("${(@ko)book_list}") {
     item=("${(@s/,/)key}")
     if [[ $sub != $item[1] ]] {
         if [[ $sub ]] {
-            print $sub "END"
+            print $sub "END" >> $menu
         }
-        print $item[1] "MENU"
+        print $item[1] "MENU" >> $menu
         sub=$item[1]
     }
-    print $item[2] "MENU"
-    print "\"Make a PDF\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book pdf"
-    print "\"Make an ePub\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book epub"
-    print "\"Clean the export\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book clean"
-    print $item[2] "END"
+    print $item[2] "MENU" >> $menu
+    print "\"Make a PDF\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book pdf" >> $menu
+    print "\"Make an ePub\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book epub" >> $menu
+    print "\"Clean the export\"" "EXEC gnome-terminal --title='Make Book' --geometry=80x10 --working-directory='"$book_list[$key]"' -- make-book clean" >> $menu
+    print $item[2] "END" >> $menu
 }
 # Close the last author
-print $sub "END"
+print $sub "END" >> $menu
 # Close the menu
-print "\"Make books\" END"
+print "\"Make books\" END" >> $menu
+
