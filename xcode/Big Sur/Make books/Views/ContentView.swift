@@ -15,7 +15,7 @@ struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// Saved settings
-    @AppStorage("appTheme") var appTheme: String = "system"
+    //@AppStorage("appTheme") var appTheme: String = "system"
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     /// The view
@@ -61,10 +61,6 @@ struct ContentView: View {
                     Image(systemName: "sidebar.left")
                 }
             }
-        }
-        /// Apply the theme setting.
-        .onAppear {
-            ApplyTheme(appTheme)
         }
     }
 }

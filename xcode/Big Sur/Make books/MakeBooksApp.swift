@@ -9,12 +9,22 @@ import SwiftUI
 struct MakeBooksApp: App {
     /// Get the books with all options
     var books = Books()
+    /// Saved theme setting
+    @AppStorage("appTheme") var appTheme: String = ".none"
     /// The Scene
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(books)
+                .background(Color("BackgroundColor"))
+                // Apply the theme setting.
+                .onAppear {
+                    ApplyTheme(appTheme)
+                }
+                //.preferredColorScheme(.dark)
+            
         }
+        
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()

@@ -23,7 +23,7 @@ struct LogSheet: View {
             LogView()
                 .frame(width: 380)
                 .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                .background(/*@START_MENU_TOKEN@*/Color("LogColour")/*@END_MENU_TOKEN@*/)
+                .background(Color("BackgroundColor"))
                 .padding(.horizontal)
             VStack() {
                 if books.scripsRunning {

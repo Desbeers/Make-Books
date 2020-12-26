@@ -191,7 +191,7 @@ func SelectBooksFolder(_ books: Books) {
     dialog.canChooseFiles = false;
     dialog.canChooseDirectories = true;
     dialog.directoryURL = URL(fileURLWithPath: base)
-    dialog.message = "Select the foder with your books"
+    dialog.message = "Select the folder with your books"
     dialog.prompt = "Select"
     dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
         if result == NSApplication.ModalResponse.OK {
