@@ -66,7 +66,7 @@ func ApplyTheme(_ appTheme: String) {
 
 /// Books folder selection
 func SelectBooksFolder(_ books: Books) {
-    let base = UserDefaults.standard.object(forKey: "pathBooksString") as? String ?? GetDocumentsDirectory()
+    let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
     let dialog = NSOpenPanel();
     dialog.showsResizeIndicator = true;
     dialog.showsHiddenFiles = false;
@@ -78,11 +78,8 @@ func SelectBooksFolder(_ books: Books) {
     dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
         if result == NSApplication.ModalResponse.OK {
             let result = dialog.url
-            /// Save the url so next time this dialog is opened it will go to this folder.
-            /// Sandbox stuff seems to be ok with that....
-            UserDefaults.standard.set(result!.path, forKey: "pathBooksString")
-            /// Create a persistent bookmark for the folder the user just selected
-            _ = SetPersistentFileURL("pathBooks", result!)
+            /// Save the url
+            UserDefaults.standard.set(result!.path, forKey: "pathBooks")
             /// Refresh the list of songs
             books.bookList = GetBooksList()
             /// Clear the selected book (if any)
@@ -92,7 +89,7 @@ func SelectBooksFolder(_ books: Books) {
 }
 /// Export folder selection
 func SelectExportFolder() {
-    let base = UserDefaults.standard.object(forKey: "pathExportString") as? String ?? GetDocumentsDirectory()
+    let base = UserDefaults.standard.object(forKey: "pathExport") as? String ?? GetDocumentsDirectory()
     let dialog = NSOpenPanel();
     dialog.showsResizeIndicator = true;
     dialog.showsHiddenFiles  = false;
@@ -104,48 +101,8 @@ func SelectExportFolder() {
     dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
         if result == NSApplication.ModalResponse.OK {
             let result = dialog.url
-            UserDefaults.standard.set(result!.path, forKey: "pathExportString")
-            /// Create a persistent bookmark for the folder the user just selected
-            _ = SetPersistentFileURL("pathExport", result!)
+            UserDefaults.standard.set(result!.path, forKey: "pathExport")
         }
-    }
-}
-
-// Get and Set sandbox bookmarks
-// -----------------------------
-// Many thanks to https://www.appcoda.com/mac-apps-user-intent/
-
-func SetPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
-    do {
-        let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-        UserDefaults.standard.set(bookmarkData, forKey: key)
-        return true
-    } catch let error {
-        print("Could not create a bookmark because: ", error)
-        return false
-    }
-}
-
-func GetPersistentFileURL(_ key: String) -> URL? {
-    if let bookmarkData = UserDefaults.standard.data(forKey: key) {
-         do {
-            var bookmarkDataIsStale = false
-            let urlForBookmark = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &bookmarkDataIsStale)
-            if bookmarkDataIsStale {
-                print("The bookmark is outdated and needs to be regenerated.")
-                _ = SetPersistentFileURL(key, urlForBookmark)
-                return nil
- 
-            } else {
-                return urlForBookmark
-            }
-        } catch {
-            print("Error resolving bookmark:", error)
-            return nil
-        }
-    } else {
-        print("Error retrieving persistent bookmark data.")
-        return nil
     }
 }
 
@@ -156,14 +113,7 @@ func GetPersistentFileURL(_ key: String) -> URL? {
 // Defaults to a cover in the Assets bundle
 
 func GetCover(cover: String) -> NSImage {
-    if let persistentURL = GetPersistentFileURL("pathBooks") {
-        /// Sandbox stuff...
-        _ = persistentURL.startAccessingSecurityScopedResource()
-        let url = URL(fileURLWithPath: cover)
-        let imageData = try! Data(contentsOf: url)
-        persistentURL.stopAccessingSecurityScopedResource()
-        return NSImage(data: imageData)!
-    } else {
-        return NSImage(named: "CoverArt")!
-    }
+    let url = URL(fileURLWithPath: cover)
+    let imageData = try! Data(contentsOf: url)
+    return NSImage(data: imageData)!
 }

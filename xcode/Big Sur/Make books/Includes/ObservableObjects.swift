@@ -56,23 +56,18 @@ struct GetBooksList {
     /// This is a helper function to get the files.
     static func GetFiles() -> [AuthorBooks] {
         var books = [AuthorBooks]()
+        let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
+        /// Convert path to an url
+        let directoryURL = URL(fileURLWithPath: base)
         /// Get a list of all files
-        
-        if let persistentURL = GetPersistentFileURL("pathBooks") {
-            /// Sandbox stuff...
-            _ = persistentURL.startAccessingSecurityScopedResource()
-            
-            /// Get a list of all files
-            if let enumerator = FileManager.default.enumerator(atPath: persistentURL.path) {
-                for case let item as String in enumerator {
-                    if item.hasSuffix("/make-book.md") || item.hasSuffix("/make-collection.md") || item.hasSuffix("/make-tag-book.md") {
-                        var book = AuthorBooks()
-                        ParseBookFile(persistentURL.appendingPathComponent(item, isDirectory: false), item, &book)
-                        books.append(book)
-                    }
+        if let enumerator = FileManager.default.enumerator(atPath: directoryURL.path) {
+            for case let item as String in enumerator {
+                if item.hasSuffix("/make-book.md") || item.hasSuffix("/make-collection.md") || item.hasSuffix("/make-tag-book.md") {
+                    var book = AuthorBooks()
+                    ParseBookFile(directoryURL.appendingPathComponent(item, isDirectory: false), item, &book)
+                    books.append(book)
                 }
             }
-            persistentURL.stopAccessingSecurityScopedResource()
         }
         /// Sort by by date and then title.
         return books.sorted { $0.date == $1.date ? $0.title < $1.title : $0.date < $1.date  }

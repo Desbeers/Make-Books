@@ -13,8 +13,8 @@ struct MakeView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// Saved settings
-    @AppStorage("pathBooksString") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExportString") var pathExport: String = GetDocumentsDirectory()
+    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     @AppStorage("pdfFont") var pdfFont: String = "11pt"
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     /// The View
