@@ -47,8 +47,8 @@ struct PrefsFolders: View {
     // Get the books with all options
     @EnvironmentObject var books: Books
     // Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
+    @AppStorage("pathBooksString") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExportString") var pathExport: String = GetDocumentsDirectory()
     // The View
     var body: some View {
         VStack() {

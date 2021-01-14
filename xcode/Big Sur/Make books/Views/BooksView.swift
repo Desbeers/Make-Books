@@ -12,31 +12,69 @@ import SwiftUI
 struct BooksView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
-    /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     @State var search: String = ""
-    /// The view
+    
     var body: some View {
         VStack() {
-            SearchField(text: $search)
-                .padding(.horizontal)
-            /// id: \.self is needed, else selection does not work
-            List(books.bookList.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}),
-                 id: \.self, selection: $books.bookSelected) { book in
-                /// The list item is in a subview.
-                BooksItem(book: book)
+            SearchField(text: $search).padding(.horizontal, 5)
+            ScrollView() {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 110))],
+                    alignment: .center,
+                    spacing: 4,
+                    pinnedViews: [.sectionHeaders, .sectionFooters]
+                ) {
+                    ForEach(books.bookList.authors) { author in
+                    Section(header: AuthorHeader(author: author)) {
+                        ForEach(author.books.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
+                            BookListRow(book: book)
+                                .onTapGesture{
+                                    books.bookSelected = book
+                                }
+                                .background(books.bookSelected == book ? Color.secondary : Color.clear).cornerRadius(5)
+                                .animation(.linear(duration: 0.5))
+                            }
+                        }
+                    }
+                }
             }
-            //.id(UUID())
         }
-        .frame(minWidth: 240)
-        .listStyle(SidebarListStyle())
     }
 }
 
-struct BooksView_Previews: PreviewProvider {
-    static var previews: some View {
-        BooksView().environmentObject(Books())
+struct AuthorHeader: View {
+    let author: AuthorList
+
+    var body: some View {
+        ZStack {
+            Color(NSColor.windowBackgroundColor).opacity(0.9)
+            HStack {
+                Spacer()
+                Text(author.name)
+                Spacer()
+            }.padding(4)
+        }.padding(.horizontal, 5)
+    }
+}
+
+struct BookListRow: View {
+    let book: AuthorBooks
+
+    var body: some View {
+        VStack {
+            if ((book.cover) != nil) {
+                Image(nsImage: GetCover(cover: book.cover!.path))
+                    .resizable().frame(width: 90.0, height: 135.0)
+                    .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
+            } else {
+                ZStack {
+                    Image(nsImage: NSImage(named: "CoverArt")!)
+                        .resizable().frame(width: 90.0, height: 135.0)
+                        .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
+                    Text(book.title).padding()
+                }
+            }
+        }.padding(10)
     }
 }
 
@@ -69,26 +107,9 @@ struct SearchField: NSViewRepresentable {
     }
 }
 
-struct BooksItem: View {
-    var book = MetaBooks()
-    var body: some View {
-        HStack(alignment: .center) {
-            Image(nsImage: GetCover(cover: book.cover))
-                .resizable().frame(width: 60.0, height: 90.0)
-                .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
-                .padding(.trailing, 10)
-                .padding(.leading, 2)
-            VStack(alignment: .leading) {
-                Text(book.title).fontWeight(.bold).lineLimit(2)
-                Text(book.author)
-                if !book.collection.isEmpty {
-                    Text(book.collection + " " + book.position).font (.caption)
-                }
-                Text(book.type + " ∙ " + book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
-            }
-            /// Push all above to the left
-            Spacer()
-        }
-        .padding(.vertical, 6)
+extension NSSearchField {
+    open override var focusRingType: NSFocusRingType {
+        get { .none }
+        set { }
     }
 }

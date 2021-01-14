@@ -16,8 +16,8 @@ struct ContentView: View {
     @EnvironmentObject var books: Books
     /// Saved settings
     //@AppStorage("appTheme") var appTheme: String = "system"
-    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
+    @AppStorage("pathBooksString") var pathBooks: String = GetDocumentsDirectory()
+    @AppStorage("pathExportString") var pathExport: String = GetDocumentsDirectory()
     /// The view
     var body: some View {
         NavigationView  {
