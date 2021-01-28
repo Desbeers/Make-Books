@@ -20,6 +20,10 @@ struct MakeView: View {
     /// The View
     var body: some View {
         // BEGIN action buttons
+        Text(books.bookSelected != nil ? "\"" + books.bookSelected!.title + "\" is selected" : " ")
+            .font(.caption)
+            .foregroundColor(Color.secondary)
+            .animation(.easeInOut)
         HStack {
             // Make selected book.
             Button(

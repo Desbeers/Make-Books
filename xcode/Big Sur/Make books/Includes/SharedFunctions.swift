@@ -110,10 +110,32 @@ func SelectExportFolder() {
 // --------------
 // Gets path to cover
 // Returns the cover image
-// Defaults to a cover in the Assets bundle
 
 func GetCover(cover: String) -> NSImage {
     let url = URL(fileURLWithPath: cover)
     let imageData = try! Data(contentsOf: url)
     return NSImage(data: imageData)!
+}
+
+// GetHoverHelp(book)
+// --------------
+// Gets the hovered book
+// Returns a help string
+
+func GetHoverHelp(_ book: AuthorBooks) -> String {
+    return book.author + ": " + book.title
+}
+
+// FancyBackground()
+// --------------
+// Returns a sidebar color
+
+struct FancyBackground: NSViewRepresentable {
+  func makeNSView(context: Context) -> NSVisualEffectView {
+    return NSVisualEffectView()
+  }
+  
+  func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
+    // Nothing to do.
+  }
 }

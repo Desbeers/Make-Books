@@ -21,7 +21,6 @@ struct OptionsView: View {
                     /// Resizable needed or else it does not risize
                     .resizable()
                     .frame(width: 300, height: 300)
-                    //.blendMode(.softLight)
                     .opacity(0.1)
                 VStack(alignment: .leading) {
                     /// Another VStack to align the content to the left

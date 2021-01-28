@@ -26,9 +26,8 @@ struct ContentView: View {
                 OptionsView()
                 MakeView()
             }
-            .frame(minWidth: 420)
+            .frame(minWidth: 420, idealWidth: 420, maxWidth: 420)
         }
-        .navigationSubtitle(books.bookSelected != nil ? books.bookSelected!.title : "Write a beautifull book")
         /// Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
             LogSheet()
@@ -39,7 +38,7 @@ struct ContentView: View {
                     SelectBooksFolder(books)
                 } ) {
                     HStack {
-                    Image(systemName: "square.and.arrow.up.on.square")
+                    Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
                     //Text(GetLastPath(pathBooks))
                     }
                 }
@@ -49,7 +48,7 @@ struct ContentView: View {
                  Button(action: {
                     SelectExportFolder()
                 } ) {
-                    Image(systemName: "square.and.arrow.down.on.square")
+                    Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
                     //Text(GetLastPath(pathExport))
                 }
                 .help("The export folder: " + GetLastPath(pathExport))
@@ -58,7 +57,7 @@ struct ContentView: View {
                 Button(action: {
                     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
                 } ) {
-                    Image(systemName: "sidebar.left")
+                    Image(systemName: "sidebar.left").foregroundColor(.secondary)
                 }
             }
         }

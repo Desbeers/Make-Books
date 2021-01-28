@@ -17,14 +17,11 @@ struct MakeBooksApp: App {
             ContentView()
                 .environmentObject(books)
                 .background(Color("BackgroundColor"))
-                // Apply the theme setting.
+                /// Apply the theme setting.
                 .onAppear {
                     ApplyTheme(appTheme)
                 }
-                //.preferredColorScheme(.dark)
-            
         }
-        
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()
