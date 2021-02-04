@@ -88,7 +88,7 @@ ifneq ("$(wildcard $(COVER))","")
 	PANDOC_EPUB+= --epub-cover-image=$(COVER)
 	PANDOC_MOBI+= --epub-cover-image=$(COVER)
 	PANDOC_PDF+= --metadata=have-cover
-	PANDOC_KOBO+= --epub-cover-image=$(BUILD_DIR)/cover-screen-gray.jpg
+	PANDOC_KOBO+= --epub-cover-image=$(BUILD_DIR)/cover-screen-kobo.jpg
 endif
 
 # Add optional style:
@@ -225,7 +225,10 @@ $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc assets
 	$(call prepare)
 	$(call log,❁ Making your Kobo book...,making)
 ifneq ("$(wildcard $(COVER))","")
-	@$(CONVERT) assets/cover-screen.jpg -resize 632x840\! -colorspace Gray $(BUILD_DIR)/cover-screen-gray.jpg
+	@$(CONVERT) assets/cover-screen.jpg -resize 544x816\! -colorspace Gray $(BUILD_DIR)/cover-screen-kobo.jpg
+	
+	@$ magick composite -gravity center  $(BUILD_DIR)/cover-screen-kobo.jpg $(PANDOC_TEMPLATES)/cover-kobo.jpg  $(BUILD_DIR)/cover-screen-kobo.jpg
+	
 endif
 	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
 
