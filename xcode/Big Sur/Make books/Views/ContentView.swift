@@ -22,11 +22,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView  {
             BooksView()
-            VStack() {
-                OptionsView()
-                MakeView()
+            HStack() {
+                VStack() {
+                    OptionsView()
+                    MakeView()
+                }
+                Divider().padding(.vertical)
+                DropView()
             }
-            .frame(minWidth: 420, idealWidth: 420, maxWidth: 420)
+
         }
         /// Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {

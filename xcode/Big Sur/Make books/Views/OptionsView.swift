@@ -22,7 +22,8 @@ struct OptionsView: View {
                     .resizable()
                     .frame(width: 300, height: 300)
                     .opacity(0.1)
-                VStack(alignment: .leading) {
+                VStack() {
+                    Text("Make your book").font(.largeTitle)
                     /// Another VStack to align the content to the left
                     VStack(alignment: .leading) {
                         /// Start the ForEach at 1, because 0 is the "clean" option at the botom
@@ -32,8 +33,6 @@ struct OptionsView: View {
                             }
                             Text(books.optionsMake[index].text)
                                 .foregroundColor(Color.secondary)
-                                .lineLimit(2)
-                                .frame(minHeight: 36)
                                 .padding(.leading)
                             }
                     }.padding(.horizontal)

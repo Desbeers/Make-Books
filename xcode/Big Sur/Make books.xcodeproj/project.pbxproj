@@ -18,6 +18,7 @@
 		D7622D232450DBA700F9DABC /* MakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622D222450DBA700F9DABC /* MakeView.swift */; };
 		D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704EB2446B69300AE2E97 /* ObservableObjects.swift */; };
 		D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704ED2447BBFB00AE2E97 /* ContentView.swift */; };
+		D7AC56EE25D5729700AFD713 /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC56ED25D5729700AFD713 /* DropView.swift */; };
 		D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9EF90244CC31F004589AE /* SharedFunctions.swift */; };
 		D7D3FCFB24399D9D00965BAE /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3FCFA24399D9D00965BAE /* LogView.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		D7622D222450DBA700F9DABC /* MakeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeView.swift; sourceTree = "<group>"; };
 		D78704EB2446B69300AE2E97 /* ObservableObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjects.swift; sourceTree = "<group>"; };
 		D78704ED2447BBFB00AE2E97 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D7AC56ED25D5729700AFD713 /* DropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		D7C9EF90244CC31F004589AE /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7D3FCFA24399D9D00965BAE /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +122,7 @@
 				D71F5868244368C00021D95F /* BooksView.swift */,
 				D78704ED2447BBFB00AE2E97 /* ContentView.swift */,
 				D73FCFBC2439A4D600FE6897 /* PrefsView.swift */,
+				D7AC56ED25D5729700AFD713 /* DropView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */,
 				D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */,
 				D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */,
+				D7AC56EE25D5729700AFD713 /* DropView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
