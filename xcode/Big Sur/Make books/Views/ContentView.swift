@@ -9,13 +9,13 @@ import SwiftUI
 
 /// The content of the whole application.
 /// - Left is the book list
-/// - Right is the options and buttons view
+/// - Middle is the options and buttons view
+/// - Right is the "Drop file" view
 
 struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// Saved settings
-    //@AppStorage("appTheme") var appTheme: String = "system"
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     /// The view
@@ -30,7 +30,7 @@ struct ContentView: View {
                 Divider().padding(.vertical)
                 DropView()
             }
-
+            .navigationSubtitle("Write a beautifull book")
         }
         /// Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet) {
@@ -41,10 +41,7 @@ struct ContentView: View {
                 Button(action: {
                     SelectBooksFolder(books)
                 } ) {
-                    HStack {
                     Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
-                    //Text(GetLastPath(pathBooks))
-                    }
                 }
                 .help("The folder with your books: " + GetLastPath(pathBooks))
             }
@@ -53,7 +50,6 @@ struct ContentView: View {
                     SelectExportFolder()
                 } ) {
                     Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
-                    //Text(GetLastPath(pathExport))
                 }
                 .help("The export folder: " + GetLastPath(pathExport))
             }

@@ -50,7 +50,6 @@ struct AuthorHeader: View {
 
     var body: some View {
         ZStack {
-            //Color(NSColor.windowBackgroundColor).opacity(0.9)
             FancyBackground().opacity(0.9)
             VStack {
                 HStack {
@@ -83,7 +82,7 @@ struct BookListRow: View {
                         .resizable().frame(width: 90.0, height: 135.0)
                         .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
                         .cornerRadius(3)
-                    Text(book.title).padding(30)
+                    Text(book.title).padding(5).frame(width: 90.0, height: 135.0)
                 }
             }
         }

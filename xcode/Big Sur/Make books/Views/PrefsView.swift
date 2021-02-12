@@ -98,8 +98,7 @@ struct PrefsPdf: View {
                 Text("A5 paper").tag("a5paper")
                 Text("US trade (6 by 9 inch)").tag("ebook")
             }
-            // BUG: Below makes the app crash when switching tabs.
-            /// .labelsHidden()
+            .labelsHidden()
         }
     }
 }

@@ -10,7 +10,7 @@ struct MakeBooksApp: App {
     /// Get the books with all options
     var books = Books()
     /// Saved theme setting
-    @AppStorage("appTheme") var appTheme: String = ".none"
+    @AppStorage("appTheme") var appTheme: String = "system"
     /// The Scene
     var body: some Scene {
         WindowGroup {

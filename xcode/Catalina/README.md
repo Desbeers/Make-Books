@@ -1,0 +1,1 @@
+Catalina is no longer supported. It might work, however, I will not update it anymore because I moved to Big Sur and SwiftUI 2.0.
