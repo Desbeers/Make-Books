@@ -6,13 +6,12 @@
 import SwiftUI
 
 struct DropView: View {
-    let buttonTitle = "Button"
     @State var isDrop: Bool = false
     @State var isRunning: Bool = false
     @State var fileURL: URL?
     
     @EnvironmentObject var books: Books
-
+    
     var body: some View {
         VStack() {
             Spacer()
@@ -21,20 +20,20 @@ struct DropView: View {
             Spacer()
             Text("Drop a Markdown file").font(.title3)
             ZStack {
-            Image(systemName: "tray.and.arrow.down")
-                .resizable()
-                .frame(width:100, height: 100)
-                .foregroundColor(fileURL?.pathExtension == "md" ? .accentColor : .secondary)
-                .opacity(isRunning ? 0.1 : 1 )
-            RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(
-                    style: StrokeStyle(
-                        lineWidth: 4,
-                        dash: [4]
+                Image(systemName: "tray.and.arrow.down")
+                    .resizable()
+                    .frame(width:100, height: 100)
+                    .foregroundColor(fileURL?.pathExtension == "md" ? .accentColor : .secondary)
+                    .opacity(isRunning ? 0.1 : 1 )
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(
+                        style: StrokeStyle(
+                            lineWidth: 4,
+                            dash: [4]
+                        )
                     )
-                )
-                .foregroundColor(isDrop ? .red : .secondary)
-                .frame(width:160, height: 160)
+                    .foregroundColor(isDrop ? .red : .secondary)
+                    .frame(width:160, height: 160)
                 if isRunning {
                     ProgressView()
                 }
@@ -45,49 +44,48 @@ struct DropView: View {
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             }
-            Button(
-                action: {
-                    isRunning = true
-                let makePdf = Process()
-                    makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makePdf.arguments = [
-                        "--login","-c", "make-pdf '" + fileURL!.path + "'"
-                    ]
-                    makePdf.terminationHandler =  {
-                    _ in DispatchQueue.main.async { isRunning = false }
+            HStack() {
+                Button(
+                    action: {
+                        isRunning = true
+                        let makePdf = Process()
+                        makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
+                        makePdf.arguments = [
+                            "--login","-c", "make-pdf '" + fileURL!.path + "'"
+                        ]
+                        makePdf.terminationHandler =  {
+                            _ in DispatchQueue.main.async { isRunning = false }
+                        }
+                        try! makePdf.run()
+                    }) {
+                    Text(" Make PDF")
                 }
-                try! makePdf.run()
-            }) {
-                Text(" Make PDF")
+                .disabled(fileURL == nil || fileURL?.pathExtension != "md" || isRunning)
+                
+                Button("Close") {
+                    books.showSheet = false
+                }
             }
-            .disabled(fileURL == nil || fileURL?.pathExtension != "md" || isRunning)
-            Spacer()
             Spacer()
         }
-        .animation(.default)
-        
         .onDrop(of: ["public.file-url"], delegate: self)
         .padding()
+        .frame(width: 350, height: 400)
     }
 }
 
 extension DropView: DropDelegate {
-    
     func validateDrop(info: DropInfo) -> Bool {
         return info.hasItemsConforming(to: ["public.file-url"])
     }
-    
     func dropEntered(info: DropInfo) {
         self.isDrop = true
     }
-
     func dropExited(info: DropInfo) {
         self.isDrop = false
     }
-
     func performDrop(info: DropInfo) -> Bool {
         NSSound(named: "Submarine")?.play()
-        
         if let item = info.itemProviders(for: ["public.file-url"]).first {
             item.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
                 DispatchQueue.main.async {
@@ -96,12 +94,9 @@ extension DropView: DropDelegate {
                     }
                 }
             }
-            
             return true
-            
         } else {
             return false
         }
-
     }
 }

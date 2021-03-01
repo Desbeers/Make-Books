@@ -27,39 +27,44 @@ struct ContentView: View {
                     OptionsView()
                     MakeView()
                 }
-                Divider().padding(.vertical)
-                DropView()
             }
             .navigationSubtitle("Write a beautifull book")
+            .toolbar {
+                ToolbarItemGroup {
+                    Button(action: {
+                        SelectBooksFolder(books)
+                    } ) {
+                        Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
+                    }
+                    .help("The folder with your books: " + GetLastPath(pathBooks))
+                    Button(action: {
+                        SelectExportFolder()
+                    } ) {
+                        Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
+                    }
+                    .help("The export folder: " + GetLastPath(pathExport))
+                    Button(action: {
+                        books.activeSheet = .dropper
+                        books.showSheet = true
+                    } ) {
+                        Image(systemName: "square.and.pencil").foregroundColor(.secondary)
+                    }
+                    .help("Show Markdown dropper")
+                }
+            }
         }
         /// Open the sheet if showSheet = true
-        .sheet(isPresented: $books.showSheet) {
+        .sheet(isPresented: $books.showSheet, content: sheetContent)
+    }
+}
+
+extension ContentView {
+    @ViewBuilder func sheetContent() -> some View {
+        switch books.activeSheet {
+        case .log:
             LogSheet()
-        }
-        .toolbar {
-            ToolbarItem {
-                Button(action: {
-                    SelectBooksFolder(books)
-                } ) {
-                    Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
-                }
-                .help("The folder with your books: " + GetLastPath(pathBooks))
-            }
-            ToolbarItem {
-                 Button(action: {
-                    SelectExportFolder()
-                } ) {
-                    Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
-                }
-                .help("The export folder: " + GetLastPath(pathExport))
-            }
-            ToolbarItem(placement: .navigation) {
-                Button(action: {
-                    NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-                } ) {
-                    Image(systemName: "sidebar.left").foregroundColor(.secondary)
-                }
-            }
+        case .dropper:
+            DropView()
         }
     }
 }

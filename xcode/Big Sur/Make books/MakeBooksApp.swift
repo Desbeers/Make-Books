@@ -22,18 +22,26 @@ struct MakeBooksApp: App {
                     ApplyTheme(appTheme)
                 }
         }
+        .windowToolbarStyle(DefaultWindowToolbarStyle())
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()
             CommandGroup(after: .sidebar)  {
                 Button(action: {
+                    books.activeSheet = .log
                     books.showSheet = true
                 }) {
                     Text("Show log")
                 }
                 .keyboardShortcut("L")
+                Button(action: {
+                    books.activeSheet = .dropper    
+                    books.showSheet = true
+                }) {
+                    Text("Show Markdown dropper")
+                }
+                .keyboardShortcut("D")
             }
-
         }
         Settings {
             PrefsView()

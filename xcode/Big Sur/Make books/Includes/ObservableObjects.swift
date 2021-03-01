@@ -11,8 +11,13 @@ class Books: ObservableObject {
     @Published var optionsMake = MakeOptions()
     /// State of zsh scripts
     @Published var scripsRunning = false
-    /// Show sheet with log
+    /// Show sheet with log or dropper
     @Published var showSheet = false
+    @Published var activeSheet: ActiveSheet = .log
+}
+
+enum ActiveSheet {
+    case log, dropper
 }
 
 // MARK: - Structs

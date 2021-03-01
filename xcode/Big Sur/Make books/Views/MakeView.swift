@@ -29,6 +29,7 @@ struct MakeView: View {
             Button(
                 action: {
                     books.scripsRunning = true
+                    books.activeSheet = .log
                     books.showSheet = true
                     let makeBook = Process()
                     makeBook.executableURL = URL(fileURLWithPath: "/bin/zsh")
@@ -49,6 +50,7 @@ struct MakeView: View {
             Button(
                 action: {
                     books.scripsRunning = true
+                    books.activeSheet = .log
                     books.showSheet = true
                     let makeAllBooks = Process()
                     makeAllBooks.executableURL = URL(fileURLWithPath: "/bin/zsh")
@@ -64,6 +66,7 @@ struct MakeView: View {
             Button(
                 action: {
                     books.scripsRunning = true
+                    books.activeSheet = .log
                     books.showSheet = true
                     let makeCollection = Process()
                     makeCollection.executableURL = URL(fileURLWithPath: "/bin/zsh")
