@@ -126,6 +126,47 @@ func GetHoverHelp(_ book: AuthorBooks) -> String {
     return book.author + ": " + book.title
 }
 
+// ShowInFinder(url)
+// ---------------------------
+// Open a folder in the Finder
+
+func ShowInFinder(url: URL?) {
+    guard let url = url else {
+        print ("Not a valid URL")
+        return
+    }
+    /// This opens the actual folder:
+    /// NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: url.path)
+    /// This selects the folder; I like that better:
+    NSWorkspace.shared.activateFileViewerSelecting([url])
+}
+
+// DoesFileExists(url)
+// ---------------------------------
+// Checks if a file or folder exists
+// Returns TRUE or FALSE
+
+func DoesFileExists(url: URL) -> Bool {
+    if FileManager.default.fileExists(atPath: url.path) {
+        return true
+    }
+    return false
+}
+
+// ShowInTerminal(path)
+// ---------------------------
+// Open a folder in the Terminal
+
+func ShowInTerminal(url: URL?) {
+    guard let terminal = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal") else { return }
+    guard let url = url else {
+        print ("Not a valid URL")
+        return
+    }
+    let configuration = NSWorkspace.OpenConfiguration()
+    NSWorkspace.shared.open([url],withApplicationAt: terminal,configuration: configuration)
+}
+
 // FancyBackground()
 // --------------
 // Returns a sidebar color

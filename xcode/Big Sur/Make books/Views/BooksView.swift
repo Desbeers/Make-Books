@@ -13,6 +13,8 @@ struct BooksView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     @State var search: String = ""
+    /// Saved settings
+    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     
     var body: some View {
         VStack() {
@@ -35,8 +37,26 @@ struct BooksView: View {
                                         books.bookSelected = book
                                     }
                                 }
+                                .contextMenu {
+                                    Button(action: {
+                                        ShowInFinder(url: URL(fileURLWithPath: book.path))
+                                    }){
+                                        Text("Open source in Finder")
+                                    }
+                                    Button(action: {
+                                        ShowInTerminal(url: URL(fileURLWithPath: book.path))
+                                    }){
+                                        Text("Open source in Terminal")
+                                    }
+                                    Divider()
+                                    Button(action: {
+                                        ShowInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
+                                    }){
+                                        Text("Open export in Finder")
+                                    }.disabled(!DoesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
+                                }
                             }
-                            .animation(.linear(duration: 0.5))
+                            .animation(.linear(duration: 0.2))
                         }
                     }
                 }
@@ -95,7 +115,7 @@ struct BookListRow: View {
                 }
             }
         }
-        .padding(10)
+        .padding(8)
         .onHover { isHovered in
             self.hovered = isHovered
         }
@@ -104,7 +124,7 @@ struct BookListRow: View {
         )
         .scaleEffect(hovered && books.bookSelected != book ? 1.1 : 1.0)
         .animation(.default, value: hovered)
-        .background(books.bookSelected == book ? Color.accentColor : Color.clear).cornerRadius(4)
+        .background(books.bookSelected == book ? Color.accentColor.opacity(0.6) : Color.clear).cornerRadius(4)
     }
 }
 

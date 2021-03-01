@@ -28,7 +28,7 @@ struct ContentView: View {
                     MakeView()
                 }
             }
-            .navigationSubtitle("Write a beautifull book")
+            .navigationSubtitle("Write a beautiful book")
             .toolbar {
                 ToolbarItemGroup {
                     Button(action: {

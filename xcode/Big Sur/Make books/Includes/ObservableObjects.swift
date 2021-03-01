@@ -130,7 +130,7 @@ struct GetBooksList {
         var cover = file
         cover.deleteLastPathComponent()
         cover.appendPathComponent("cover-screen.jpg")
-        if FileManager.default.fileExists(atPath: cover.path) {
+        if DoesFileExists(url: cover) {
             book.cover = cover
         }
         var path = file
