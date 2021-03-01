@@ -30,7 +30,7 @@ struct ContentView: View {
             }
             .navigationSubtitle("Write a beautiful book")
             .toolbar {
-                ToolbarItemGroup {
+                HStack {
                     Button(action: {
                         SelectBooksFolder(books)
                     } ) {
@@ -43,6 +43,7 @@ struct ContentView: View {
                         Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
                     }
                     .help("The export folder: " + GetLastPath(pathExport))
+                    Divider()
                     Button(action: {
                         books.activeSheet = .dropper
                         books.showSheet = true

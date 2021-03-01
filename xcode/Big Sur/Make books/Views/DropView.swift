@@ -14,8 +14,20 @@ struct DropView: View {
     
     var body: some View {
         VStack() {
-            Spacer()
-            Text("Make a PDF").font(.largeTitle)
+            HStack() {
+                Button(
+                    action: {
+                        books.showSheet = false
+                    }) {
+                    Image(systemName: "xmark.circle")
+                        .foregroundColor(.accentColor)
+                        .font(.title)
+                }
+                .buttonStyle(PlainButtonStyle())
+                Spacer()
+                Text("Make a PDF").font(.largeTitle)
+                Spacer()
+            }
             Text("Still writing? Drop your Markdown file here and make a PDF from it. It will be saved on your Desktop for proofreading.").padding()
             Spacer()
             Text("Drop a Markdown file").font(.title3)
@@ -44,28 +56,22 @@ struct DropView: View {
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             }
-            HStack() {
-                Button(
-                    action: {
-                        isRunning = true
-                        let makePdf = Process()
-                        makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                        makePdf.arguments = [
-                            "--login","-c", "make-pdf '" + fileURL!.path + "'"
-                        ]
-                        makePdf.terminationHandler =  {
-                            _ in DispatchQueue.main.async { isRunning = false }
-                        }
-                        try! makePdf.run()
-                    }) {
-                    Text(" Make PDF")
-                }
-                .disabled(fileURL == nil || fileURL?.pathExtension != "md" || isRunning)
-                
-                Button("Close") {
-                    books.showSheet = false
-                }
+            Button(
+                action: {
+                    isRunning = true
+                    let makePdf = Process()
+                    makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
+                    makePdf.arguments = [
+                        "--login","-c", "make-pdf '" + fileURL!.path + "'"
+                    ]
+                    makePdf.terminationHandler =  {
+                        _ in DispatchQueue.main.async { isRunning = false }
+                    }
+                    try! makePdf.run()
+                }) {
+                Text(" Make PDF")
             }
+            .disabled(fileURL == nil || fileURL?.pathExtension != "md" || isRunning)
             Spacer()
         }
         .onDrop(of: ["public.file-url"], delegate: self)

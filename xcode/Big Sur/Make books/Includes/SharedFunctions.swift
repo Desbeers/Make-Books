@@ -153,7 +153,7 @@ func DoesFileExists(url: URL) -> Bool {
     return false
 }
 
-// ShowInTerminal(path)
+// ShowInTerminal(url)
 // ---------------------------
 // Open a folder in the Terminal
 
