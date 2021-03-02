@@ -11,6 +11,8 @@ class Books: ObservableObject {
     @Published var optionsMake = MakeOptions()
     /// State of zsh scripts
     @Published var scripsRunning = false
+    /// Log from zsh scripts
+    @Published var scriptsLog = ""
     /// Show sheet with log or dropper
     @Published var showSheet = false
     @Published var activeSheet: ActiveSheet = .log

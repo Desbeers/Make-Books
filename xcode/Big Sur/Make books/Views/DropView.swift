@@ -76,7 +76,7 @@ struct DropView: View {
         }
         .onDrop(of: ["public.file-url"], delegate: self)
         .padding()
-        .frame(width: 350, height: 400)
+        .frame(width: 350, height: 420)
     }
 }
 

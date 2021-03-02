@@ -28,79 +28,108 @@ struct MakeView: View {
             // Make selected book.
             Button(
                 action: {
-                    books.scripsRunning = true
-                    books.activeSheet = .log
-                    books.showSheet = true
-                    let makeBook = Process()
-                    makeBook.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeBook.arguments = [
-                        "--login","-c", "cd '" +
+                    let makeBook = makeProcess()
+                    makeBook.arguments! += ["cd '" +
                             books.bookSelected!.path +
                             "' && " + books.bookSelected!.script + " " +
                             GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)
                     ]
-                    makeBook.terminationHandler =  {
-                        _ in DispatchQueue.main.async { books.scripsRunning = false }
+                    do {
+                        try makeBook.run()
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
                     }
-                    try! makeBook.run()
                 }){
                 Text("Selected book")}
                 /// Disable this button if no book is selected.
                 .disabled(books.bookSelected == nil)
+
             Button(
                 action: {
-                    books.scripsRunning = true
-                    books.activeSheet = .log
-                    books.showSheet = true
-                    let makeAllBooks = Process()
-                    makeAllBooks.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeAllBooks.arguments = [
+                    let makeAllBooks = makeProcess()
+                    makeAllBooks.arguments! += [
                         "--login","-c", "make-all-books " +
                             GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
                     makeAllBooks.terminationHandler =  {
                         _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
-                    try! makeAllBooks.run()
+                    do {
+                        try makeAllBooks.run()
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
+                    }
                 }){
                 Text("All books")}
+
             Button(
                 action: {
-                    books.scripsRunning = true
-                    books.activeSheet = .log
-                    books.showSheet = true
-                    let makeCollection = Process()
-                    makeCollection.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeCollection.arguments = [
+                    let makeAllBooks = makeProcess()
+                    makeAllBooks.arguments! += [
                         "--login","-c", "make-all-collections " +
-                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)
-                    ]
-                    makeCollection.terminationHandler =  {
+                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                    makeAllBooks.terminationHandler =  {
                         _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
-                    try! makeCollection.run()
+                    do {
+                        try makeAllBooks.run()
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
+                    }
                 }){
                 Text("Collections")}
+            
             Button(
                 action: {
-                    books.scripsRunning = true
-                    books.showSheet = true
-                    let makeFavorites = Process()
-                    makeFavorites.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makeFavorites.arguments = [
+                    let makeAllBooks = makeProcess()
+                    makeAllBooks.arguments! += [
                         "--login","-c", "make-all-tags " +
                             GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeFavorites.terminationHandler =  {
+                    makeAllBooks.terminationHandler =  {
                         _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
-                    try! makeFavorites.run()
+                    do {
+                        try makeAllBooks.run()
+                    } catch {
+                        print("Error: \(error.localizedDescription)")
+                    }
                 }){
                 Text("Tags")}
         }.padding([.leading, .bottom, .trailing]).disabled(books.showSheet)
         // END actions buttons
     }
     // END body:
+    
+    func makeProcess() -> Process {
+        books.scriptsLog = "Making your books...\n\n"
+        books.activeSheet = .log
+        books.scripsRunning = true
+        books.showSheet = true
+        ///Make a new process
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/bin/zsh")
+        process.arguments = [ "--login","-c"]
+        /// Logging stuff
+        let pipe = Pipe()
+        pipe.fileHandleForReading.readabilityHandler = { pipe in
+            if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
+                if !line.isEmpty {
+                    DispatchQueue.main.sync {
+                        print("line: " + line)
+                        books.scriptsLog += line
+                    }
+                }
+            }
+        }
+        process.standardOutput = pipe
+        process.standardError = pipe
+        /// Notice for end of process
+        process.terminationHandler =  {
+            _ in DispatchQueue.main.async { books.scripsRunning = false }
+        }
+        return process
+    }
 }
-// END struct ContentView: View
+// END struct MakeView: View
 
 // Preview
 struct MakeView_Previews: PreviewProvider {
