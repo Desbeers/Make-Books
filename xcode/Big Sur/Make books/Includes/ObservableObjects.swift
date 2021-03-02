@@ -5,16 +5,11 @@
 
 import SwiftUI
 
+// MARK: - Observable classes
+
 class Books: ObservableObject {
     @Published var bookList = GetBooksList()
     @Published var bookSelected: AuthorBooks?
-    /// State of zsh scripts
-    @Published var scripsRunning = false
-    /// Log from zsh scripts
-    @Published var scriptsLog = ""
-    /// Show sheet with log or dropper
-    @Published var showSheet = false
-    @Published var activeSheet: ActiveSheet = .log
 }
 
 class MakeOptions: ObservableObject {
@@ -24,11 +19,27 @@ class MakeOptions: ObservableObject {
     }
 }
 
-enum ActiveSheet {
-    case log, dropper
+class Scripts: ObservableObject {
+    /// State of zsh scripts
+    @Published var isRunning = false
+    /// Log from zsh scripts
+    @Published var log = ""
+    /// Show sheet with log or dropper
+    @Published var showSheet = false
+    @Published var activeSheet: ActiveSheet = .log
+    /// The type of sheet we can show
+    enum ActiveSheet {
+        case log, dropper
+    }
 }
 
 // MARK: - Structs
+
+struct AuthorList: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let books: [AuthorBooks]
+}
 
 struct AuthorBooks: Identifiable, Hashable {
     var id = UUID()
@@ -42,12 +53,6 @@ struct AuthorBooks: Identifiable, Hashable {
     var type: String = ""
     var script: String = ""
     var search: String = ""
-}
-
-struct AuthorList: Identifiable, Hashable {
-    let id = UUID()
-    let name: String
-    let books: [AuthorBooks]
 }
 
 struct GetBooksList {
@@ -85,7 +90,6 @@ struct GetBooksList {
         /// Sort by by date and then title.
         return books.sorted { $0.date == $1.date ? $0.title < $1.title : $0.date < $1.date  }
     }
-
     /// This is a helper function to get the files.
     static func ParseBookFile(_ file: URL, _ name: String, _ book: inout AuthorBooks) {
         /// Name is used when the regex doesn't work
@@ -148,6 +152,8 @@ struct GetBooksList {
     }
 }
 
+// MARK: - Options for Make
+
 struct Make: Identifiable {
     var id = UUID()
     var make: String
@@ -155,8 +161,6 @@ struct Make: Identifiable {
     var text: String
     var isSelected: Bool
 }
-
-// MARK: - Options
 
 func GetMakeOptions() -> [Make] {
     var options = [Make]()

@@ -11,13 +11,14 @@ struct DropView: View {
     @State var fileURL: URL?
     
     @EnvironmentObject var books: Books
+    @EnvironmentObject var scripts: Scripts
     
     var body: some View {
         VStack() {
             HStack() {
                 Button(
                     action: {
-                        books.showSheet = false
+                        scripts.showSheet = false
                     }) {
                     Image(systemName: "xmark.circle")
                         .foregroundColor(.accentColor)

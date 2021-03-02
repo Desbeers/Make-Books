@@ -9,6 +9,7 @@ import SwiftUI
 struct MakeBooksApp: App {
     /// Get the books with all options
     @StateObject var books = Books()
+    @StateObject var scripts = Scripts()
     /// Saved theme setting
     @AppStorage("appTheme") var appTheme: String = "system"
     /// The Scene
@@ -16,6 +17,7 @@ struct MakeBooksApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(books)
+                .environmentObject(scripts)
                 .background(Color("BackgroundColor"))
                 /// Apply the theme setting.
                 .onAppear {
@@ -28,15 +30,15 @@ struct MakeBooksApp: App {
             SidebarCommands()
             CommandGroup(after: .sidebar)  {
                 Button(action: {
-                    books.activeSheet = .log
-                    books.showSheet = true
+                    scripts.activeSheet = .log
+                    scripts.showSheet = true
                 }) {
                     Text("Show log")
                 }
                 .keyboardShortcut("L")
                 Button(action: {
-                    books.activeSheet = .dropper    
-                    books.showSheet = true
+                    scripts.activeSheet = .dropper
+                    scripts.showSheet = true
                 }) {
                     Text("Show Markdown dropper")
                 }

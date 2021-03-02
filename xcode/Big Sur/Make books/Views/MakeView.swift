@@ -13,7 +13,9 @@ struct MakeView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
     /// Get the Make options
-    @ObservedObject var makeOptions: MakeOptions
+    var makeOptions: MakeOptions
+    /// Observe script related stuff
+    @EnvironmentObject var scripts: Scripts
     /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
@@ -52,9 +54,6 @@ struct MakeView: View {
                     makeAllBooks.arguments! += [
                         "--login","-c", "make-all-books " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeAllBooks.terminationHandler =  {
-                        _ in DispatchQueue.main.async { books.scripsRunning = false }
-                    }
                     do {
                         try makeAllBooks.run()
                     } catch {
@@ -69,9 +68,6 @@ struct MakeView: View {
                     makeAllBooks.arguments! += [
                         "--login","-c", "make-all-collections " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeAllBooks.terminationHandler =  {
-                        _ in DispatchQueue.main.async { books.scripsRunning = false }
-                    }
                     do {
                         try makeAllBooks.run()
                     } catch {
@@ -86,9 +82,6 @@ struct MakeView: View {
                     makeAllBooks.arguments! += [
                         "--login","-c", "make-all-tags " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    makeAllBooks.terminationHandler =  {
-                        _ in DispatchQueue.main.async { books.scripsRunning = false }
-                    }
                     do {
                         try makeAllBooks.run()
                     } catch {
@@ -96,16 +89,18 @@ struct MakeView: View {
                     }
                 }){
                 Text("Tags")}
-        }.padding([.leading, .bottom, .trailing]).disabled(books.showSheet)
+        }
+        .padding([.leading, .bottom, .trailing])
+        .disabled(scripts.showSheet)
         // END actions buttons
     }
     // END body:
     
     func makeProcess() -> Process {
-        books.scriptsLog = "Making your books...\n\n"
-        books.activeSheet = .log
-        books.scripsRunning = true
-        books.showSheet = true
+        scripts.log = "Making your books...\n\n"
+        scripts.activeSheet = .log
+        scripts.isRunning = true
+        scripts.showSheet = true
         ///Make a new process
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/bin/zsh")
@@ -116,7 +111,7 @@ struct MakeView: View {
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
                 if !line.isEmpty {
                     DispatchQueue.main.sync {
-                        books.scriptsLog += line
+                        scripts.log += line
                     }
                 }
             }
@@ -125,7 +120,7 @@ struct MakeView: View {
         process.standardError = pipe
         /// Notice for end of process
         process.terminationHandler =  {
-            _ in DispatchQueue.main.async { books.scripsRunning = false }
+            _ in DispatchQueue.main.async { scripts.isRunning = false }
         }
         return process
     }

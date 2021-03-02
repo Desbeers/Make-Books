@@ -15,6 +15,8 @@ import SwiftUI
 struct ContentView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    /// Observe script related stuff
+    @EnvironmentObject var scripts: Scripts
     /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
@@ -43,8 +45,8 @@ struct ContentView: View {
                 .help("The export folder: " + GetLastPath(pathExport))
                 Divider()
                 Button(action: {
-                    books.activeSheet = .dropper
-                    books.showSheet = true
+                    scripts.activeSheet = .dropper
+                    scripts.showSheet = true
                 } ) {
                     Image(systemName: "square.and.pencil").foregroundColor(.secondary)
                 }
@@ -53,13 +55,13 @@ struct ContentView: View {
         }
         //}
         /// Open the sheet if showSheet = true
-        .sheet(isPresented: $books.showSheet, content: sheetContent)
+        .sheet(isPresented: $scripts.showSheet, content: sheetContent)
     }
 }
 
 extension ContentView {
     @ViewBuilder func sheetContent() -> some View {
-        switch books.activeSheet {
+        switch scripts.activeSheet {
         case .log:
             LogSheet()
         case .dropper:

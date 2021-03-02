@@ -80,7 +80,7 @@ func SelectBooksFolder(_ books: Books) {
             let result = dialog.url
             /// Save the url
             UserDefaults.standard.set(result!.path, forKey: "pathBooks")
-            /// Refresh the list of songs
+            /// Refresh the list of books
             books.bookList = GetBooksList()
             /// Clear the selected book (if any)
             books.bookSelected = nil

@@ -14,10 +14,12 @@ import WebKit
 struct LogSheet: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    /// Observe script related stuff
+    @EnvironmentObject var scripts: Scripts
     /// The view
     var body: some View {
         VStack {
-            Text(books.scripsRunning ? "Processing" : "Done")
+            Text(scripts.isRunning ? "Processing" : "Done")
                 .font(.headline)
                 .padding(.top)
             LogView()
@@ -26,11 +28,11 @@ struct LogSheet: View {
                 .background(Color("BackgroundColor"))
                 .padding(.horizontal)
             VStack() {
-                if books.scripsRunning {
+                if scripts.isRunning {
                     ProgressView()
                 } else {
                     Button("Close") {
-                        books.showSheet = false
+                        scripts.showSheet = false
                     }
                     .keyboardShortcut(.defaultAction)
                 }
