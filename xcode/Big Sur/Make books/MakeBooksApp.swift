@@ -8,7 +8,7 @@ import SwiftUI
 @main
 struct MakeBooksApp: App {
     /// Get the books with all options
-    var books = Books()
+    @StateObject var books = Books()
     /// Saved theme setting
     @AppStorage("appTheme") var appTheme: String = "system"
     /// The Scene

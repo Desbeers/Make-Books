@@ -12,6 +12,8 @@ import SwiftUI
 struct MakeView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    /// Get the Make options
+    @ObservedObject var makeOptions: MakeOptions
     /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
@@ -32,7 +34,7 @@ struct MakeView: View {
                     makeBook.arguments! += ["cd '" +
                             books.bookSelected!.path +
                             "' && " + books.bookSelected!.script + " " +
-                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)
+                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
                     ]
                     do {
                         try makeBook.run()
@@ -49,7 +51,7 @@ struct MakeView: View {
                     let makeAllBooks = makeProcess()
                     makeAllBooks.arguments! += [
                         "--login","-c", "make-all-books " +
-                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     makeAllBooks.terminationHandler =  {
                         _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
@@ -66,7 +68,7 @@ struct MakeView: View {
                     let makeAllBooks = makeProcess()
                     makeAllBooks.arguments! += [
                         "--login","-c", "make-all-collections " +
-                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     makeAllBooks.terminationHandler =  {
                         _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
@@ -83,7 +85,7 @@ struct MakeView: View {
                     let makeAllBooks = makeProcess()
                     makeAllBooks.arguments! += [
                         "--login","-c", "make-all-tags " +
-                            GetArgs(books, pathBooks, pathExport, pdfPaper, pdfFont)]
+                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     makeAllBooks.terminationHandler =  {
                         _ in DispatchQueue.main.async { books.scripsRunning = false }
                     }
@@ -114,7 +116,6 @@ struct MakeView: View {
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
                 if !line.isEmpty {
                     DispatchQueue.main.sync {
-                        print("line: " + line)
                         books.scriptsLog += line
                     }
                 }
@@ -131,9 +132,3 @@ struct MakeView: View {
 }
 // END struct MakeView: View
 
-// Preview
-struct MakeView_Previews: PreviewProvider {
-    static var previews: some View {
-        MakeView().environmentObject(Books())
-    }
-}

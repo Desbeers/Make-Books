@@ -31,13 +31,13 @@ func GetLastPath(_ path: String) -> String {
 // Gets the full book object
 // Returns a string with arguments
 
-func GetArgs(_ books: Books, _ pathBooks: String, _ pathExport: String, _ pdfPaper: String, _ pdfFont: String) -> String {
+func GetArgs(_ options: MakeOptions, _ pathBooks: String, _ pathExport: String, _ pdfPaper: String, _ pdfFont: String) -> String {
     var makeArgs = ""
     makeArgs += "--paper " + pdfPaper + " "
     makeArgs += "--font " + pdfFont + " "
     makeArgs += "--books \"" + pathBooks + "\" "
     makeArgs += "--export \"" + pathExport + "\" "
-    for option in books.optionsMake {
+    for option in options.options {
         if option.isSelected == true {
             makeArgs += " " + option.make + " "
         }

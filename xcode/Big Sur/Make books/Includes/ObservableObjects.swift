@@ -8,7 +8,6 @@ import SwiftUI
 class Books: ObservableObject {
     @Published var bookList = GetBooksList()
     @Published var bookSelected: AuthorBooks?
-    @Published var optionsMake = MakeOptions()
     /// State of zsh scripts
     @Published var scripsRunning = false
     /// Log from zsh scripts
@@ -16,6 +15,13 @@ class Books: ObservableObject {
     /// Show sheet with log or dropper
     @Published var showSheet = false
     @Published var activeSheet: ActiveSheet = .log
+}
+
+class MakeOptions: ObservableObject {
+    @Published var options: [Make]
+    init() {
+        self.options = GetMakeOptions()
+    }
 }
 
 enum ActiveSheet {
@@ -152,7 +158,7 @@ struct Make: Identifiable {
 
 // MARK: - Options
 
-func MakeOptions() -> [Make] {
+func GetMakeOptions() -> [Make] {
     var options = [Make]()
     /// The options
     options.append(Make(make: "clean", label: "Clean all files before processing",

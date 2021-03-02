@@ -10,6 +10,8 @@ import SwiftUI
 struct OptionsView: View {
     /// Get the books with all options
     @EnvironmentObject var books: Books
+    /// Get the Make options
+    @StateObject var makeOptions = MakeOptions()
     /// The View
     var body: some View {
         VStack() {
@@ -27,11 +29,11 @@ struct OptionsView: View {
                     /// Another VStack to align the content to the left
                     VStack(alignment: .leading) {
                         /// Start the ForEach at 1, because 0 is the "clean" option at the botom
-                        ForEach(1 ..< books.optionsMake.count) { index in
-                            Toggle(isOn: $books.optionsMake[index].isSelected) {
-                                Text(books.optionsMake[index].label).fontWeight(.bold)
+                        ForEach(1 ..< makeOptions.options.count) { index in
+                            Toggle(isOn: $makeOptions.options[index].isSelected) {
+                                Text(makeOptions.options[index].label).fontWeight(.bold)
                             }
-                            Text(books.optionsMake[index].text)
+                            Text(makeOptions.options[index].text)
                                 .foregroundColor(Color.secondary)
                                 .padding(.leading)
                             }
@@ -40,12 +42,12 @@ struct OptionsView: View {
                 /// No more ZStack
             }
             /// And at last, the 'clean' option
-            Toggle(isOn: $books.optionsMake[0].isSelected) {
-                Text(books.optionsMake[0].label)
+            Toggle(isOn: $makeOptions.options[0].isSelected) {
+                Text(makeOptions.options[0].label)
             }
-            .help(books.optionsMake[0].text)
+            .help(makeOptions.options[0].text)
             /// Warn if you really want to clean
-            Text(books.optionsMake[0].isSelected ? books.optionsMake[0].text : " ")
+            Text(makeOptions.options[0].isSelected ? makeOptions.options[0].text : " ")
                 .font(.caption)
                 .foregroundColor(Color.secondary)
                 .animation(.easeInOut)
@@ -54,6 +56,7 @@ struct OptionsView: View {
             /// Two Spacers because it should twice space as much than between settings and buttons
             Spacer()
             Spacer()
+            MakeView(makeOptions: makeOptions)
         }
     }
 }

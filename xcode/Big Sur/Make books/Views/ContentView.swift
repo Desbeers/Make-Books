@@ -22,38 +22,36 @@ struct ContentView: View {
     var body: some View {
         NavigationView  {
             BooksView()
-            HStack() {
-                VStack() {
-                    OptionsView()
-                    MakeView()
+            
+            OptionsView()
+            
+        }
+        .navigationSubtitle("Write a beautiful book")
+        .toolbar {
+            HStack {
+                Button(action: {
+                    SelectBooksFolder(books)
+                } ) {
+                    Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
                 }
-            }
-            .navigationSubtitle("Write a beautiful book")
-            .toolbar {
-                HStack {
-                    Button(action: {
-                        SelectBooksFolder(books)
-                    } ) {
-                        Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
-                    }
-                    .help("The folder with your books: " + GetLastPath(pathBooks))
-                    Button(action: {
-                        SelectExportFolder()
-                    } ) {
-                        Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
-                    }
-                    .help("The export folder: " + GetLastPath(pathExport))
-                    Divider()
-                    Button(action: {
-                        books.activeSheet = .dropper
-                        books.showSheet = true
-                    } ) {
-                        Image(systemName: "square.and.pencil").foregroundColor(.secondary)
-                    }
-                    .help("Show Markdown dropper")
+                .help("The folder with your books: " + GetLastPath(pathBooks))
+                Button(action: {
+                    SelectExportFolder()
+                } ) {
+                    Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
                 }
+                .help("The export folder: " + GetLastPath(pathExport))
+                Divider()
+                Button(action: {
+                    books.activeSheet = .dropper
+                    books.showSheet = true
+                } ) {
+                    Image(systemName: "square.and.pencil").foregroundColor(.secondary)
+                }
+                .help("Show Markdown dropper")
             }
         }
+        //}
         /// Open the sheet if showSheet = true
         .sheet(isPresented: $books.showSheet, content: sheetContent)
     }
@@ -70,8 +68,3 @@ extension ContentView {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environmentObject(Books())
-    }
-}
