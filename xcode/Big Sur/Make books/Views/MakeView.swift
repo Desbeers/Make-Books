@@ -51,8 +51,7 @@ struct MakeView: View {
             Button(
                 action: {
                     let makeAllBooks = makeProcess()
-                    makeAllBooks.arguments! += [
-                        "--login","-c", "make-all-books " +
+                    makeAllBooks.arguments! += ["make-all-books " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     do {
                         try makeAllBooks.run()
@@ -65,8 +64,7 @@ struct MakeView: View {
             Button(
                 action: {
                     let makeAllBooks = makeProcess()
-                    makeAllBooks.arguments! += [
-                        "--login","-c", "make-all-collections " +
+                    makeAllBooks.arguments! += ["make-all-collections " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     do {
                         try makeAllBooks.run()
