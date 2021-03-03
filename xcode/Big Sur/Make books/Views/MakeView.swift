@@ -32,10 +32,12 @@ struct MakeView: View {
             // Make selected book.
             Button(
                 action: {
+                    let script = Bundle.main.url(forResource: "terminal/\(books.bookSelected!.script)", withExtension: nil)
+                    print(script!.path)
                     let makeBook = makeProcess()
                     makeBook.arguments! += ["cd '" +
                             books.bookSelected!.path +
-                            "' && " + books.bookSelected!.script + " " +
+                            "' && '" + script!.path + "' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
                     ]
                     do {
@@ -50,8 +52,9 @@ struct MakeView: View {
 
             Button(
                 action: {
+                    let script = Bundle.main.url(forResource: "terminal/make-all-books", withExtension: nil)
                     let makeAllBooks = makeProcess()
-                    makeAllBooks.arguments! += ["make-all-books " +
+                    makeAllBooks.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     do {
                         try makeAllBooks.run()
@@ -63,11 +66,12 @@ struct MakeView: View {
 
             Button(
                 action: {
-                    let makeAllBooks = makeProcess()
-                    makeAllBooks.arguments! += ["make-all-collections " +
+                    let script = Bundle.main.url(forResource: "terminal/make-all-collections", withExtension: nil)
+                    let makeAllCollections = makeProcess()
+                    makeAllCollections.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     do {
-                        try makeAllBooks.run()
+                        try makeAllCollections.run()
                     } catch {
                         print("Error: \(error.localizedDescription)")
                     }
@@ -76,12 +80,12 @@ struct MakeView: View {
             
             Button(
                 action: {
-                    let makeAllBooks = makeProcess()
-                    makeAllBooks.arguments! += [
-                        "--login","-c", "make-all-tags " +
+                    let script = Bundle.main.url(forResource: "terminal/make-all-tags", withExtension: nil)
+                    let makeAllTags = makeProcess()
+                    makeAllTags.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
                     do {
-                        try makeAllBooks.run()
+                        try makeAllTags.run()
                     } catch {
                         print("Error: \(error.localizedDescription)")
                     }
@@ -102,7 +106,7 @@ struct MakeView: View {
         ///Make a new process
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/bin/zsh")
-        process.arguments = [ "--login","-c"]
+        process.arguments = ["--login","-c"]
         /// Logging stuff
         let pipe = Pipe()
         pipe.fileHandleForReading.readabilityHandler = { pipe in

@@ -22,6 +22,10 @@ struct LogSheet: View {
             Text(scripts.isRunning ? "Processing" : "Done")
                 .font(.headline)
                 .padding(.top)
+            /// Debug
+//            ScrollView() {
+//                Text(scripts.log)
+//            }
             LogView()
                 .frame(width: 380)
                 .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
