@@ -24,36 +24,43 @@ struct ContentView: View {
     var body: some View {
         NavigationView  {
             BooksView()
-            
+                .toolbar {
+                    ToolbarItem() {
+                        Button(action: {
+                            NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+                        } ) {
+                            Image(systemName: "sidebar.left").foregroundColor(.secondary)
+                        }
+                        .help("Hide or show the sidebar")
+                    }
+                }
             OptionsView()
-            
+                .toolbar {
+                    HStack {
+                        Button(action: {
+                            SelectBooksFolder(books)
+                        } ) {
+                            Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
+                        }
+                        .help("The folder with your books: " + GetLastPath(pathBooks))
+                        Button(action: {
+                            SelectExportFolder()
+                        } ) {
+                            Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
+                        }
+                        .help("The export folder: " + GetLastPath(pathExport))
+                        Divider()
+                        Button(action: {
+                            scripts.activeSheet = .dropper
+                            scripts.showSheet = true
+                        } ) {
+                            Image(systemName: "square.and.pencil").foregroundColor(.secondary)
+                        }
+                        .help("Show Markdown dropper")
+                    }
+                }
         }
         .navigationSubtitle("Write a beautiful book")
-        .toolbar {
-            HStack {
-                Button(action: {
-                    SelectBooksFolder(books)
-                } ) {
-                    Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
-                }
-                .help("The folder with your books: " + GetLastPath(pathBooks))
-                Button(action: {
-                    SelectExportFolder()
-                } ) {
-                    Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
-                }
-                .help("The export folder: " + GetLastPath(pathExport))
-                Divider()
-                Button(action: {
-                    scripts.activeSheet = .dropper
-                    scripts.showSheet = true
-                } ) {
-                    Image(systemName: "square.and.pencil").foregroundColor(.secondary)
-                }
-                .help("Show Markdown dropper")
-            }
-        }
-        //}
         /// Open the sheet if showSheet = true
         .sheet(isPresented: $scripts.showSheet, content: sheetContent)
     }
