@@ -59,7 +59,6 @@ process() {
         rsync --recursive images/. $collect_dir/images/
     fi
 }
-printf "Collect "$tag"s...\n"
 find $books -name "*.md" -type f -exec grep -lw "$tag" {} + | sort | while read file; do process "$file"; done
 # Go back to the collection dir 
 cd $collect_dir

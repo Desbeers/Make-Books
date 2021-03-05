@@ -62,7 +62,7 @@ process() {
     export BUILD_DIR=$collect_dir
     export BUILD_TITLE=$book_position
     export PANDOC_ACTION='Prepair'
-    $local/terminal/make-book collect
+    $local/terminal/make-book --gui $GUI collect
 }
 
 build() {
@@ -95,7 +95,7 @@ fi
 # Clean... do it before anything else
 if [[ $1 = 'clean' ]]; then
     if [[ -d "$collect_dir" ]]; then rm -Rf "$collect_dir"; fi
-    make --file=$local/make/Makefile clean 2>&1 | tee -a $LOGFILE
+    make --file=$local/make/Makefile clean
     shift
 fi
 # Do all other targets if they are still there

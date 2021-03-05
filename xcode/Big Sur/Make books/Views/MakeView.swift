@@ -33,7 +33,6 @@ struct MakeView: View {
             Button(
                 action: {
                     let script = Bundle.main.url(forResource: "terminal/\(books.bookSelected!.script)", withExtension: nil)
-                    print(script!.path)
                     let makeBook = makeProcess()
                     makeBook.arguments! += ["cd '" +
                             books.bookSelected!.path +
@@ -99,7 +98,8 @@ struct MakeView: View {
     // END body:
     
     func makeProcess() -> Process {
-        scripts.log = "Making your books...\n\n"
+        /// Start with a fresh log
+        scripts.log = [Log(type: .logStart, message: "Making your books")]
         scripts.activeSheet = .log
         scripts.isRunning = true
         scripts.showSheet = true
@@ -108,21 +108,58 @@ struct MakeView: View {
         process.executableURL = URL(fileURLWithPath: "/bin/zsh")
         process.arguments = ["--login","-c"]
         /// Logging stuff
-        let pipe = Pipe()
-        pipe.fileHandleForReading.readabilityHandler = { pipe in
+        let standardOutput = Pipe()
+        let standardError = Pipe()
+        /// Gab the STOUT
+        standardOutput.fileHandleForReading.readabilityHandler = { pipe in
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
                 if !line.isEmpty {
+                    var type: Log.LogType = .unknown
+                    var message = line.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let lineArr = message.components(separatedBy: ":")
+                    switch lineArr[0] {
+                    case "action":
+                        type = .action
+                        message = lineArr[1]
+                    case "notice":
+                        type = .notice
+                        message = lineArr[1]
+                    case "targetStart":
+                        type = .targetStart
+                        message = lineArr[1]
+                    case "targetEnd":
+                        type = .targetEnd
+                        message = lineArr[1]
+                    case "targetClean":
+                        type = .targetClean
+                        message = lineArr[1]
+                    default:
+                        type = .unknown
+                    }
                     DispatchQueue.main.sync {
-                        scripts.log += line
+                        scripts.log.append(Log(type: type, message: message))
                     }
                 }
             }
         }
-        process.standardOutput = pipe
-        process.standardError = pipe
+        /// Gab the STERR
+        standardError.fileHandleForReading.readabilityHandler = { pipe in
+            if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
+                if !line.isEmpty {
+                    DispatchQueue.main.sync {
+                        scripts.log.append(Log(type: .error, message: line.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    }
+                }
+            }
+        }
+        process.standardOutput = standardOutput
+        process.standardError = standardError
         /// Notice for end of process
         process.terminationHandler =  {
-            _ in DispatchQueue.main.async { scripts.isRunning = false }
+            _ in DispatchQueue.main.async {
+                scripts.isRunning = false
+                scripts.log.append(Log(type: .logEnd, message: "Done!"))
+            }
         }
         return process
     }

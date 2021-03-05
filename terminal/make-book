@@ -27,10 +27,11 @@ fi
 . $local/includes/variables.zsh
 
 # Print what we are making:
-print "$BOLD_RED$PANDOC_ACTION: $BOLD_GREEN$title$RESET by $BOLD_CYAN$author$RESET"
-echo "$PANDOC_ACTION: $title by $author" >> $LOGFILE
-echo "log += \"$PANDOC_ACTION: <strong>$title</strong> by $author<br />\";" >> $JSLOGFILE
-
+if [[ $GUI == "cmd" ]]; then
+    print "$BOLD_RED$PANDOC_ACTION: $BOLD_GREEN$title$RESET by $BOLD_CYAN$author$RESET"
+else
+    print "action:$title by $author"
+fi
 
 # Do it!
 
@@ -41,8 +42,12 @@ echo "log += \"$PANDOC_ACTION: <strong>$title</strong> by $author<br />\";" >> $
 #####################################################
 
 collect() {
-    print "Source is newer..."
-    echo "log += \"<p class='make info'>✭ $title is updated...</p>\";" >> $JSLOGFILE
+    # Print that we have an updated source:
+    if [[ $GUI == "cmd" ]]; then
+        print "The source is newer."
+    else
+        print "notice:The source is newer."
+    fi
     mkdir -p $SOURCE_DIR
     # Sync the original files with the source directory
     rsync --recursive --update --delete . $SOURCE_DIR
@@ -68,7 +73,7 @@ build() {
     # Go to the source dir:
     cd $SOURCE_DIR    
     # make it!
-    make --jobs --file=$local/make/Makefile $(echo $*) 2>&1 | tee -a $LOGFILE
+    make --jobs --file=$local/make/Makefile $(echo $*)
 }
 
 ################################################################
@@ -84,8 +89,7 @@ if [[ ! $* ]]; then
 fi
 # Clean... do it before anything else
 if [[ $1 = 'clean' ]]; then
-    make --file=$local/make/Makefile clean 2>&1 | tee -a $LOGFILE
-    #if [ -d "$EXPORT_DIR" ]; then rm -Rf "$EXPORT_DIR/"; fi
+    make --file=$local/make/Makefile clean
     shift
 fi
 # Do all other targets if they are still there

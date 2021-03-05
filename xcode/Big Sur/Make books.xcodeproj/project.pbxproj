@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		016D359A24FC58A3001F9C66 /* MakeBooksHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = 016D359924FC58A3001F9C66 /* MakeBooksHelp.help */; };
 		01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */; };
-		D7075A3E242EDF9800A36157 /* log.html in Resources */ = {isa = PBXBuildFile; fileRef = D7075A3D242EDF9800A36157 /* log.html */; };
 		D71F5869244368C00021D95F /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F5868244368C00021D95F /* BooksView.swift */; };
 		D739D2CA23B36419006EF379 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D739D2C923B36419006EF379 /* OptionsView.swift */; };
 		D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D739D2CB23B3641A006EF379 /* Assets.xcassets */; };
@@ -35,7 +34,6 @@
 		016D359924FC58A3001F9C66 /* MakeBooksHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MakeBooksHelp.help; sourceTree = "<group>"; };
 		01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D704B53E24506D4E00470582 /* MakeBooksDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MakeBooksDebug.entitlements; sourceTree = "<group>"; };
-		D7075A3D242EDF9800A36157 /* log.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = log.html; sourceTree = "<group>"; };
 		D71F5868244368C00021D95F /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
 		D739D2C423B36419006EF379 /* Make books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Make books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D739D2C923B36419006EF379 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 				016D359924FC58A3001F9C66 /* MakeBooksHelp.help */,
 				01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */,
 				D7D2D8E02435851F00736F07 /* Includes */,
-				D740BC6B24306E0600DE476E /* Log */,
 				D7D3FCFC2439A33800965BAE /* Views */,
 				D739D2CB23B3641A006EF379 /* Assets.xcassets */,
 				D739D2D323B3641A006EF379 /* Info.plist */,
@@ -111,14 +108,6 @@
 				D739D2CE23B3641A006EF379 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		D740BC6B24306E0600DE476E /* Log */ = {
-			isa = PBXGroup;
-			children = (
-				D7075A3D242EDF9800A36157 /* log.html */,
-			);
-			path = Log;
 			sourceTree = "<group>";
 		};
 		D7D2D8E02435851F00736F07 /* Includes */ = {
@@ -220,7 +209,6 @@
 				D7EFED4925EF78AB00C70480 /* fonts in Resources */,
 				016D359A24FC58A3001F9C66 /* MakeBooksHelp.help in Resources */,
 				D7EFED4425EF78AB00C70480 /* pandoc in Resources */,
-				D7075A3E242EDF9800A36157 /* log.html in Resources */,
 				D7EFED4725EF78AB00C70480 /* texmf in Resources */,
 				D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */,
 				D7EFED4A25EF78AB00C70480 /* make in Resources */,

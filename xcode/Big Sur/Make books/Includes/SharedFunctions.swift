@@ -32,7 +32,7 @@ func GetLastPath(_ path: String) -> String {
 // Returns a string with arguments
 
 func GetArgs(_ options: MakeOptions, _ pathBooks: String, _ pathExport: String, _ pdfPaper: String, _ pdfFont: String) -> String {
-    var makeArgs = ""
+    var makeArgs = "--gui mac "
     makeArgs += "--paper " + pdfPaper + " "
     makeArgs += "--font " + pdfFont + " "
     makeArgs += "--books \"" + pathBooks + "\" "

@@ -20,17 +20,38 @@ struct LogSheet: View {
     var body: some View {
         VStack {
             Text(scripts.isRunning ? "Processing" : "Done")
-                .font(.headline)
+                .font(.largeTitle)
                 .padding(.top)
-            /// Debug
-//            ScrollView() {
-//                Text(scripts.log)
-//            }
-            LogView()
-                .frame(width: 380)
-                .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                .background(Color("BackgroundColor"))
-                .padding(.horizontal)
+            ScrollView {
+                ScrollViewReader { value in
+                    ForEach(scripts.log) { line in
+                        VStack() {
+                            HStack {
+                                Label {
+                                    Text(line.message)
+                                } icon: {
+                                    Image(systemName: line.symbol)
+                                        .foregroundColor(line.color)
+                                        .frame(minWidth: 40)
+                                }
+                                Spacer()
+                            }
+                            .font(line.type == .action ? .headline : .body)
+                            .padding(.horizontal)
+                            Divider()
+                        }
+                    }
+                    /// Just use this as anchor point to keep the scrollview at the bottom
+                    Divider().opacity(0).id(1)
+                        .onChange(of: scripts.log) { newValue in
+                            value.scrollTo(1)
+                        }
+                }
+                .padding(.top)
+            }
+            .frame(minWidth: 400, maxWidth: .infinity, maxHeight: .infinity)
+            .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+            .padding(.horizontal)
             VStack() {
                 if scripts.isRunning {
                     ProgressView()
@@ -44,7 +65,7 @@ struct LogSheet: View {
             .frame(minHeight: 40)
         }
         .padding(.bottom)
-        .frame(minHeight: 300)
+        .frame(minWidth: 420, minHeight: 380)
     }
 }
 
@@ -52,20 +73,5 @@ struct LogSheet: View {
 struct LogSheet_Previews: PreviewProvider {
     static var previews: some View {
         LogSheet().environmentObject(Books())
-    }
-}
-
-// View the logfile in a webkit thingy
-struct LogView : NSViewRepresentable {
-    func makeNSView(context: Context) -> WKWebView  {
-        let view = WKWebView()
-        /// Transparent background (auto preview does not like this)
-        view.setValue(false, forKey: "drawsBackground")
-        let base = Bundle.main.url(forResource: "log", withExtension: "html")!
-        let url = URL(string: "?log=" + NSHomeDirectory() + "/.cache/make-books/jslog.js", relativeTo: base)!
-        view.load(URLRequest(url: url))
-        return view
-    }
-    func updateNSView(_ view: WKWebView, context: Context) {
     }
 }

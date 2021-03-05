@@ -23,7 +23,7 @@ class Scripts: ObservableObject {
     /// State of zsh scripts
     @Published var isRunning = false
     /// Log from zsh scripts
-    @Published var log = ""
+    @Published var log = [Log]()
     /// Show sheet with log or dropper
     @Published var showSheet = false
     @Published var activeSheet: ActiveSheet = .log
@@ -34,6 +34,60 @@ class Scripts: ObservableObject {
 }
 
 // MARK: - Structs
+
+struct Log: Identifiable, Equatable {
+    let id = UUID()
+    let type: LogType
+    let message: String
+    var symbol: String {
+        switch type {
+        case .action:
+            return "book"
+        case .notice:
+            return "info.circle.fill"
+        case .error:
+            return "xmark.octagon.fill"
+        case .targetStart:
+            return "gear"
+        case .targetEnd:
+            return "checkmark"
+        case .targetClean:
+            return "scissors"
+        case .logStart:
+            return "hourglass.tophalf.fill"
+        case .logEnd:
+            return "hourglass.bottomhalf.fill"
+        default:
+            return "questionmark"
+        }
+    }
+    var color: Color {
+        switch type {
+        case .error:
+            return .red
+        case .targetStart:
+            return .orange
+        case .targetEnd:
+            return .green
+        case .targetClean:
+            return .blue
+        default:
+            return .primary
+        }
+    }
+    /// Log types
+    enum LogType: String {
+        case action
+        case notice
+        case error
+        case targetStart
+        case targetEnd
+        case targetClean
+        case logStart
+        case logEnd
+        case unknown
+    }
+}
 
 struct AuthorList: Identifiable, Hashable {
     let id = UUID()
