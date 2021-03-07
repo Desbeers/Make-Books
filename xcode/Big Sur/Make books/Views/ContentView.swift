@@ -1,37 +1,44 @@
 //  ContentView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
-//  MARK: - Views: Content View
+// MARK: - View: ContentView
 
-/// The content of the whole application.
-/// - Left is the book list
-/// - Middle is the options and buttons view
-/// - Right is the "Drop file" view
+// The content of the whole application.
+// - Left is the book list
+// - Right is the options and make view
 
 struct ContentView: View {
-    /// Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
     /// Observe script related stuff
     @EnvironmentObject var scripts: Scripts
     /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
-    /// The view
+    // START body
     var body: some View {
         NavigationView  {
             BooksView()
                 .toolbar {
-                    ToolbarItem() {
+                    ToolbarItemGroup() {
                         Button(action: {
                             NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
                         } ) {
                             Image(systemName: "sidebar.left").foregroundColor(.secondary)
                         }
                         .help("Hide or show the sidebar")
+                        Button(action: {
+                            withAnimation {
+                                books.bookList = GetBooksList()
+                            }
+                        } ) {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        .help("Refresh the list of books")
                     }
                 }
             OptionsView()
@@ -66,14 +73,19 @@ struct ContentView: View {
     }
 }
 
+// MARK: - Extension: ContentView
+
+// You can only have one sheet in a view.
+// This extension makes it opssible to have different views.
+
 extension ContentView {
-    @ViewBuilder func sheetContent() -> some View {
+    @ViewBuilder
+    func sheetContent() -> some View {
         switch scripts.activeSheet {
         case .log:
-            LogSheet()
+            LogView()
         case .dropper:
             DropView()
         }
     }
 }
-

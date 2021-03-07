@@ -1,25 +1,30 @@
 //  MakeBooksApp.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
+// MARK: - App: MakeBooksApp
+
+// The application scene
+
 @main
 struct MakeBooksApp: App {
-    /// Get the books with all options
+    /// Get the list of books
     @StateObject var books = Books()
+    /// Observe script related stuff
     @StateObject var scripts = Scripts()
     /// Saved theme setting
     @AppStorage("appTheme") var appTheme: String = "system"
-    /// The Scene
+    // START body
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(books)
                 .environmentObject(scripts)
                 .background(Color("BackgroundColor"))
-                /// Apply the theme setting.
+                /// Apply the theme setting
                 .onAppear {
                     ApplyTheme(appTheme)
                 }

@@ -1,22 +1,20 @@
 //  LogView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
-import WebKit
 
-// The sheet view
-// --------------
-// showSheet: show the log file in a sheet
-// scripsRunning: the scripts are buzy
+// MARK: - View: LogView
 
-struct LogSheet: View {
-    /// Get the books with all options
+// Show the log. Presented in a sheet.
+
+struct LogView: View {
+    /// Get the list of books
     @EnvironmentObject var books: Books
     /// Observe script related stuff
     @EnvironmentObject var scripts: Scripts
-    /// The view
+    // START body
     var body: some View {
         VStack {
             Text(scripts.isRunning ? "Processing" : "Done")
@@ -66,12 +64,5 @@ struct LogSheet: View {
         }
         .padding(.bottom)
         .frame(minWidth: 420, minHeight: 380)
-    }
-}
-
-// Preview
-struct LogSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        LogSheet().environmentObject(Books())
     }
 }

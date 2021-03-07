@@ -1,18 +1,20 @@
 //  OptionsView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
-// MARK: - Views
+// MARK: - View: OptionsView
+
+// The types of book to make.
 
 struct OptionsView: View {
-    /// Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
     /// Get the Make options
     @StateObject var makeOptions = MakeOptions()
-    /// The View
+    // START body
     var body: some View {
         VStack() {
             /// BEGIN `options for Make`
@@ -31,7 +33,8 @@ struct OptionsView: View {
                         /// Start the ForEach at 1, because 0 is the "clean" option at the botom
                         ForEach(1 ..< makeOptions.options.count) { index in
                             Toggle(isOn: $makeOptions.options[index].isSelected) {
-                                Text(makeOptions.options[index].label).fontWeight(.bold)
+                                Text(makeOptions.options[index].label)
+                                    .fontWeight(.bold)
                             }
                             Text(makeOptions.options[index].text)
                                 .foregroundColor(Color.secondary)
@@ -56,14 +59,8 @@ struct OptionsView: View {
             /// Two Spacers because it should twice space as much than between settings and buttons
             Spacer()
             Spacer()
+            /// Add the buttons below this view
             MakeView(makeOptions: makeOptions)
         }
-    }
-}
-
-// Preview
-struct OptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        OptionsView().environmentObject(Books())
     }
 }

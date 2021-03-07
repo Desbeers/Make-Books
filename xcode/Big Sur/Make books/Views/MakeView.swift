@@ -1,16 +1,16 @@
 //  MakeView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
-// MARK: - Views
+// MARK: - View: MakeView
 
 // The action buttons.
 
 struct MakeView: View {
-    /// Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
     /// Get the Make options
     var makeOptions: MakeOptions
@@ -21,18 +21,18 @@ struct MakeView: View {
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
     @AppStorage("pdfFont") var pdfFont: String = "11pt"
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
-    /// The View
+    // START body
     var body: some View {
         // BEGIN action buttons
-        Text(books.bookSelected != nil ? "\"" + books.bookSelected!.title + "\" is selected" : " ")
+        Text(books.bookSelected != nil ? "\"\(books.bookSelected!.title)\" is selected" : " ")
             .font(.caption)
             .foregroundColor(Color.secondary)
             .animation(.easeInOut)
         HStack {
-            // Make selected book.
+            /// Make selected book
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: "terminal/\(books.bookSelected!.script)", withExtension: nil)
+                    let script = Bundle.main.url(forResource: books.bookSelected!.type.rawValue, withExtension: nil)
                     let makeBook = makeProcess()
                     makeBook.arguments! += ["cd '" +
                             books.bookSelected!.path +
@@ -48,10 +48,10 @@ struct MakeView: View {
                 Text("Selected book")}
                 /// Disable this button if no book is selected.
                 .disabled(books.bookSelected == nil)
-
+            /// Make all books
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: "terminal/make-all-books", withExtension: nil)
+                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.allBooks.rawValue, withExtension: nil)
                     let makeAllBooks = makeProcess()
                     makeAllBooks.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
@@ -62,10 +62,10 @@ struct MakeView: View {
                     }
                 }){
                 Text("All books")}
-
+            /// Make all collections
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: "terminal/make-all-collections", withExtension: nil)
+                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.allCollections.rawValue, withExtension: nil)
                     let makeAllCollections = makeProcess()
                     makeAllCollections.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
@@ -76,10 +76,10 @@ struct MakeView: View {
                     }
                 }){
                 Text("Collections")}
-            
+            /// Make all tags
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: "terminal/make-all-tags", withExtension: nil)
+                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.allTags.rawValue, withExtension: nil)
                     let makeAllTags = makeProcess()
                     makeAllTags.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
@@ -95,8 +95,7 @@ struct MakeView: View {
         .disabled(scripts.showSheet)
         // END actions buttons
     }
-    // END body:
-    
+    // START makeProcess
     func makeProcess() -> Process {
         /// Start with a fresh log
         scripts.log = [Log(type: .logStart, message: "Making your books")]
@@ -110,7 +109,7 @@ struct MakeView: View {
         /// Logging stuff
         let standardOutput = Pipe()
         let standardError = Pipe()
-        /// Gab the STOUT
+        /// Grab the STOUT
         standardOutput.fileHandleForReading.readabilityHandler = { pipe in
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
                 if !line.isEmpty {
@@ -142,7 +141,7 @@ struct MakeView: View {
                 }
             }
         }
-        /// Gab the STERR
+        /// Grab the STERR
         standardError.fileHandleForReading.readabilityHandler = { pipe in
             if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
                 if !line.isEmpty {
@@ -164,5 +163,3 @@ struct MakeView: View {
         return process
     }
 }
-// END struct MakeView: View
-

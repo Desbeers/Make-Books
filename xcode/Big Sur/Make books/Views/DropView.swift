@@ -1,24 +1,27 @@
 //  DropView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
+
+// MARK: - View: DropView
+
+// A view where you can drop a Markdown file that will be converted to PDF.
+// Presented in a sheet.
 
 struct DropView: View {
     @State var isDrop: Bool = false
     @State var isRunning: Bool = false
     @State var fileURL: URL?
-    
-    @EnvironmentObject var books: Books
-    @EnvironmentObject var scripts: Scripts
-    
+    @Environment(\.presentationMode) var presentationMode
+    // START body
     var body: some View {
         VStack() {
             HStack() {
                 Button(
                     action: {
-                        scripts.showSheet = false
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                     Image(systemName: "xmark.circle")
                         .foregroundColor(.accentColor)
@@ -50,7 +53,6 @@ struct DropView: View {
                 if isRunning {
                     ProgressView()
                 }
-                
             }
             if fileURL != nil {
                 Text(fileURL?.pathExtension == "md" ? fileURL!.lastPathComponent : "Your drop was not a markdown file")
@@ -60,10 +62,11 @@ struct DropView: View {
             Button(
                 action: {
                     isRunning = true
+                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.makePDF.rawValue, withExtension: nil)
                     let makePdf = Process()
                     makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
                     makePdf.arguments = [
-                        "--login","-c", "make-pdf '" + fileURL!.path + "'"
+                        "--login","-c", "'\(script!.path)' '" + fileURL!.path + "'"
                     ]
                     makePdf.terminationHandler =  {
                         _ in DispatchQueue.main.async { isRunning = false }
@@ -80,6 +83,10 @@ struct DropView: View {
         .frame(width: 350, height: 420)
     }
 }
+
+// MARK: - Extension: DropView
+
+// The 'drop handler' for DropView
 
 extension DropView: DropDelegate {
     func validateDrop(info: DropInfo) -> Bool {

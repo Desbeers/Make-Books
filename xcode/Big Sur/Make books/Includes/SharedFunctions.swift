@@ -1,14 +1,12 @@
 //  SharedFunctions.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
-// MARK: - Fuctions
+// MARK: - GetDocumentsDirectory()
 
-// GetDocumentsDirectory()
-// ----------
 // Returns the users Documents directory.
 // Used when no folders are selected by the user.
 
@@ -16,8 +14,8 @@ func GetDocumentsDirectory() -> String {
     return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
 }
 
-// GetLastPath(path)
-// -----------------
+// MARK: - GetLastPath(path)
+
 // Gets the full path to the folder
 // Returns the last path
 
@@ -26,8 +24,8 @@ func GetLastPath(_ path: String) -> String {
     return lastPath
 }
 
-// GetArgs(path)
-// -------------------
+// MARK: - GetArgs(path)
+
 // Gets the full book object
 // Returns a string with arguments
 
@@ -45,8 +43,8 @@ func GetArgs(_ options: MakeOptions, _ pathBooks: String, _ pathExport: String, 
     return (makeArgs)
 }
 
-// ApplyTheme(scheme)
-// -------------------
+// MARK: ApplyTheme(scheme)
+
 // Gets selected theme
 // Set the window appearance
 
@@ -61,8 +59,7 @@ func ApplyTheme(_ appTheme: String) {
     }
 }
 
-// Folder selector
-// ---------------
+// MARK: Folder selector
 
 /// Books folder selection
 func SelectBooksFolder(_ books: Books) {
@@ -106,8 +103,8 @@ func SelectExportFolder() {
     }
 }
 
-// GetCover(path)
-// --------------
+// MARK: GetCover(path)
+
 // Gets path to cover
 // Returns the cover image
 
@@ -117,8 +114,8 @@ func GetCover(cover: String) -> NSImage {
     return NSImage(data: imageData)!
 }
 
-// GetHoverHelp(book)
-// --------------
+// MARK: GetHoverHelp(book)
+
 // Gets the hovered book
 // Returns a help string
 
@@ -126,11 +123,11 @@ func GetHoverHelp(_ book: AuthorBooks) -> String {
     return book.author + ": " + book.title
 }
 
-// ShowInFinder(url)
-// ---------------------------
+// MARK: OpenInFinder(url)
+
 // Open a folder in the Finder
 
-func ShowInFinder(url: URL?) {
+func OpenInFinder(url: URL?) {
     guard let url = url else {
         print ("Not a valid URL")
         return
@@ -141,8 +138,8 @@ func ShowInFinder(url: URL?) {
     NSWorkspace.shared.activateFileViewerSelecting([url])
 }
 
-// DoesFileExists(url)
-// ---------------------------------
+// MARK: DoesFileExists(url)
+
 // Checks if a file or folder exists
 // Returns TRUE or FALSE
 
@@ -153,11 +150,11 @@ func DoesFileExists(url: URL) -> Bool {
     return false
 }
 
-// ShowInTerminal(url)
-// ---------------------------
+// MARK: OpenInTerminal(url)
+
 // Open a folder in the Terminal
 
-func ShowInTerminal(url: URL?) {
+func OpenInTerminal(url: URL?) {
     guard let terminal = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal") else { return }
     guard let url = url else {
         print ("Not a valid URL")
@@ -167,15 +164,14 @@ func ShowInTerminal(url: URL?) {
     NSWorkspace.shared.open([url],withApplicationAt: terminal,configuration: configuration)
 }
 
-// FancyBackground()
-// --------------
+// MARK: - FancyBackground()
+
 // Returns a sidebar color
 
 struct FancyBackground: NSViewRepresentable {
   func makeNSView(context: Context) -> NSVisualEffectView {
     return NSVisualEffectView()
   }
-  
   func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
     // Nothing to do.
   }

@@ -1,24 +1,25 @@
 //  BooksView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
-// MARK: - Views
+// MARK: - View: BooksView
 
-// The list of books
+// The list of all books
 
 struct BooksView: View {
-    /// Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
     @State var search: String = ""
     /// Saved settings
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
-    
+    // START body
     var body: some View {
         VStack() {
-            SearchField(text: $search).padding(.horizontal, 10)
+            SearchField(text: $search)
+                .padding(.horizontal, 10)
             ScrollView() {
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: 110))],
@@ -27,7 +28,7 @@ struct BooksView: View {
                     pinnedViews: [.sectionHeaders, .sectionFooters]
                 ) {
                     ForEach(books.bookList.authors) { author in
-                        Section(header: search.isEmpty ? AuthorHeader(author: author) : nil) {
+                        Section(header: search.isEmpty ? BookListHeader(author: author) : nil) {
                             ForEach(author.books.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
                                 BookListRow(book: book)
                                 .onTapGesture{
@@ -39,18 +40,18 @@ struct BooksView: View {
                                 }
                                 .contextMenu {
                                     Button(action: {
-                                        ShowInFinder(url: URL(fileURLWithPath: book.path))
+                                        OpenInFinder(url: URL(fileURLWithPath: book.path))
                                     }){
                                         Text("Open source in Finder")
                                     }
                                     Button(action: {
-                                        ShowInTerminal(url: URL(fileURLWithPath: book.path))
+                                        OpenInTerminal(url: URL(fileURLWithPath: book.path))
                                     }){
                                         Text("Open source in Terminal")
                                     }
                                     Divider()
                                     Button(action: {
-                                        ShowInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
+                                        OpenInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
                                     }){
                                         Text("Open export in Finder")
                                     }.disabled(!DoesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
@@ -65,9 +66,13 @@ struct BooksView: View {
     }
 }
 
-struct AuthorHeader: View {
-    let author: AuthorList
+// MARK: - View: BookListHeader
 
+// The header of the book list
+
+struct BookListHeader: View {
+    let author: AuthorList
+    // START body
     var body: some View {
         ZStack {
             FancyBackground().opacity(0.9)
@@ -83,12 +88,16 @@ struct AuthorHeader: View {
     }
 }
 
+// MARK: - View: BookListRow
+
+// A row in the book list
+
 struct BookListRow: View {
     let book: AuthorBooks
-    /// Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
     @State private var hovered = false
-
+    // START body
     var body: some View {
         VStack {
             if ((book.cover) != nil) {
@@ -119,9 +128,13 @@ struct BookListRow: View {
     }
 }
 
+// MARK: - NSViewRepresentable: SearchField
+
+// A searchfield on top of the book list
+
 struct SearchField: NSViewRepresentable {
     @Binding var text: String
-    /// Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
     func makeNSView(context: Context) -> NSSearchField {
         let searchField = NSSearchField()
@@ -148,6 +161,10 @@ struct SearchField: NSViewRepresentable {
         }
     }
 }
+
+// MARK: - Extension: SearchField
+
+// Hide the focus ring
 
 extension NSSearchField {
     open override var focusRingType: NSFocusRingType {

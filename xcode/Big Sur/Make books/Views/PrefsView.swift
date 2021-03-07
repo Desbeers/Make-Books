@@ -1,14 +1,16 @@
 //  PrefsView.swift
 //  Make books
 //
-//  Copyright © 2020 Nick Berendsen. All rights reserved.
+//  Copyright © 2021 Nick Berendsen. All rights reserved.
 
 import SwiftUI
 
-// MARK: - Views
+// MARK: - View: PrefsView
+
+// The preferences for Make books
 
 struct PrefsView: View {
-    /// The View
+    // START body
     var body: some View {
         VStack {
             TabView() {
@@ -21,10 +23,14 @@ struct PrefsView: View {
     }
 }
 
+// MARK: - View: PrefsGeneral
+
+// General settings
+
 struct PrefsGeneral: View {
-    // Saved settings
+    /// Saved settings
     @AppStorage("appTheme") var appTheme: String = "system"
-    // The View
+    // START body
     var body: some View {
         VStack {
             Text("The look of the application")
@@ -37,25 +43,30 @@ struct PrefsGeneral: View {
             .pickerStyle(RadioGroupPickerStyle())
             .horizontalRadioGroupLayout()
             .labelsHidden()
-            // Direcly apply the selection.
+            /// Direcly apply the selection.
             .onChange(of: appTheme) { ApplyTheme($0) }
         }
     }
 }
 
+// MARK: - View: PrefsFolders
+
+// Select 'source' and 'export' folders
+
 struct PrefsFolders: View {
-    // Get the books with all options
+    /// Get the list of books
     @EnvironmentObject var books: Books
-    // Saved settings
+    /// Saved settings
     @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
     @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
-    // The View
+    // START body
     var body: some View {
         VStack() {
             Text("Where are your books?")
                 .font(.headline)
             HStack() {
-                Label(GetLastPath(pathBooks), systemImage: "square.and.arrow.up.on.square").truncationMode(.head)
+                Label(GetLastPath(pathBooks), systemImage: "square.and.arrow.up.on.square")
+                    .truncationMode(.head)
                 Button(action: {SelectBooksFolder(books)}) {
                     Text("Change")
                 }
@@ -64,7 +75,8 @@ struct PrefsFolders: View {
             Text("Where shall we export them?")
                 .font(.headline)
             HStack () {
-                Label(GetLastPath(pathExport), systemImage: "square.and.arrow.down.on.square").truncationMode(.head)
+                Label(GetLastPath(pathExport), systemImage: "square.and.arrow.down.on.square")
+                    .truncationMode(.head)
                 Button(action: {SelectExportFolder()}) {
                     Text("Change")
                 }
@@ -73,15 +85,19 @@ struct PrefsFolders: View {
     }
 }
 
+// MARK: - View: PrefsPdf
+
+// Settings for PDF export
 
 struct PrefsPdf: View {
-    // Saved settings
+    /// Saved settings
     @AppStorage("pdfFont") var pdfFont: String = "11pt"
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
-    // The View
+    // START body
     var body: some View {
         VStack() {
-            Text("Font size").font(.headline)
+            Text("Font size")
+                .font(.headline)
             Picker(selection: $pdfFont, label: Text("Font size:")) {
                 Text("10 points").tag("10pt")
                 Text("11 points").tag("11pt")
@@ -91,8 +107,10 @@ struct PrefsPdf: View {
             .pickerStyle(RadioGroupPickerStyle())
             .horizontalRadioGroupLayout()
             .labelsHidden()
-            Divider().padding(.vertical)
-            Text("Paper format").font(.headline)
+            Divider()
+                .padding(.vertical)
+            Text("Paper format")
+                .font(.headline)
             Picker(selection: $pdfPaper, label: Text("Paper format:")) {
                 Text("A4 paper").tag("a4paper")
                 Text("A5 paper").tag("a5paper")
@@ -100,31 +118,5 @@ struct PrefsPdf: View {
             }
             .labelsHidden()
         }
-    }
-}
-
-// MARK: Previews
-
-struct PrefsView_Previews: PreviewProvider {
-    static var previews: some View {
-        PrefsView()
-    }
-}
-
-struct PrefsGeneral_Previews: PreviewProvider {
-    static var previews: some View {
-        PrefsGeneral()
-    }
-}
-
-struct PrefsFolders_Previews: PreviewProvider {
-    static var previews: some View {
-        PrefsFolders()
-    }
-}
-
-struct PrefsPdf_Previews: PreviewProvider {
-    static var previews: some View {
-        PrefsPdf()
     }
 }

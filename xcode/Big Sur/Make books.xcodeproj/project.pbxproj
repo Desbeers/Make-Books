@@ -14,6 +14,8 @@
 		D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D739D2CB23B3641A006EF379 /* Assets.xcassets */; };
 		D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D739D2CE23B3641A006EF379 /* Preview Assets.xcassets */; };
 		D73FCFBD2439A4D600FE6897 /* PrefsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FCFBC2439A4D600FE6897 /* PrefsView.swift */; };
+		D74D4FC025F250FB005AF488 /* GeneralStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D4FBF25F250FB005AF488 /* GeneralStructs.swift */; };
+		D74D4FC325F2CE7E005AF488 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D74D4FC225F2CE7E005AF488 /* Credits.rtf */; };
 		D7622D232450DBA700F9DABC /* MakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622D222450DBA700F9DABC /* MakeView.swift */; };
 		D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704EB2446B69300AE2E97 /* ObservableObjects.swift */; };
 		D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704ED2447BBFB00AE2E97 /* ContentView.swift */; };
@@ -42,6 +44,8 @@
 		D739D2D323B3641A006EF379 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D739D2D423B3641A006EF379 /* MakeBooks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MakeBooks.entitlements; sourceTree = "<group>"; };
 		D73FCFBC2439A4D600FE6897 /* PrefsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsView.swift; sourceTree = "<group>"; };
+		D74D4FBF25F250FB005AF488 /* GeneralStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralStructs.swift; sourceTree = "<group>"; };
+		D74D4FC225F2CE7E005AF488 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		D7622D222450DBA700F9DABC /* MakeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeView.swift; sourceTree = "<group>"; };
 		D78704EB2446B69300AE2E97 /* ObservableObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObjects.swift; sourceTree = "<group>"; };
 		D78704ED2447BBFB00AE2E97 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 			children = (
 				D78704EB2446B69300AE2E97 /* ObservableObjects.swift */,
 				D7C9EF90244CC31F004589AE /* SharedFunctions.swift */,
+				D74D4FBF25F250FB005AF488 /* GeneralStructs.swift */,
+				D74D4FC225F2CE7E005AF488 /* Credits.rtf */,
 			);
 			path = Includes;
 			sourceTree = "<group>";
@@ -213,6 +219,7 @@
 				D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */,
 				D7EFED4A25EF78AB00C70480 /* make in Resources */,
 				D7EFED4625EF78AB00C70480 /* terminal in Resources */,
+				D74D4FC325F2CE7E005AF488 /* Credits.rtf in Resources */,
 				D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */,
 				D7EFED4525EF78AB00C70480 /* config.zsh in Resources */,
 				D7EFED4325EF78AB00C70480 /* kobo in Resources */,
@@ -235,6 +242,7 @@
 				D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */,
 				01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */,
 				D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */,
+				D74D4FC025F250FB005AF488 /* GeneralStructs.swift in Sources */,
 				D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */,
 				D7AC56EE25D5729700AFD713 /* DropView.swift in Sources */,
 			);
