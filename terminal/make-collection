@@ -7,7 +7,7 @@
 #####################################################
 
 # What is this script making:
-export PANDOC_ACTION='Collection'
+export PANDOC_ACTION='Prepair'
 
 # Include the shared script:
 . "${0:a:h:h}/includes/shared.zsh"

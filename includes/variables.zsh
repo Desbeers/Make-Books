@@ -1,5 +1,11 @@
 #!/bin/zsh
 
+### Check requirements
+if [[ $(whence pandoc) == "" ]]; then
+    echo "Pandoc is not installed; aborting." >&2
+    exit 1
+fi
+
 # For LaTeX, set TEXMFHOME to these scripts:
 export TEXMFHOME="$local/texmf"
 
@@ -19,7 +25,7 @@ export PANDOC_PAPER=$papersize
 export PANDOC_FONT=$fontsize
 
 # Only do this when we have metadata. So, not when converting a single page.
-# Varibale will only be set when it does not exist yet.
+# Variable will only be set when it does not exist yet.
 if [[ -f $metadata_file ]]; then
     # Get the title.
     : ${title=${$(metadata 'title' $metadata_file)}}
@@ -42,12 +48,15 @@ if [[ -f $metadata_file ]]; then
     # Breakup the HTML files in small portions, depending on level.
     # If a book has parts, header is shifted once, if it has books too
     # the header is shifted twice.
-    if grep -q '{.part}' *.md ; then
-        EPUB_CHAPTER_LEVEL=2
-    elif grep -q '{.book}' *.md ; then
-        EPUB_CHAPTER_LEVEL=3
-    else
-        EPUB_CHAPTER_LEVEL=1
+    # Only do this for the actual book; not if we are preparing collectons.
+    if [[ $PANDOC_ACTION != "Prepair" ]]; then
+        if grep -q '{.book}' *.md ; then
+            EPUB_CHAPTER_LEVEL=3
+        elif grep -q '{.part}' *.md ; then
+            EPUB_CHAPTER_LEVEL=2
+        else
+            EPUB_CHAPTER_LEVEL=1
+        fi
     fi
 fi
 
