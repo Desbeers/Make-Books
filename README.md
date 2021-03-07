@@ -1,10 +1,12 @@
 # Make-books
 
+Scripts to convert Markdown to PDF and ePub books with Pandoc. Command-line for Linux and GUI for macOS written in SwiftUI 2.0
+
 ## Write a beautiful book
 
 I like to write books and I like to make books. Both literarily. They have a lot in common and even more _not_ in common. Writing is a creative process. Words, words and words. On the other hand, _making_ books is mostly a technical process.
 
-![](includes/make-books-project-logo.png)
+![](includes/make-books-macos.png)
 
 It’s a nice combination.
 

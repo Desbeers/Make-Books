@@ -1,10 +1,10 @@
 # Installation
 
-A basic technical knowledge is required to use this system; it’s working from the `terminal`. However, I will give it a fair try to help you with it. As always, [Google](https://google.com) is your best friend if you read this chapter and it makes no sense to you, haha!
+A basic technical knowledge is required to use this system; it’s working from the `command line` unless you use the macOS frontend. I will give it a fair try to help you to get it all up and running. As always, [Google](https://google.com) is your best friend if you read this chapter and it makes no sense to you, haha!
 
 ---
 
-This system is only tested on macOS Catalina and Ubuntu 20.04. There is no Windows support and that is also not a my todo list; I have no clue about that system.
+This system is only tested on macOS Big Sur and Ubuntu 20.04. There is no Windows support and that is also not a my todo list; I have no clue about that system.
 
 ## Software
 
@@ -12,7 +12,7 @@ The following software must be installed on your computer:
 
 - [`Pandoc`](https://pandoc.org), the swiss-army knife for file converting.
 - A `LaTeX` distribution like [MacTEX](http://www.tug.org/mactex/) for the Mac. For Ubuntu, I did `sudo apt install texlive-full` to get all the goodies in one time and no complains about missing packages.
-- The `zsh` shell; standard on macOS Catalina; install it on Ubuntu.
+- The `zsh` shell; standard on macOS Big Sur; install it on Ubuntu.
 - `rsync`; should be standard...
 - The `Make` program. Part of Xcode or grab it from [Homebrew](https://brew.sh) when you are on a Mac. Else; do your Linux magic.
 - For a ‘Kobo’ ePub, ‘kepubify’ and 'ImageMagick' are needed. Get it [here](https://pgaskin.net/kepubify/) and [here](https://imagemagick.org). 
@@ -33,7 +33,7 @@ The content of the `Make-books` repo can be copied to any location on your compu
 
 ## Add the scripts to your `$PATH`
 
-The folder `/terminal` has the shell scripts to make the books. It’s handy to have this folder in your `$PATH`; saving you a lot of typing.
+The folder `/terminal` has the shell scripts to make the books. It’s handy to have this folder in your `$PATH` if you run the scripts from the `command line`; saving you a lot of typing.
 
 On my Mac, I dropped a file containing the full path to the scripts: \
 `/Users/Desbeers/Documents/Leesvoer/scripts/terminal` into the folder `/etc/paths.d`. That did the job for me.

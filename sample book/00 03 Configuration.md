@@ -1,6 +1,6 @@
 # Configuration
 
-Good news! There is really not much to configure for this build-system. There is only one file that needs a bit of your attention...
+Good news! There is really not much to configure for this build-system. There is only one file that needs a bit of your attention if you run the scrips from the command-line. If you use the macOS frontend; it has its own settings in the usual place.
 
 ## `/config.zsh`
     

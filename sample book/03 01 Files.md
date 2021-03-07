@@ -40,8 +40,7 @@ Pandoc is doing great, but lets not give it *all* the credit. It does get some h
 
 ## Folder: /xcode
 
-Last but not least... The Xcode folder... Feel free to have a look in it. It’s the source code for a Mac application that can run a bunch of the scrips here.
-It does work for me, somehow, however, I have no clue what I did to make it work so *it is as it is*. Don’t dare to ask me any questions about it; because the answer is: **I don’t know**, haha!
+Last but not least... The Xcode folder... This is the source for a macOS application that you can use as frontend for the scripts. It has its own chapter at the end of this book.
 
 ## Bonus file: /terminal/make-file
 
