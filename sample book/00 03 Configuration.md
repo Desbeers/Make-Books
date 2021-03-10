@@ -42,9 +42,9 @@ And yeh; you can have spaces in your path name... As long as you have them betwe
 
 ### Paper size
 
-Those options are defined in the LaTeX Memoir class... Oops, that sounds pretty nerdy... Yes it is! See [their manual](https://www.ctan.org/pkg/memoir) if you want to know all the available options.
+Those options are defined in the LaTeX Memoir class... Oops, that sounds pretty nerdy... Yes, because it is! See [their manual](https://www.ctan.org/pkg/memoir) if you want to know all the available options.
 
-Just a few common ones: `ebook` (9 by 6 inches, my default), `a4paper`, `letterpaper`, and `legalpaper`. If you like more options, you know where to find the manual now!
+Just a few common ones: `ebook` (9 by 6 inches, my default), `a4paper`, `letterpaper`, and `legalpaper`. If you like more options, you know where to find the manual now.
 
 ### Font size
 

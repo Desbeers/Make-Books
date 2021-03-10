@@ -20,11 +20,9 @@ If the paragraph starts with a quote (`”`), the quote-symbol will be before th
 
 This filter must run before the Header Filter or else the headers are most probably changed to something unusable for this filter.
 
-Drop caps are not working in docx files because I don’t care too much about that format.
-
 ## Linebreaks filter
 
-The `horizontal rule` is misused to get some space between two paragraphs. For LaTeX, it will be replaced by a `\bigskip`. For ePub/html by a `<div.bigskip>` and for docx by something I copied/pasted and seems to work.
+The `horizontal rule` is misused to get some space between two paragraphs. For LaTeX, it will be replaced by a `\bigskip`. For ePub/html by a `<div.bigskip>`.
 
 ## Chapter précis filter
 

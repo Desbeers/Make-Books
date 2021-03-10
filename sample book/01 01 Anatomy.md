@@ -1,10 +1,6 @@
 # The anatomy of a book
 
-Ok, let’s have a look at the structure of a book. Not being an expert, I might use the wrong wording once in a while, but that’s ok I hope. It is not rocket-science, so I’m pretty sure my explanation will be good enough. I’ll trow in a bit of LaTeX terminology because, well, that’s the only terminology I know, haha!
-
----
-
-Please not that is *not* the really the technical structure of the book created by this build-system; it’s just to give it a general idea.
+Ok, let’s have a look at the structure of a book. Not being an expert, I might use the wrong wording once in a while, but that’s ok I hope. It is not rocket-science, so I’m pretty sure my explanation will be good enough. I’ll trow in a bit of LaTeX terminology because, well, that’s the only terminology I know...
 
 ## The book:
 
@@ -13,7 +9,7 @@ Please not that is *not* the really the technical structure of the book created 
 	half title
 	title
 	copyright
-	dedication (optional)
+	\dedication (optional)
 	table of contents
 	\frontmatter
 	foreword (for example)
@@ -27,7 +23,7 @@ Please not that is *not* the really the technical structure of the book created 
 	\backmatter (optional)
 	afterword (for example)
 
-That’s it! That’s the anatomy for a book. At least, for my books.
+That’s it. That’s the anatomy for a book. At least, for my books.
 
 ---
 
@@ -37,11 +33,11 @@ A bit of additional explanation:
 
 This is just something I see in my “real books” at home. Real books just have that. On the first page the “half title” which is actually *not* half the title, but only the title and not the author. Don’t know why they call that kind of page *half title* but that’s the official name.
 The second page is the title of the book, followed by the authors name. It’s called the *title* page; even thought it has the title *and* the author.
-Anyway, I like that look, so here it is!
+Anyway, I like that look, so it's there...
 
 ## Copyright
 
-This page will automatically created based on the provided metadata. See next chapter for that.
+This page will automatically created based on the provided metadata. See the next chapter for that.
 
 ## Dedication
 

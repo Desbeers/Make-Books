@@ -14,10 +14,7 @@ For years and years I’m searching for the “perfect” book environment. Perf
 
 So, time to make a new system! Instead of reinventing the wheel I looked around, learned [LaTeX](https://www.latex-project.org), found [Pandoc](https://pandoc.org), learned a bit of shell and [Lua](https://www.lua.org) scripting and glued that whole stuff together to my brand new writing environment.
 
-I’m not a writer, nor a programmer, just a hobbyist who does this for fun. It was a lot (lot, lot, lot) try-and-error and I’m sure many parts could be done better but that does not matter for me. That’s part of the fun, just keep learning!
+I’m not a writer, nor a programmer, just a hobbyist who does this for fun. It was a lot (lot, lot, lot) try-and-error and I’m sure many parts could be done better but that does not matter for me. That’s part of the fun, just keep learning.
 
 
 It’s all here, a repo with all the bits and pieces to make beautiful PDF’s and ePub books. An sample book, which is actually the manual, is included and it explains it all...
-
-
-It’s my small contribution to the Open Source World who gave me all this great stuff to play with!

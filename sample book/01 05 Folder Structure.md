@@ -14,7 +14,7 @@ There are a couple of files in this folder:
 
 ### dedication.md
 
-> The *dedication* file for your book, as described before. It is not required; however, feel free to thank me!
+> The *dedication* file for your book, as described before. It is not required; however, feel free to thank me...
 
 ### cover-screen.jpg
 
@@ -26,7 +26,7 @@ There are a couple of files in this folder:
 
 ### style.css
 
-> If this file exists, it will be included in the ePub export. Your *one and only* chance to override the default styling!
+> If this file exists, it will be included in the ePub export. Your *one and only* chance to override the default styling of your ePub.
 
 ## The `images` folder
 

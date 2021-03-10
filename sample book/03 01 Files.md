@@ -14,7 +14,7 @@ If it is all ok; it will grab your `config.zsh` in the root folder so it knows w
 
 Then it will set-up a whole bunch of necessary  *variables* by including `/includes/variables.zsh` . This file is shared by all the other scripts as well to save me from typing over and over again.
 
-Then, the time has come... We are ready for Make. Make is a verb, oh yeh, because it is an application you have installed if you followed the install instructions nicely. Make is a program to make stuff; in our case, a book. Let’s make it by running make!
+Then, the time has come... We are ready for `make`. Make is a verb here, oh yeh, because it is an application you have installed if you followed the install instructions nicely. Make is a program to make stuff; in our case, a book. Let’s make it by running `make`.
 
 ## File: /make/Makefile
 
@@ -24,11 +24,11 @@ To give Pandoc proper homework, the Makefile includes a whole bunch of other fil
 
 ## Folder: /pandoc/templates
 
-This is where the templates are stored for Pandoc. It should know how we like the layout to be, of course! Pandoc has a lot of *default* templates but I like my own better. There are templates for PDF and ePub in here, as well sub-templates to get the `dedication` page for example.
+This is where the templates are stored for Pandoc. It should know how we like the layout to be, of course. Pandoc has a lot of *default* templates but I like my own better. There are templates for PDF and ePub in here, as well sub-templates to get the `dedication` page for example.
 
 ## Folder: /pandoc/filters
 
-To customise Pandoc’s output you can run the content trough filters. And believe me, the content will run really hard! A lot of smart-ass stuff is happening in there, so it even deserves its own page in this book... 
+To customise Pandoc’s output you can run the content trough filters. A lot of smart-ass stuff is happening in there, so it even deserves its own page in this book... 
 
 ## Folder: /pandoc/css
 
@@ -48,7 +48,7 @@ This script converts a Markdown document into a single PDF. Use it on the comman
 
 	make-file my-text.md
 
-The PDF will be dropped on your Desktop. Be careful; if there is already a file over there with the same name it will be overwritten! Thats why this is only a bonus file; it’s not too smart...
+The PDF will be dropped on your Desktop. Be careful; if there is already a file over there with the same name it will be overwritten... Thats why this is only a bonus file; it’s not too smart...
 
 ![Textmate, often my best mate!](images/textmate.png)
 

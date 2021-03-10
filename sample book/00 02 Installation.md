@@ -1,6 +1,6 @@
 # Installation
 
-A basic technical knowledge is required to use this system; it’s working from the `command line` unless you use the macOS frontend. I will give it a fair try to help you to get it all up and running. As always, [Google](https://google.com) is your best friend if you read this chapter and it makes no sense to you, haha!
+A basic technical knowledge is required to use this system; it’s working from the `command line` unless you use the macOS frontend. I will give it a fair try to help you to get it all up and running. As always, [Google](https://google.com) is your best friend if you read this chapter and it makes no sense to you...
 
 ---
 
@@ -14,7 +14,7 @@ The following software must be installed on your computer:
 - A `LaTeX` distribution like [MacTEX](http://www.tug.org/mactex/) for the Mac. For Ubuntu, I did `sudo apt install texlive-full` to get all the goodies in one time and no complains about missing packages.
 - The `zsh` shell; standard on macOS Big Sur; install it on Ubuntu.
 - `rsync`; should be standard...
-- The `Make` program. Part of Xcode or grab it from [Homebrew](https://brew.sh) when you are on a Mac. Else; do your Linux magic.
+- The `make` program. Part of Xcode or grab it from [Homebrew](https://brew.sh) when you are on a Mac. Else; do your Linux magic.
 - For a ‘Kobo’ ePub, ‘kepubify’ and 'ImageMagick' are needed. Get it [here](https://pgaskin.net/kepubify/) and [here](https://imagemagick.org). 
 
 ## Font
@@ -40,10 +40,10 @@ On my Mac, I dropped a file containing the full path to the scripts: \
 
 ---
 
-Linux? Up to you!
+Linux? Up to you...
 
 ---
 
-That’s it! Now a bit of configuration and you’re good to go!
+That’s it! Now a bit of configuration and you’re good to go.
 
 

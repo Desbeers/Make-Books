@@ -37,7 +37,7 @@ The arguments are again just like when you are making a normal book. You can mak
 
 ## Additional files
 
-If you like, you can add additional front- and backmatter pages to your collection. They are just like they are in a normal book, also in the same place. Keep the naming of the files in mind! Your `compilation` book will be collected in a temporarily folder, together with the selected books. The name of the book in the temporarily folder will start with the number from the `group-position` tag. . So, most probably starting with 1. As long as you start the name of your `front matters` with a 0; you are safe. And name your backmatter “99-name”, unless you have more than 99 books of course, haha!
+If you like, you can add additional front- and backmatter pages to your collection. They are just like they are in a normal book, also in the same place. Keep the naming of the files in mind. Your `compilation` book will be collected in a temporarily folder, together with the selected books. The name of the book in the temporarily folder will start with the number from the `group-position` tag. . So, most probably starting with 1. As long as you start the name of your `front matters` with a 0; you are safe. And name your backmatter “99-name”, unless you have more than 99 books of course...
 
 ### Backmatter
 

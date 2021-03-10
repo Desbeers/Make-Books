@@ -12,7 +12,7 @@ There are many flavours of Markdown and since I use *Pandoc* for the book creati
 - Sections within chapters are marked with `##`.
 - Subsections within sections are marked with `###`.
 
-And that’s it! There are no more headers available. This for a good reason. When creating an ePub; the headers are shifted according their place in the book. A book can be divided into `books` (when making collections) and `parts`. So, if a chapter is inside a *part*; the header will be shifted. If the *part* is part (haha) of a *book* it is shifted one more time. So, that is why `####` and `#####` are not available. The `######` is special, see later on...
+And that’s it. There are no more headers available. This for a good reason. When creating an ePub; the headers are shifted according their place in the book. A book can be divided into `books` (when making collections) and `parts`. So, if a chapter is inside a *part*; the header will be shifted. If the *part* is part (haha) of a *book* it is shifted one more time. So, that is why `####` and `#####` are not available. The `######` is special, see later on...
 
 ## Paragraphs
 
@@ -84,11 +84,13 @@ Footnotes can be in the paragraph itself `^[This is a footnote.]` However, the P
 
 	Here is a footnote reference,[^1]
 
-and the footnote itself can be at the end of the document like so:
+and the footnote itself can be at the end of the document like so[^1]:
 
 	[^1]: Here is the footnote.
 
 ---
 
-Last but not least: have an empty line between all the block elements; eg, headers, lists, images, quotes etcetera or else strange things can happen. Also, at all times, end your documents with an empty line. You’ve been warned!
+Last but not least: have an empty line between all the block elements; eg, headers, lists, images, quotes etcetera or else strange things can happen. Also, at all times, end your documents with an empty line. You’ve been warned...
+
+[^1]: Here is the footnote.
 

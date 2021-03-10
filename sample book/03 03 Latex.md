@@ -4,7 +4,7 @@ Why make things easy if you can make it very difficult? Yes, give me one good re
 
 ---
 
-There was, and still is, a lot to learn for me when it comes to LaTeX. But, that’s the reason why I use it. I like the challenge and even more I like the great results you can get if you just keep trying hard enough!
+There was, and still is, a lot to learn for me when it comes to LaTeX. But, that’s the reason why I use it. I like the challenge and even more I like the great results you can get if you just keep trying hard enough.
 
 ## The template
 
@@ -17,13 +17,13 @@ The `/includes/variable.zsh` script sets the TEXMFHOME variable to this build-sy
 	# For LaTeX, set TEXMFHOME to these scripts:
 	export TEXMFHOME=$local/texmf
 
-Once the script is done and the terminal session is closed; everything is again back to normal. So, that means if you fiddle with the `build-scrips` and you expect LuaLaTeX to find your own stuff you are out of luck... Now you know why!
+Once the script is done and the terminal session is closed; everything is again back to normal. So, that means if you fiddle with the `build-scrips` and you expect LuaLaTeX to find your own stuff you are out of luck... Now you know why...
 
 ## Fonts
 
-I’m using LuaLaTeX for the actual compiling and that means system font are available for me. Yeh, great! For me... However, nice guy that I am, what about you?
+I’m using LuaLaTeX for the actual compiling and that means the system fonts are available for me. Yeh, great! For me... However, nice guy that I am, what about you?
 
-You most probably don’t have that charming font on your system that I use for `drop caps`. So, for you, yes, special for you, I found out  after a long time how to get this right. Install this font!
+You most probably don’t have that charming font on your system that I use for `drop caps`. So, for you, yes, special for you, I found out  after a long time how to get this right. Install this font on your computer.
 
 Don’t just change this font for a different one; the result will not be pleasant. And you will hurt my feelings as well, because, really, it took me a long time to get this right.
 

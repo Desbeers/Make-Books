@@ -1,4 +1,4 @@
-# Parts, preface, and other special pages
+# Parts, dedication, and other special pages
 
 A chapter is a chapter, plain and simple. But what about the other bits and pieces that makes a book *a book*?
 
@@ -30,9 +30,9 @@ To make a `\backmatter` page, write the following header:
 
 	# My backmatter title {.backmatter}
 
-And then, write along again! You can have as many `backmatters` as you like; as long as they have all the above class added.
+And then, write along again. You can have as many `backmatters` as you like; as long as they have all the above class added.
 
-## Preface
+## Dedication
 
-A `preface` page is a separate Markdown file that lives in the `/assets` folder. See the chapter about the folder structure of your book later on. It does not need any `class`; you just write it like a chapter page.
+A `dedication` page is a separate Markdown file that lives in the `/assets` folder. See the chapter about the folder structure of your book later on. It does not need any `class`; you just write it like a chapter page. It will be between the *copyright* and *table of contents* pages in your book.
 
