@@ -22,14 +22,14 @@
 		D7AC56EE25D5729700AFD713 /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC56ED25D5729700AFD713 /* DropView.swift */; };
 		D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C9EF90244CC31F004589AE /* SharedFunctions.swift */; };
 		D7D3FCFB24399D9D00965BAE /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D3FCFA24399D9D00965BAE /* LogView.swift */; };
-		D7EFED4325EF78AB00C70480 /* kobo in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED3B25EF78AB00C70480 /* kobo */; };
-		D7EFED4425EF78AB00C70480 /* pandoc in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED3C25EF78AB00C70480 /* pandoc */; };
-		D7EFED4525EF78AB00C70480 /* config.zsh in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED3D25EF78AB00C70480 /* config.zsh */; };
-		D7EFED4625EF78AB00C70480 /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED3E25EF78AB00C70480 /* terminal */; };
-		D7EFED4725EF78AB00C70480 /* texmf in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED3F25EF78AB00C70480 /* texmf */; };
-		D7EFED4825EF78AB00C70480 /* includes in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED4025EF78AB00C70480 /* includes */; };
-		D7EFED4925EF78AB00C70480 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED4125EF78AB00C70480 /* fonts */; };
-		D7EFED4A25EF78AB00C70480 /* make in Resources */ = {isa = PBXBuildFile; fileRef = D7EFED4225EF78AB00C70480 /* make */; };
+		D7FF253B26074E9C006DF219 /* pandoc in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253326074E9C006DF219 /* pandoc */; };
+		D7FF253C26074E9C006DF219 /* includes in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253426074E9C006DF219 /* includes */; };
+		D7FF253D26074E9C006DF219 /* config.zsh in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253526074E9C006DF219 /* config.zsh */; };
+		D7FF253E26074E9C006DF219 /* make in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253626074E9C006DF219 /* make */; };
+		D7FF253F26074E9C006DF219 /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253726074E9C006DF219 /* terminal */; };
+		D7FF254026074E9C006DF219 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253826074E9C006DF219 /* fonts */; };
+		D7FF254126074E9C006DF219 /* kobo in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253926074E9C006DF219 /* kobo */; };
+		D7FF254226074E9C006DF219 /* texmf in Resources */ = {isa = PBXBuildFile; fileRef = D7FF253A26074E9C006DF219 /* texmf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,14 +52,14 @@
 		D7AC56ED25D5729700AFD713 /* DropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		D7C9EF90244CC31F004589AE /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7D3FCFA24399D9D00965BAE /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
-		D7EFED3B25EF78AB00C70480 /* kobo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = kobo; path = ../../../kobo; sourceTree = "<group>"; };
-		D7EFED3C25EF78AB00C70480 /* pandoc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pandoc; path = ../../../pandoc; sourceTree = "<group>"; };
-		D7EFED3D25EF78AB00C70480 /* config.zsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = config.zsh; path = ../../../config.zsh; sourceTree = "<group>"; };
-		D7EFED3E25EF78AB00C70480 /* terminal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = terminal; path = ../../../terminal; sourceTree = "<group>"; };
-		D7EFED3F25EF78AB00C70480 /* texmf */ = {isa = PBXFileReference; lastKnownFileType = folder; name = texmf; path = ../../../texmf; sourceTree = "<group>"; };
-		D7EFED4025EF78AB00C70480 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../includes; sourceTree = "<group>"; };
-		D7EFED4125EF78AB00C70480 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../fonts; sourceTree = "<group>"; };
-		D7EFED4225EF78AB00C70480 /* make */ = {isa = PBXFileReference; lastKnownFileType = folder; name = make; path = ../../../make; sourceTree = "<group>"; };
+		D7FF253326074E9C006DF219 /* pandoc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pandoc; path = ../../../../pandoc; sourceTree = "<group>"; };
+		D7FF253426074E9C006DF219 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../../includes; sourceTree = "<group>"; };
+		D7FF253526074E9C006DF219 /* config.zsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = config.zsh; path = ../../../../config.zsh; sourceTree = "<group>"; };
+		D7FF253626074E9C006DF219 /* make */ = {isa = PBXFileReference; lastKnownFileType = folder; name = make; path = ../../../../make; sourceTree = "<group>"; };
+		D7FF253726074E9C006DF219 /* terminal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = terminal; path = ../../../../terminal; sourceTree = "<group>"; };
+		D7FF253826074E9C006DF219 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../../fonts; sourceTree = "<group>"; };
+		D7FF253926074E9C006DF219 /* kobo */ = {isa = PBXFileReference; lastKnownFileType = folder; name = kobo; path = ../../../../kobo; sourceTree = "<group>"; };
+		D7FF253A26074E9C006DF219 /* texmf */ = {isa = PBXFileReference; lastKnownFileType = folder; name = texmf; path = ../../../../texmf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,6 @@
 		D739D2BB23B36419006EF379 = {
 			isa = PBXGroup;
 			children = (
-				D7EFED3A25EF785800C70480 /* External */,
 				D739D2C623B36419006EF379 /* Make books */,
 				D739D2C523B36419006EF379 /* Products */,
 			);
@@ -93,6 +92,7 @@
 		D739D2C623B36419006EF379 /* Make books */ = {
 			isa = PBXGroup;
 			children = (
+				D7EFED3A25EF785800C70480 /* External */,
 				016D359924FC58A3001F9C66 /* MakeBooksHelp.help */,
 				01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */,
 				D7D2D8E02435851F00736F07 /* Includes */,
@@ -142,14 +142,14 @@
 		D7EFED3A25EF785800C70480 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				D7EFED3D25EF78AB00C70480 /* config.zsh */,
-				D7EFED4125EF78AB00C70480 /* fonts */,
-				D7EFED4025EF78AB00C70480 /* includes */,
-				D7EFED3B25EF78AB00C70480 /* kobo */,
-				D7EFED4225EF78AB00C70480 /* make */,
-				D7EFED3C25EF78AB00C70480 /* pandoc */,
-				D7EFED3E25EF78AB00C70480 /* terminal */,
-				D7EFED3F25EF78AB00C70480 /* texmf */,
+				D7FF253526074E9C006DF219 /* config.zsh */,
+				D7FF253826074E9C006DF219 /* fonts */,
+				D7FF253426074E9C006DF219 /* includes */,
+				D7FF253926074E9C006DF219 /* kobo */,
+				D7FF253626074E9C006DF219 /* make */,
+				D7FF253326074E9C006DF219 /* pandoc */,
+				D7FF253726074E9C006DF219 /* terminal */,
+				D7FF253A26074E9C006DF219 /* texmf */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -212,18 +212,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7EFED4925EF78AB00C70480 /* fonts in Resources */,
+				D7FF253B26074E9C006DF219 /* pandoc in Resources */,
+				D7FF253F26074E9C006DF219 /* terminal in Resources */,
+				D7FF253E26074E9C006DF219 /* make in Resources */,
 				016D359A24FC58A3001F9C66 /* MakeBooksHelp.help in Resources */,
-				D7EFED4425EF78AB00C70480 /* pandoc in Resources */,
-				D7EFED4725EF78AB00C70480 /* texmf in Resources */,
 				D739D2CF23B3641A006EF379 /* Preview Assets.xcassets in Resources */,
-				D7EFED4A25EF78AB00C70480 /* make in Resources */,
-				D7EFED4625EF78AB00C70480 /* terminal in Resources */,
 				D74D4FC325F2CE7E005AF488 /* Credits.rtf in Resources */,
+				D7FF254126074E9C006DF219 /* kobo in Resources */,
+				D7FF253C26074E9C006DF219 /* includes in Resources */,
 				D739D2CC23B3641A006EF379 /* Assets.xcassets in Resources */,
-				D7EFED4525EF78AB00C70480 /* config.zsh in Resources */,
-				D7EFED4325EF78AB00C70480 /* kobo in Resources */,
-				D7EFED4825EF78AB00C70480 /* includes in Resources */,
+				D7FF254026074E9C006DF219 /* fonts in Resources */,
+				D7FF254226074E9C006DF219 /* texmf in Resources */,
+				D7FF253D26074E9C006DF219 /* config.zsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
