@@ -51,7 +51,7 @@ struct MakeView: View {
             /// Make all books
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.allBooks.rawValue, withExtension: nil)
+                    let script = Bundle.main.url(forResource: AuthorBook.BookType.allBooks.rawValue, withExtension: nil)
                     let makeAllBooks = makeProcess()
                     makeAllBooks.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
@@ -65,7 +65,7 @@ struct MakeView: View {
             /// Make all collections
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.allCollections.rawValue, withExtension: nil)
+                    let script = Bundle.main.url(forResource: AuthorBook.BookType.allCollections.rawValue, withExtension: nil)
                     let makeAllCollections = makeProcess()
                     makeAllCollections.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
@@ -79,7 +79,7 @@ struct MakeView: View {
             /// Make all tags
             Button(
                 action: {
-                    let script = Bundle.main.url(forResource: AuthorBooks.BookType.allTags.rawValue, withExtension: nil)
+                    let script = Bundle.main.url(forResource: AuthorBook.BookType.allTags.rawValue, withExtension: nil)
                     let makeAllTags = makeProcess()
                     makeAllTags.arguments! += ["'\(script!.path)' " +
                             GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]

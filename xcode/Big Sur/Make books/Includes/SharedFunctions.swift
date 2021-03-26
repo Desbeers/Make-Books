@@ -119,7 +119,7 @@ func GetCover(cover: String) -> NSImage {
 // Gets the hovered book
 // Returns a help string
 
-func GetHoverHelp(_ book: AuthorBooks) -> String {
+func GetHoverHelp(_ book: AuthorBook) -> String {
     return book.author + ": " + book.title
 }
 
@@ -175,4 +175,25 @@ struct FancyBackground: NSViewRepresentable {
   func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
     // Nothing to do.
   }
+}
+
+// MARK: - RunInShell()
+
+// Run a shell command
+
+/// https://stackoverflow.com/questions/26971240/how-do-i-run-a-terminal-command-in-a-swift-script-e-g-xcodebuild
+func RunInShell(_ command: String) -> String {
+    let task = Process()
+    let pipe = Pipe()
+    
+    task.standardOutput = pipe
+    task.standardError = pipe
+    task.arguments = ["-c", command]
+    task.launchPath = "/bin/zsh"
+    task.launch()
+    
+    let data = pipe.fileHandleForReading.readDataToEndOfFile()
+    let output = String(data: data, encoding: .utf8)!.trimmingCharacters(in: .whitespacesAndNewlines)
+    
+    return output
 }

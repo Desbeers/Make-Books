@@ -69,10 +69,10 @@ struct AuthorList: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let sortname: String
-    let books: [AuthorBooks]
+    let books: [AuthorBook]
 }
 
-struct AuthorBooks: Identifiable, Hashable {
+struct AuthorBook: Identifiable, Hashable {
     var id = UUID()
     var title: String = ""
     var author: String = ""
@@ -84,6 +84,13 @@ struct AuthorBooks: Identifiable, Hashable {
     var type: BookType = .book
     var search: String {
         return "\(title) \(author)"
+    }
+    /// Indentify the book
+    var fileMd5: String {
+        return RunInShell("echo '\(title) \(author)' | md5")
+    }
+    var folderMd5: String {
+        return RunInShell("cd '\(path)' && tar -cf - . | md5")
     }
     /// The types of books and the name of its script.
     enum BookType: String {
@@ -104,7 +111,7 @@ struct GetBooksList {
         /// Get the books in the selected directory
         let books = GetBooksList.GetFiles()
         /// Use the Dictionary(grouping:) function so that all the authors are grouped together.
-        let grouped = Dictionary(grouping: books) { (occurrence: AuthorBooks) -> String in
+        let grouped = Dictionary(grouping: books) { (occurrence: AuthorBook) -> String in
             occurrence.author
         }
         /// We now map over the dictionary and create our author objects.
@@ -119,8 +126,8 @@ struct GetBooksList {
         }.sorted { $0.sortname < $1.sortname }
     }
     /// This is a helper function to get the files.
-    static func GetFiles() -> [AuthorBooks] {
-        var books = [AuthorBooks]()
+    static func GetFiles() -> [AuthorBook] {
+        var books = [AuthorBook]()
         let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
         /// Convert path to an url
         let directoryURL = URL(fileURLWithPath: base)
@@ -128,7 +135,7 @@ struct GetBooksList {
         if let enumerator = FileManager.default.enumerator(atPath: directoryURL.path) {
             for case let item as String in enumerator {
                 if item.hasSuffix("/make-book.md") || item.hasSuffix("/make-collection.md") || item.hasSuffix("/make-tag-book.md") {
-                    var book = AuthorBooks()
+                    var book = AuthorBook()
                     ParseBookFile(directoryURL.appendingPathComponent(item, isDirectory: false), item, &book)
                     books.append(book)
                 }
@@ -138,7 +145,7 @@ struct GetBooksList {
         return books.sorted { $0.date == $1.date ? $0.title < $1.title : $0.date < $1.date  }
     }
     /// This is a helper function to get the files.
-    static func ParseBookFile(_ file: URL, _ name: String, _ book: inout AuthorBooks) {
+    static func ParseBookFile(_ file: URL, _ name: String, _ book: inout AuthorBook) {
         /// Name is used when the regex doesn't work
         book.author = "Unknown author"
         book.title = name

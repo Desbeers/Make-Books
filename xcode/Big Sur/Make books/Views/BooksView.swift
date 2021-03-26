@@ -20,45 +20,31 @@ struct BooksView: View {
         VStack() {
             SearchField(text: $search)
                 .padding(.horizontal, 10)
-            ScrollView() {
-                LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 110))],
-                    alignment: .center,
-                    spacing: 4,
-                    pinnedViews: [.sectionHeaders, .sectionFooters]
-                ) {
-                    ForEach(books.bookList.authors) { author in
-                        Section(header: search.isEmpty ? BookListHeader(author: author) : nil) {
-                            ForEach(author.books.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
-                                BookListRow(book: book)
-                                .onTapGesture{
-                                    if (books.bookSelected == book) {
-                                        books.bookSelected = nil
-                                    } else {
-                                        books.bookSelected = book
-                                    }
+            List(selection: $books.bookSelected) {
+                ForEach(books.bookList.authors) { author in
+                    Section(header: BookListHeader(author: author)) {
+                        ForEach(author.books.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
+                            BookListRow(book: book)
+                            .contextMenu {
+                                Button(action: {
+                                    OpenInFinder(url: URL(fileURLWithPath: book.path))
+                                }){
+                                    Text("Open source in Finder")
                                 }
-                                .contextMenu {
-                                    Button(action: {
-                                        OpenInFinder(url: URL(fileURLWithPath: book.path))
-                                    }){
-                                        Text("Open source in Finder")
-                                    }
-                                    Button(action: {
-                                        OpenInTerminal(url: URL(fileURLWithPath: book.path))
-                                    }){
-                                        Text("Open source in Terminal")
-                                    }
-                                    Divider()
-                                    Button(action: {
-                                        OpenInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
-                                    }){
-                                        Text("Open export in Finder")
-                                    }.disabled(!DoesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
+                                Button(action: {
+                                    OpenInTerminal(url: URL(fileURLWithPath: book.path))
+                                }){
+                                    Text("Open source in Terminal")
                                 }
+                                Divider()
+                                Button(action: {
+                                    OpenInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
+                                }){
+                                    Text("Open export in Finder")
+                                }.disabled(!DoesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
                             }
-                            .animation(.linear(duration: 0.2))
                         }
+                        .animation(.linear(duration: 0.2))
                     }
                 }
             }
@@ -93,26 +79,31 @@ struct BookListHeader: View {
 // A row in the book list
 
 struct BookListRow: View {
-    let book: AuthorBooks
+    let book: AuthorBook
     /// Get the list of books
     @EnvironmentObject var books: Books
     @State private var hovered = false
     // START body
     var body: some View {
-        VStack {
+        HStack {
             if ((book.cover) != nil) {
                 Image(nsImage: GetCover(cover: book.cover!.path))
-                    .resizable().frame(width: 90.0, height: 135.0)
-                    .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
-                    .cornerRadius(3)
+                    .CoverImageModifier(hovered: hovered)
             } else {
                 ZStack {
                     Image(nsImage: NSImage(named: "CoverArt")!)
-                        .resizable().frame(width: 90.0, height: 135.0)
-                        .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
-                        .cornerRadius(3)
-                    Text(book.title).padding(5).frame(width: 90.0, height: 135.0)
+                        .CoverImageModifier(hovered: hovered)
+                    Text(book.title).padding(5).frame(width: 60.0, height: 90.0).font(.caption2)
                 }
+            }
+            VStack(alignment: .leading) {
+                Text(book.title).fontWeight(.bold).lineLimit(2)
+                Text(book.author)
+                if !book.collection.isEmpty {
+                    Text(book.collection + " " + book.position).font (.caption)
+                }
+                //Text(book.type + " ∙ " + book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
+                Text(book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
             }
         }
         .padding(8)
@@ -122,10 +113,23 @@ struct BookListRow: View {
         .help(
             GetHoverHelp(book)
         )
-        .scaleEffect(hovered && books.bookSelected != book ? 1.1 : 1.0)
         .animation(.default, value: hovered)
-        .background(books.bookSelected == book ? Color.accentColor.opacity(0.6) : Color.clear).cornerRadius(4)
     }
+}
+
+//  MARK: - Extension: Modify BookListRow
+
+/// The cover layout.
+
+extension Image {
+    func CoverImageModifier(hovered: Bool) -> some View {
+        self
+            .resizable().frame(width: 60.0, height: 90.0)
+            .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
+            .padding(.trailing, 10)
+            .padding(.leading, 2)
+            .scaleEffect(hovered ? 1.1 : 1.0)
+   }
 }
 
 // MARK: - NSViewRepresentable: SearchField
