@@ -69,27 +69,39 @@ struct AuthorList: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let sortname: String
-    let books: [AuthorBook]
+    let books: [BookItem]
 }
 
-struct AuthorBook: Identifiable, Hashable {
+struct BookItem: Identifiable, Hashable {
     var id = UUID()
     var title: String = ""
     var author: String = ""
     var date: String = ""
     var cover: URL? = nil
-    var collection: String = ""
-    var position: String = ""
+    var belongsToCollection: String = ""
+    var groupPosition: String = ""
     var path: String = ""
     var type: BookType = .book
+    var collection: String = ""
+    var addToCollection = [BookCollection]()
     var search: String {
         return "\(title) \(author)"
     }
+    var description: String {
+        switch type {
+        case .collection:
+            return "Collection"
+        case .tag:
+            return "Tag"
+        default:
+            return "Book"
+        }
+    }
     /// Indentify the book
-    var fileMd5: String {
+    func fileMd5() -> String {
         return RunInShell("echo '\(title) \(author)' | md5")
     }
-    var folderMd5: String {
+    func folderMd5() -> String {
         return RunInShell("cd '\(path)' && tar -cf - . | md5")
     }
     /// The types of books and the name of its script.
@@ -104,6 +116,12 @@ struct AuthorBook: Identifiable, Hashable {
     }
 }
 
+struct BookCollection: Identifiable, Hashable {
+    var id = UUID()
+    var name: String = ""
+    var position: String = ""
+}
+
 struct GetBooksList {
     let authors: [AuthorList]
     /// Fill the list.
@@ -111,7 +129,7 @@ struct GetBooksList {
         /// Get the books in the selected directory
         let books = GetBooksList.GetFiles()
         /// Use the Dictionary(grouping:) function so that all the authors are grouped together.
-        let grouped = Dictionary(grouping: books) { (occurrence: AuthorBook) -> String in
+        let grouped = Dictionary(grouping: books) { (occurrence: BookItem) -> String in
             occurrence.author
         }
         /// We now map over the dictionary and create our author objects.
@@ -126,8 +144,8 @@ struct GetBooksList {
         }.sorted { $0.sortname < $1.sortname }
     }
     /// This is a helper function to get the files.
-    static func GetFiles() -> [AuthorBook] {
-        var books = [AuthorBook]()
+    static func GetFiles() -> [BookItem] {
+        var books = [BookItem]()
         let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
         /// Convert path to an url
         let directoryURL = URL(fileURLWithPath: base)
@@ -135,7 +153,7 @@ struct GetBooksList {
         if let enumerator = FileManager.default.enumerator(atPath: directoryURL.path) {
             for case let item as String in enumerator {
                 if item.hasSuffix("/make-book.md") || item.hasSuffix("/make-collection.md") || item.hasSuffix("/make-tag-book.md") {
-                    var book = AuthorBook()
+                    var book = BookItem()
                     ParseBookFile(directoryURL.appendingPathComponent(item, isDirectory: false), item, &book)
                     books.append(book)
                 }
@@ -145,41 +163,50 @@ struct GetBooksList {
         return books.sorted { $0.date == $1.date ? $0.title < $1.title : $0.date < $1.date  }
     }
     /// This is a helper function to get the files.
-    static func ParseBookFile(_ file: URL, _ name: String, _ book: inout AuthorBook) {
+    static func ParseBookFile(_ file: URL, _ name: String, _ book: inout BookItem) {
         /// Name is used when the regex doesn't work
         book.author = "Unknown author"
         book.title = name
         book.path = file.path
-        /// There are books-, collections- and tag-types of book.
-        /// Assign the correct type.
-        if name.hasSuffix("/make-book.md") {
-            book.type = .book
-        }
-        if name.hasSuffix("/make-collection.md") {
-            book.type = .collection
-        }
-        if name.hasSuffix("/make-tag-book.md") {
-            book.type = .tag
-        }
-        
         do {
             let data = try String(contentsOf: file, encoding: .utf8)
             
             for line in data.components(separatedBy: .newlines) {
+                var value = ""
                 let result = line.range(of: "[a-z]", options:.regularExpression)
                 if (result != nil) {
-                    let lineArr = line.components(separatedBy: ": ")
+                    let lineArr = line.components(separatedBy: ":")
+                    /// Strip it clean...
+                    if !lineArr[1].isEmpty {
+                        value = lineArr[1].trimmingCharacters(in: .whitespaces)
+                    }
                     switch lineArr[0] {
+                    /// Metadata stuff...
                     case "author":
-                        book.author = lineArr[1]
+                        book.author = value
                     case "title":
-                        book.title = lineArr[1]
+                        book.title = value
                     case "date":
-                        book.date = lineArr[1]
+                        book.date = value
                     case "belongs-to-collection":
-                        book.collection = lineArr[1]
+                        book.belongsToCollection = value
                     case "group-position":
-                        book.position = lineArr[1]
+                        book.groupPosition = value
+                    /// Internal stuff...
+                    case "collection":
+                        /// This book is a collection:
+                        book.type = .collection
+                        book.collection = value
+                    case "add-to-collection":
+                        let add = lineArr[1].components(separatedBy: ";")
+                        add.forEach { (item) in
+                            let part = item.components(separatedBy: "=")
+                            let collection = BookCollection(name: part[0].trimmingCharacters(in: .whitespaces), position: part[1].trimmingCharacters(in: .whitespaces))
+                            book.addToCollection.append(collection)
+                        }
+                    case "tag":
+                        /// This book is a collection:
+                        book.type = .tag
                     default:
                         break
                     }

@@ -68,6 +68,12 @@ metadata() {
     echo ${$(grep "^$1:" $2 | sed -e "s/^$1: *//")}
 }
 
+# Get book position in collection
+get_collection_position() {
+    [[ $2 =~ $1'=([^;]+)' ]]
+    echo $match[1]
+}
+
 # Make strings 'safe', replace spaces and other funny characters
 safe_string() {
     echo ${1//[ .&]/-}

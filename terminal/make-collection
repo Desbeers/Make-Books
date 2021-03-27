@@ -23,11 +23,15 @@ if [[ ! -f $metadata_file ]]; then
     exit 1
 fi
 
+export COLLECTION=$(metadata 'collection' $metadata_file)
+
+print "Start: "$COLLECTION
+
 # Setup the variables:
 . ${local}/includes/variables.zsh
 
 # Collect dir. Replace spaces with dashes.
-collect_dir=$TMPBOOKS/collections/$(safe_string $belongs_to_collection)
+collect_dir=$TMPBOOKS/collections/$(safe_string $collection)
 
 #####################################################
 #                                                   #
@@ -45,7 +49,7 @@ collect() {
     mv $collect_dir/assets/make-collection.md $collect_dir/assets/make-book.md
     touch -r assets/make-collection.md $collect_dir/assets/make-book.md
     # Find our books and process it:
-    find $books -name make-book.md -exec grep -lw 'belongs-to-collection:.*'$belongs_to_collection {} + \
+    find $books -name make-book.md -exec grep -lw 'add-to-collection:.*'$collection {} + \
         | while read file; do process "$file"; done
 }
 
@@ -60,7 +64,7 @@ process() {
     . $local/includes/variables.zsh
     export EXPORT_DIR=$export
     export BUILD_DIR=$collect_dir
-    export BUILD_TITLE=$book_position
+    export BUILD_TITLE=$collection_position
     export PANDOC_ACTION='Prepair'
     $local/terminal/make-book --gui $GUI collect
 }

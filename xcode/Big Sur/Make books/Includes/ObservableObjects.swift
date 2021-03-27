@@ -12,7 +12,7 @@ import SwiftUI
 
 class Books: ObservableObject {
     @Published var bookList = GetBooksList()
-    @Published var bookSelected: AuthorBook?
+    @Published var bookSelected: BookItem?
 }
 
 // MARK: - ObservableObject: MakeOptions

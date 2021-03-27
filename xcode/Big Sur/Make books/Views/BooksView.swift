@@ -61,7 +61,7 @@ struct BookListHeader: View {
     // START body
     var body: some View {
         ZStack {
-            FancyBackground().opacity(0.9)
+            /// FancyBackground().opacity(0.9)
             VStack {
                 HStack {
                     Spacer()
@@ -79,7 +79,7 @@ struct BookListHeader: View {
 // A row in the book list
 
 struct BookListRow: View {
-    let book: AuthorBook
+    let book: BookItem
     /// Get the list of books
     @EnvironmentObject var books: Books
     @State private var hovered = false
@@ -93,17 +93,33 @@ struct BookListRow: View {
                 ZStack {
                     Image(nsImage: NSImage(named: "CoverArt")!)
                         .CoverImageModifier(hovered: hovered)
-                    Text(book.title).padding(5).frame(width: 60.0, height: 90.0).font(.caption2)
+                    Text(book.title)
+                        .padding(.trailing, 10)
+                        .frame(width: 60.0, height: 90.0)
+                        .font(.caption2)
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.center)
                 }
             }
             VStack(alignment: .leading) {
                 Text(book.title).fontWeight(.bold).lineLimit(2)
                 Text(book.author)
-                if !book.collection.isEmpty {
-                    Text(book.collection + " " + book.position).font (.caption)
+                if !book.belongsToCollection.isEmpty {
+                    Text("\(book.belongsToCollection) \(book.groupPosition)")
+                        .font (.caption)
                 }
-                //Text(book.type + " ∙ " + book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
-                Text(book.date.prefix(4)).font(.caption).foregroundColor(Color.secondary)
+                Text("\(book.description) • " + book.date.prefix(4))
+                    .font(.caption)
+                    .foregroundColor(Color.secondary)
+                if (book.type == .collection) {
+                    let filterbooks = books.bookList.authors.flatMap{$0.books}.filter{$0.addToCollection.contains(where: { $0.name == book.collection })}
+                    VStack(alignment: .leading) {
+                        ForEach(filterbooks) { list in
+                            Text(list.title)
+                        }
+                    }
+                    .font(.caption2)
+                }
             }
         }
         .padding(8)
@@ -127,7 +143,7 @@ extension Image {
             .resizable().frame(width: 60.0, height: 90.0)
             .shadow(color: .init(red: 0, green: 0, blue: 0, opacity: 0.4), radius: 2, x: 2, y: 2)
             .padding(.trailing, 10)
-            .padding(.leading, 2)
+            .padding(.leading, 0)
             .scaleEffect(hovered ? 1.1 : 1.0)
    }
 }

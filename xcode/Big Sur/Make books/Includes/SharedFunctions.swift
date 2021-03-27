@@ -119,7 +119,7 @@ func GetCover(cover: String) -> NSImage {
 // Gets the hovered book
 // Returns a help string
 
-func GetHoverHelp(_ book: AuthorBook) -> String {
+func GetHoverHelp(_ book: BookItem) -> String {
     return book.author + ": " + book.title
 }
 

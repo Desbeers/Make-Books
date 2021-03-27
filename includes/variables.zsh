@@ -31,10 +31,10 @@ if [[ -f $metadata_file ]]; then
     : ${title=${$(metadata 'title' $metadata_file)}}
     # Get the author.
     : ${author=${$(metadata 'author' $metadata_file)}}
-    # Get the 'belongs-to-collection'.
-    : ${belongs_to_collection=${$(metadata 'belongs-to-collection' $metadata_file)}}
-    # Get the 'book-position'.
-    : ${book_position=${$(metadata 'group-position' $metadata_file)}}
+    # Get the 'collection'.
+    : ${collection=${$(metadata 'add-to-collection' $metadata_file)}}    
+    # Get the 'collection-position'.
+    : ${collection_position=${$(get_collection_position $COLLECTION $collection)}}    
     # Build dir. Replace spaces with dashes.
     : ${BUILD_DIR=$TMPBOOKS/build/$(safe_string $author).$(safe_string $title)}
     # Source dir. Replace spaces with dashes.
@@ -64,5 +64,5 @@ export SOURCE_DIR BUILD_DIR BUILD_TITLE EXPORT_DIR EXPORT_TITLE EPUB_CHAPTER_LEV
 
 # Function to reset all 'dynamic' variables:
 clear_variables() {
-    unset title author book_position SOURCE_DIR BUILD_DIR BUILD_TITLE EXPORT_DIR EXPORT_TITLE
+    unset title author collection collection_position SOURCE_DIR BUILD_DIR BUILD_TITLE EXPORT_DIR EXPORT_TITLE
 }
