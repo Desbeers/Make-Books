@@ -5,65 +5,9 @@
 
 import SwiftUI
 
-// MARK: - Struct: Log
+// MARK: - Struct: Book list
 
-// The logger for the scripts.
-
-struct Log: Identifiable, Equatable {
-    let id = UUID()
-    let type: LogType
-    let message: String
-    /// The symbol used in the list of LogView
-    var symbol: String {
-        switch type {
-        case .action:
-            return "book"
-        case .notice:
-            return "info.circle.fill"
-        case .error:
-            return "xmark.octagon.fill"
-        case .targetStart:
-            return "gear"
-        case .targetEnd:
-            return "checkmark"
-        case .targetClean:
-            return "scissors"
-        case .logStart:
-            return "hourglass.tophalf.fill"
-        case .logEnd:
-            return "hourglass.bottomhalf.fill"
-        default:
-            return "questionmark"
-        }
-    }
-    /// The color of the symbols used in the list of LogView
-    var color: Color {
-        switch type {
-        case .error:
-            return .red
-        case .targetStart:
-            return .orange
-        case .targetEnd:
-            return .green
-        case .targetClean:
-            return .blue
-        default:
-            return .primary
-        }
-    }
-    /// Log types
-    enum LogType: String {
-        case action
-        case notice
-        case error
-        case targetStart
-        case targetEnd
-        case targetClean
-        case logStart
-        case logEnd
-        case unknown
-    }
-}
+// All the books
 
 struct AuthorList: Identifiable, Hashable {
     let id = UUID()
@@ -254,4 +198,64 @@ func GetMakeOptions() -> [Make] {
     options.append(Make(make: "kobo", label: "Make a Kobo book",
                         text: "Make an ePub that is optimised for the Kobo e-reader.", isSelected: false))
     return options
+}
+
+// MARK: - Struct: Log
+
+// The logger for the scripts.
+
+struct Log: Identifiable, Equatable {
+    let id = UUID()
+    let type: LogType
+    let message: String
+    /// The symbol used in the list of LogView
+    var symbol: String {
+        switch type {
+        case .action:
+            return "book"
+        case .notice:
+            return "info.circle.fill"
+        case .error:
+            return "xmark.octagon.fill"
+        case .targetStart:
+            return "gear"
+        case .targetEnd:
+            return "checkmark"
+        case .targetClean:
+            return "scissors"
+        case .logStart:
+            return "hourglass.tophalf.fill"
+        case .logEnd:
+            return "hourglass.bottomhalf.fill"
+        default:
+            return "questionmark"
+        }
+    }
+    /// The color of the symbols used in the list of LogView
+    var color: Color {
+        switch type {
+        case .error:
+            return .red
+        case .targetStart:
+            return .orange
+        case .targetEnd:
+            return .green
+        case .targetClean:
+            return .blue
+        default:
+            return .primary
+        }
+    }
+    /// Log types
+    enum LogType: String {
+        case action
+        case notice
+        case error
+        case targetStart
+        case targetEnd
+        case targetClean
+        case logStart
+        case logEnd
+        case unknown
+    }
 }
