@@ -31,7 +31,7 @@ print "Start: "$COLLECTION
 . ${local}/includes/variables.zsh
 
 # Collect dir. Replace spaces with dashes.
-collect_dir=$TMPBOOKS/collections/$(safe_string $collection)
+collect_dir=$TMPBOOKS/collections/$(safe_string $COLLECTION)
 
 #####################################################
 #                                                   #
@@ -49,7 +49,7 @@ collect() {
     mv $collect_dir/assets/make-collection.md $collect_dir/assets/make-book.md
     touch -r assets/make-collection.md $collect_dir/assets/make-book.md
     # Find our books and process it:
-    find $books -name make-book.md -exec grep -lw 'add-to-collection:.*'$collection {} + \
+    find $books -name make-book.md -exec grep -lw 'add-to-collection:.*'$COLLECTION {} + \
         | while read file; do process "$file"; done
 }
 
