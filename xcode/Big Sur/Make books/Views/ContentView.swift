@@ -34,6 +34,7 @@ struct ContentView: View {
                         Button(action: {
                             withAnimation {
                                 books.bookList = GetBooksList()
+                                books.bookSelected = nil
                             }
                         } ) {
                             Image(systemName: "arrow.clockwise")
@@ -76,7 +77,7 @@ struct ContentView: View {
 // MARK: - Extension: ContentView
 
 // You can only have one sheet in a view.
-// This extension makes it opssible to have different views.
+// This extension makes it possible to have different views.
 
 extension ContentView {
     @ViewBuilder

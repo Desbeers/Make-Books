@@ -26,6 +26,7 @@ struct BookItem: Identifiable, Hashable {
     var groupPosition: String = ""
     var path: String = ""
     var type: BookType = .book
+    var tag: String = ""
     var collection: String = ""
     var addToCollection = [BookCollection]()
     var search: String {
@@ -36,7 +37,7 @@ struct BookItem: Identifiable, Hashable {
         case .collection:
             return "Collection"
         case .tag:
-            return "Tag"
+            return "Tag: \(tag)"
         default:
             return "Book"
         }
@@ -151,6 +152,7 @@ struct GetBooksList {
                     case "tag":
                         /// This book is a collection:
                         book.type = .tag
+                        book.tag = value
                     default:
                         break
                     }
