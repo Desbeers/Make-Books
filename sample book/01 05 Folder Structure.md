@@ -1,7 +1,5 @@
 # The folder structure of your book
 
-#image
-
 There are some rules to follow to get everything nice and dandy. Your book must be organised in a specific way:
 
 ![The folder structure](images/folder-structure.png){width=85%}

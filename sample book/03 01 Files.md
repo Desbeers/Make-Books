@@ -1,7 +1,5 @@
 # What are all those files?
 
-#image
-
 Let’s get trough the piles of folders and files inside the `make-book` folder and give it some explanation....
 
 I will not go trough them one by one; that’s too boring and also not so interesting. No, instead I take you on a tour. Let say we are in the folder containing this book and type `make-book clean pdf epub`.

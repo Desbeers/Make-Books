@@ -1,7 +1,5 @@
 # Markup your words
 
-#image
-
 The books have to be written in *markdown*. Cut and paste from  [Wikipedia](https://en.wikipedia.org/wiki/Markdown): “Markdown is a lightweight markup language with plain-text-formatting syntax. Its design allows it to be converted into many output formats.”
 
 There are many flavours of Markdown and since I use *Pandoc* for the book creation it’s obvious I use Pandocs flavour. See [their manual](https://pandoc.org/MANUAL.html#pandocs-markdown) for the details. However, there are some “rules” to follow, specifically for this book building system:
