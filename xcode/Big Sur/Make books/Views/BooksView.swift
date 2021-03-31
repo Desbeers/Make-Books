@@ -105,7 +105,7 @@ struct BookListRow: View {
                 Text(book.title).fontWeight(.bold).lineLimit(2)
                 Text(book.author)
                 if !book.belongsToCollection.isEmpty {
-                    Text("\(book.belongsToCollection) \(book.groupPosition)")
+                    Text("\(book.belongsToCollection) \(book.groupPositionRoman)")
                         .font (.caption)
                 }
                 Text("\(book.description) • " + book.date.prefix(4))

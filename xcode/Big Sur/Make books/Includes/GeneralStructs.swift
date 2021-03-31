@@ -24,6 +24,9 @@ struct BookItem: Identifiable, Hashable {
     var cover: URL? = nil
     var belongsToCollection: String = ""
     var groupPosition: String = ""
+    var groupPositionRoman: String {
+        return RomanNumber(number: groupPosition)
+    }
     var path: String = ""
     var type: BookType = .book
     var tag: String = ""
