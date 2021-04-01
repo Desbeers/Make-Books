@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D739D2C323B36419006EF379"
-               BuildableName = "Make books.app"
-               BlueprintName = "Make books"
+               BuildableName = "Make Books.app"
+               BlueprintName = "Make Books"
                ReferencedContainer = "container:Make books.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D739D2C323B36419006EF379"
-            BuildableName = "Make books.app"
-            BlueprintName = "Make books"
+            BuildableName = "Make Books.app"
+            BlueprintName = "Make Books"
             ReferencedContainer = "container:Make books.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -64,8 +64,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D739D2C323B36419006EF379"
-            BuildableName = "Make books.app"
-            BlueprintName = "Make books"
+            BuildableName = "Make Books.app"
+            BlueprintName = "Make Books"
             ReferencedContainer = "container:Make books.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -37,7 +37,7 @@
 		01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D704B53E24506D4E00470582 /* MakeBooksDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MakeBooksDebug.entitlements; sourceTree = "<group>"; };
 		D71F5868244368C00021D95F /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
-		D739D2C423B36419006EF379 /* Make books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Make books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D739D2C423B36419006EF379 /* Make Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Make Books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D739D2C923B36419006EF379 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		D739D2CB23B3641A006EF379 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D739D2CE23B3641A006EF379 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		D739D2C523B36419006EF379 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D739D2C423B36419006EF379 /* Make books.app */,
+				D739D2C423B36419006EF379 /* Make Books.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,9 +157,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D739D2C323B36419006EF379 /* Make books */ = {
+		D739D2C323B36419006EF379 /* Make Books */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D739D2ED23B3641A006EF379 /* Build configuration list for PBXNativeTarget "Make books" */;
+			buildConfigurationList = D739D2ED23B3641A006EF379 /* Build configuration list for PBXNativeTarget "Make Books" */;
 			buildPhases = (
 				D739D2C023B36419006EF379 /* Sources */,
 				D739D2C123B36419006EF379 /* Frameworks */,
@@ -169,9 +169,9 @@
 			);
 			dependencies = (
 			);
-			name = "Make books";
+			name = "Make Books";
 			productName = "Make books";
-			productReference = D739D2C423B36419006EF379 /* Make books.app */;
+			productReference = D739D2C423B36419006EF379 /* Make Books.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -189,7 +189,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D739D2BF23B36419006EF379 /* Build configuration list for PBXProject "Make books" */;
+			buildConfigurationList = D739D2BF23B36419006EF379 /* Build configuration list for PBXProject "Make Books" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -202,7 +202,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D739D2C323B36419006EF379 /* Make books */,
+				D739D2C323B36419006EF379 /* Make Books */,
 			);
 		};
 /* End PBXProject section */
@@ -421,7 +421,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D739D2BF23B36419006EF379 /* Build configuration list for PBXProject "Make books" */ = {
+		D739D2BF23B36419006EF379 /* Build configuration list for PBXProject "Make Books" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D739D2EB23B3641A006EF379 /* Debug */,
@@ -430,7 +430,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D739D2ED23B3641A006EF379 /* Build configuration list for PBXNativeTarget "Make books" */ = {
+		D739D2ED23B3641A006EF379 /* Build configuration list for PBXNativeTarget "Make Books" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D739D2EE23B3641A006EF379 /* Debug */,
