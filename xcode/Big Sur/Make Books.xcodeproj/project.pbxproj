@@ -76,7 +76,7 @@
 		D739D2BB23B36419006EF379 = {
 			isa = PBXGroup;
 			children = (
-				D739D2C623B36419006EF379 /* Make books */,
+				D739D2C623B36419006EF379 /* Make Books */,
 				D739D2C523B36419006EF379 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,7 +89,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D739D2C623B36419006EF379 /* Make books */ = {
+		D739D2C623B36419006EF379 /* Make Books */ = {
 			isa = PBXGroup;
 			children = (
 				D7EFED3A25EF785800C70480 /* External */,
@@ -103,7 +103,7 @@
 				D739D2D423B3641A006EF379 /* MakeBooks.entitlements */,
 				D739D2CD23B3641A006EF379 /* Preview Content */,
 			);
-			path = "Make books";
+			path = "Make Books";
 			sourceTree = "<group>";
 		};
 		D739D2CD23B3641A006EF379 /* Preview Content */ = {
