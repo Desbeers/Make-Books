@@ -71,7 +71,7 @@ build() {
     if [[ -d $EXPORT_DIR ]]; then dest=$(zstat '+mtime' $EXPORT_DIR); fi
     if [[ $source > $dest ]]; then collect; fi
     # Go to the source dir:
-    cd $SOURCE_DIR    
+    cd $SOURCE_DIR
     # make it!
     make --jobs --file=$local/make/Makefile $(echo $*)
 }

@@ -31,16 +31,18 @@ if [[ -f $metadata_file ]]; then
     : ${title=${$(metadata 'title' $metadata_file)}}
     # Get the author.
     : ${author=${$(metadata 'author' $metadata_file)}}
+    # Calculate the hash value
+    hash=$(echo "$title $author" | md5)
     # Get the 'collection'.
     : ${collection=${$(metadata 'add-to-collection' $metadata_file)}}    
     # Get the 'collection-position'.
     : ${collection_position=${$(get_collection_position $COLLECTION $collection)}}    
-    # Build dir. Replace spaces with dashes.
-    : ${BUILD_DIR=$TMPBOOKS/build/$(safe_string $author).$(safe_string $title)}
-    # Source dir. Replace spaces with dashes.
-    : ${SOURCE_DIR=$TMPBOOKS/source/$(safe_string $author).$(safe_string $title)}
-    # Build title.  Replace spaces with dashes.
-    : ${BUILD_TITLE=$(safe_string $title)}
+    # Build dir.
+    : ${BUILD_DIR=$TMPBOOKS/build/$hash}
+    # Source dir.
+    : ${SOURCE_DIR=$TMPBOOKS/source/$hash}
+    # Build title.
+    : ${BUILD_TITLE=$hash}
     # Export dir:
     : ${EXPORT_DIR=$export/$author/$title}
     # Export title:
