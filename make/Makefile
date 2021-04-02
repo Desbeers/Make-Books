@@ -226,9 +226,6 @@ $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc assets
 	$(call log,Making your Kobo book...,targetStart,❁)
 ifneq ("$(wildcard $(COVER))","")
 	@$(CONVERT) assets/cover-screen.jpg -resize 544x816\! -colorspace Gray $(BUILD_DIR)/cover-screen-kobo.jpg
-	
-	@$ magick composite -gravity center  $(BUILD_DIR)/cover-screen-kobo.jpg "$(PANDOC_TEMPLATES)/cover-kobo.jpg"  $(BUILD_DIR)/cover-screen-kobo.jpg
-	
 endif
 	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
 
