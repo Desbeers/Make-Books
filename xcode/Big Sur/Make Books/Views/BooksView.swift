@@ -127,7 +127,7 @@ struct BookListRow: View {
             self.hovered = isHovered
         }
         .help(
-            GetHoverHelp(book)
+            book.help
         )
         .animation(.default, value: hovered)
     }

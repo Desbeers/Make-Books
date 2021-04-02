@@ -35,6 +35,9 @@ struct BookItem: Identifiable, Hashable {
     var search: String {
         return "\(title) \(author)"
     }
+    var help: String {
+        return "\(author): \(title)"
+    }
     var description: String {
         switch type {
         case .collection:

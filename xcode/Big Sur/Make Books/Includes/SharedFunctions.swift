@@ -114,15 +114,6 @@ func GetCover(cover: String) -> NSImage {
     return NSImage(data: imageData)!
 }
 
-// MARK: GetHoverHelp(book)
-
-// Gets the hovered book
-// Returns a help string
-
-func GetHoverHelp(_ book: BookItem) -> String {
-    return book.author + ": " + book.title
-}
-
 // MARK: OpenInFinder(url)
 
 // Open a folder in the Finder
