@@ -21,11 +21,11 @@ struct BookItem: Identifiable, Hashable {
     var title: String = ""
     var author: String = ""
     var date: String = ""
-    var cover: URL? = nil
+    var cover: URL?
     var belongsToCollection: String = ""
     var groupPosition: String = ""
     var groupPositionRoman: String {
-        return RomanNumber(number: groupPosition)
+        return romanNumber(number: groupPosition)
     }
     var path: String = ""
     var type: BookType = .book
@@ -50,10 +50,10 @@ struct BookItem: Identifiable, Hashable {
     }
     /// Indentify the book
     func fileMd5() -> String {
-        return RunInShell("echo '\(title) \(author)' | md5")
+        return runInShell("echo '\(title) \(author)' | md5")
     }
     func folderMd5() -> String {
-        return RunInShell("cd '\(path)' && tar -cf - . | md5")
+        return runInShell("cd '\(path)' && tar -cf - . | md5")
     }
     /// The types of books and the name of its script.
     enum BookType: String {
@@ -78,7 +78,7 @@ struct GetBooksList {
     /// Fill the list.
     init() {
         /// Get the books in the selected directory
-        let books = GetBooksList.GetFiles()
+        let books = GetBooksList.getFiles()
         /// Use the Dictionary(grouping:) function so that all the authors are grouped together.
         let grouped = Dictionary(grouping: books) { (occurrence: BookItem) -> String in
             occurrence.author
@@ -88,16 +88,16 @@ struct GetBooksList {
         self.authors = grouped.map { author -> AuthorList in
             /// Sort the list by last name
             var sortname = " \(author.key)"
-            if let i = sortname.lastIndex(of: " ") {
-                sortname = String(sortname[i...])
+            if let index = sortname.lastIndex(of: " ") {
+                sortname = String(sortname[index...])
             }
             return AuthorList(name: author.key, sortname: sortname, books: author.value)
         }.sorted { $0.sortname < $1.sortname }
     }
     /// This is a helper function to get the files.
-    static func GetFiles() -> [BookItem] {
+    static func getFiles() -> [BookItem] {
         var books = [BookItem]()
-        let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? GetDocumentsDirectory()
+        let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? getDocumentsDirectory()
         /// Convert path to an url
         let directoryURL = URL(fileURLWithPath: base)
         /// Get a list of all files
@@ -105,7 +105,7 @@ struct GetBooksList {
             for case let item as String in enumerator {
                 if item.hasSuffix("/make-book.md") || item.hasSuffix("/make-collection.md") || item.hasSuffix("/make-tag-book.md") {
                     var book = BookItem()
-                    ParseBookFile(directoryURL.appendingPathComponent(item, isDirectory: false), item, &book)
+                    parseBookFile(directoryURL.appendingPathComponent(item, isDirectory: false), item, &book)
                     books.append(book)
                 }
             }
@@ -114,7 +114,7 @@ struct GetBooksList {
         return books.sorted { $0.date == $1.date ? $0.title < $1.title : $0.date < $1.date  }
     }
     /// This is a helper function to get the files.
-    static func ParseBookFile(_ file: URL, _ name: String, _ book: inout BookItem) {
+    static func parseBookFile( _ file: URL, _ name: String, _ book: inout BookItem) {
         /// Name is used when the regex doesn't work
         book.author = "Unknown author"
         book.title = name
@@ -124,8 +124,7 @@ struct GetBooksList {
             
             for line in data.components(separatedBy: .newlines) {
                 var value = ""
-                let result = line.range(of: "[a-z]", options:.regularExpression)
-                if (result != nil) {
+                if line.range(of: "[a-z]", options: .regularExpression) != nil {
                     let lineArr = line.components(separatedBy: ":")
                     /// Strip it clean...
                     if !lineArr[1].isEmpty {
@@ -150,7 +149,7 @@ struct GetBooksList {
                         book.collection = value
                     case "add-to-collection":
                         let add = lineArr[1].components(separatedBy: ";")
-                        add.forEach { (item) in
+                        add.forEach { item in
                             let part = item.components(separatedBy: "=")
                             let collection = BookCollection(name: part[0].trimmingCharacters(in: .whitespaces), position: part[1].trimmingCharacters(in: .whitespaces))
                             book.addToCollection.append(collection)
@@ -170,7 +169,7 @@ struct GetBooksList {
         var cover = file
         cover.deleteLastPathComponent()
         cover.appendPathComponent("cover-screen.jpg")
-        if DoesFileExists(url: cover) {
+        if doesFileExists(url: cover) {
             book.cover = cover
         }
         var path = file
@@ -192,7 +191,7 @@ struct Make: Identifiable {
     var isSelected: Bool
 }
 
-func GetMakeOptions() -> [Make] {
+func getMakeOptions() -> [Make] {
     var options = [Make]()
     /// The options
     options.append(Make(make: "clean", label: "Clean all files before processing",

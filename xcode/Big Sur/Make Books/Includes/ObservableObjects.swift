@@ -23,7 +23,7 @@ class Books: ObservableObject {
 class MakeOptions: ObservableObject {
     @Published var options: [Make]
     init() {
-        self.options = GetMakeOptions()
+        self.options = getMakeOptions()
     }
 }
 

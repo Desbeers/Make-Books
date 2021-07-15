@@ -16,17 +16,17 @@ struct OptionsView: View {
     @StateObject var makeOptions = MakeOptions()
     // START body
     var body: some View {
-        VStack() {
+        VStack {
             /// BEGIN `options for Make`
             Spacer()
             /// In a ZStack because it has a background
-            ZStack() {
+            ZStack {
                 Image("MainBackground")
                     /// Resizable needed or else it does not risize
                     .resizable()
                     .frame(width: 300, height: 300)
                     .opacity(0.1)
-                VStack() {
+                VStack {
                     Text("Make your book").font(.largeTitle)
                     /// Another VStack to align the content to the left
                     VStack(alignment: .leading) {

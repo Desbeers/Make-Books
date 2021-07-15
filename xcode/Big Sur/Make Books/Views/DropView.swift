@@ -17,12 +17,11 @@ struct DropView: View {
     @Environment(\.presentationMode) var presentationMode
     // START body
     var body: some View {
-        VStack() {
-            HStack() {
-                Button(
-                    action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
+        VStack {
+            HStack {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
                     Image(systemName: "xmark.circle")
                         .foregroundColor(.accentColor)
                         .font(.title)
@@ -38,7 +37,7 @@ struct DropView: View {
             ZStack {
                 Image(systemName: "tray.and.arrow.down")
                     .resizable()
-                    .frame(width:100, height: 100)
+                    .frame(width: 100, height: 100)
                     .foregroundColor(fileURL?.pathExtension == "md" ? .accentColor : .secondary)
                     .opacity(isRunning ? 0.1 : 1 )
                 RoundedRectangle(cornerRadius: 10)
@@ -49,7 +48,7 @@ struct DropView: View {
                         )
                     )
                     .foregroundColor(isDrop ? .red : .secondary)
-                    .frame(width:160, height: 160)
+                    .frame(width: 160, height: 160)
                 if isRunning {
                     ProgressView()
                 }
@@ -59,20 +58,24 @@ struct DropView: View {
                     .font(.footnote)
                     .foregroundColor(Color.gray)
             }
-            Button(
-                action: {
-                    isRunning = true
-                    let script = Bundle.main.url(forResource: BookItem.BookType.makePDF.rawValue, withExtension: nil)
-                    let makePdf = Process()
-                    makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
-                    makePdf.arguments = [
-                        "--login","-c", "'\(script!.path)' '" + fileURL!.path + "'"
-                    ]
-                    makePdf.terminationHandler =  {
-                        _ in DispatchQueue.main.async { isRunning = false }
-                    }
-                    try! makePdf.run()
-                }) {
+            Button {
+                isRunning = true
+                let script = Bundle.main.url(forResource: BookItem.BookType.makePDF.rawValue, withExtension: nil)
+                let makePdf = Process()
+                makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
+                makePdf.arguments = [
+                    "--login", "-c", "'\(script!.path)' '" + fileURL!.path + "'"
+                ]
+                makePdf.terminationHandler = { _ in DispatchQueue.main.async {
+                    isRunning = false
+                }
+                }
+                do {
+                    try makePdf.run()
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            } label: {
                 Text(" Make PDF")
             }
             .disabled(fileURL == nil || fileURL?.pathExtension != "md" || isRunning)
@@ -101,7 +104,7 @@ extension DropView: DropDelegate {
     func performDrop(info: DropInfo) -> Bool {
         NSSound(named: "Submarine")?.play()
         if let item = info.itemProviders(for: ["public.file-url"]).first {
-            item.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
+            item.loadItem(forTypeIdentifier: "public.file-url", options: nil) { urlData, _ in
                 DispatchQueue.main.async {
                     if let urlData = urlData as? Data {
                         fileURL = NSURL(absoluteURLWithDataRepresentation: urlData, relativeTo: nil) as URL

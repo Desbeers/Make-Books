@@ -17,26 +17,26 @@ struct ContentView: View {
     /// Observe script related stuff
     @EnvironmentObject var scripts: Scripts
     /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
+    @AppStorage("pathBooks") var pathBooks: String = getDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
     // START body
     var body: some View {
-        NavigationView  {
+        NavigationView {
             BooksView()
                 .toolbar {
-                    ToolbarItemGroup() {
-                        Button(action: {
+                    ToolbarItemGroup {
+                        Button {
                             NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-                        } ) {
+                        } label: {
                             Image(systemName: "sidebar.left").foregroundColor(.secondary)
                         }
                         .help("Hide or show the sidebar")
-                        Button(action: {
+                        Button {
                             withAnimation {
                                 books.bookList = GetBooksList()
                                 books.bookSelected = nil
                             }
-                        } ) {
+                        } label: {
                             Image(systemName: "arrow.clockwise")
                         }
                         .help("Refresh the list of books")
@@ -45,23 +45,23 @@ struct ContentView: View {
             OptionsView()
                 .toolbar {
                     HStack {
-                        Button(action: {
-                            SelectBooksFolder(books)
-                        } ) {
+                        Button {
+                            selectBooksFolder(books)
+                        } label: {
                             Image(systemName: "square.and.arrow.up.on.square").foregroundColor(.secondary)
                         }
-                        .help("The folder with your books: " + GetLastPath(pathBooks))
-                        Button(action: {
-                            SelectExportFolder()
-                        } ) {
+                        .help("The folder with your books: " + getLastPath(pathBooks))
+                        Button {
+                            selectExportFolder()
+                        } label: {
                             Image(systemName: "square.and.arrow.down.on.square").foregroundColor(.secondary)
                         }
-                        .help("The export folder: " + GetLastPath(pathExport))
+                        .help("The export folder: " + getLastPath(pathExport))
                         Divider()
-                        Button(action: {
+                        Button {
                             scripts.activeSheet = .dropper
                             scripts.showSheet = true
-                        } ) {
+                        } label: {
                             Image(systemName: "square.and.pencil").foregroundColor(.secondary)
                         }
                         .help("Show Markdown dropper")

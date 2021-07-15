@@ -13,7 +13,7 @@ struct PrefsView: View {
     // START body
     var body: some View {
         VStack {
-            TabView() {
+            TabView {
                 PrefsGeneral().tabItem { Image(systemName: "gearshape"); Text("General") }
                 PrefsFolders().tabItem { Image(systemName: "folder"); Text("Folders") }
                 PrefsPdf().tabItem { Image(systemName: "doc"); Text("PDF") }
@@ -44,7 +44,7 @@ struct PrefsGeneral: View {
             .horizontalRadioGroupLayout()
             .labelsHidden()
             /// Direcly apply the selection.
-            .onChange(of: appTheme) { ApplyTheme($0) }
+            .onChange(of: appTheme) { applyTheme($0) }
         }
     }
 }
@@ -57,27 +57,31 @@ struct PrefsFolders: View {
     /// Get the list of books
     @EnvironmentObject var books: Books
     /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
+    @AppStorage("pathBooks") var pathBooks: String = getDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
     // START body
     var body: some View {
-        VStack() {
+        VStack {
             Text("Where are your books?")
                 .font(.headline)
-            HStack() {
-                Label(GetLastPath(pathBooks), systemImage: "square.and.arrow.up.on.square")
+            HStack {
+                Label(getLastPath(pathBooks), systemImage: "square.and.arrow.up.on.square")
                     .truncationMode(.head)
-                Button(action: {SelectBooksFolder(books)}) {
+                Button {
+                    selectBooksFolder(books)
+                } label: {
                     Text("Change")
                 }
             }
             Divider().padding(.vertical)
             Text("Where shall we export them?")
                 .font(.headline)
-            HStack () {
-                Label(GetLastPath(pathExport), systemImage: "square.and.arrow.down.on.square")
+            HStack {
+                Label(getLastPath(pathExport), systemImage: "square.and.arrow.down.on.square")
                     .truncationMode(.head)
-                Button(action: {SelectExportFolder()}) {
+                Button {
+                    selectExportFolder()
+                } label: {
                     Text("Change")
                 }
             }
@@ -95,7 +99,7 @@ struct PrefsPdf: View {
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     // START body
     var body: some View {
-        VStack() {
+        VStack {
             Text("Font size")
                 .font(.headline)
             Picker(selection: $pdfFont, label: Text("Font size:")) {

@@ -37,6 +37,7 @@
 		01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D704B53E24506D4E00470582 /* MakeBooksDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MakeBooksDebug.entitlements; sourceTree = "<group>"; };
 		D71F5868244368C00021D95F /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
+		D723611726A08205005C8CB2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D739D2C423B36419006EF379 /* Make Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Make Books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D739D2C923B36419006EF379 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		D739D2CB23B3641A006EF379 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		D739D2BB23B36419006EF379 = {
 			isa = PBXGroup;
 			children = (
+				D723611726A08205005C8CB2 /* .swiftlint.yml */,
 				D739D2C623B36419006EF379 /* Make Books */,
 				D739D2C523B36419006EF379 /* Products */,
 			);
@@ -164,6 +166,7 @@
 				D739D2C023B36419006EF379 /* Sources */,
 				D739D2C123B36419006EF379 /* Frameworks */,
 				D739D2C223B36419006EF379 /* Resources */,
+				D723611626A076F4005C8CB2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -228,6 +231,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D723611626A076F4005C8CB2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  # swiftlint --enable-all-rules\n  # swiftlint autocorrect\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D739D2C023B36419006EF379 /* Sources */ = {

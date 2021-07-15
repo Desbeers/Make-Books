@@ -23,7 +23,7 @@ struct LogView: View {
             ScrollView {
                 ScrollViewReader { value in
                     ForEach(scripts.log) { line in
-                        VStack() {
+                        VStack {
                             HStack {
                                 Label {
                                     Text(line.message)
@@ -41,16 +41,16 @@ struct LogView: View {
                     }
                     /// Just use this as anchor point to keep the scrollview at the bottom
                     Divider().opacity(0).id(1)
-                        .onChange(of: scripts.log) { newValue in
+                        .onChange(of: scripts.log) { _ in
                             value.scrollTo(1)
                         }
                 }
                 .padding(.top)
             }
             .frame(minWidth: 400, maxWidth: .infinity, maxHeight: .infinity)
-            .border(Color.accentColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+            .border(Color.accentColor, width: 1)
             .padding(.horizontal)
-            VStack() {
+            VStack {
                 if scripts.isRunning {
                     ProgressView()
                 } else {

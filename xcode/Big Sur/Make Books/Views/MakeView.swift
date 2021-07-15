@@ -17,8 +17,8 @@ struct MakeView: View {
     /// Observe script related stuff
     @EnvironmentObject var scripts: Scripts
     /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = GetDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = GetDocumentsDirectory()
+    @AppStorage("pathBooks") var pathBooks: String = getDocumentsDirectory()
+    @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
     @AppStorage("pdfFont") var pdfFont: String = "11pt"
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     // START body
@@ -30,66 +30,65 @@ struct MakeView: View {
             .animation(.easeInOut)
         HStack {
             /// Make selected book
-            Button(
-                action: {
-                    let script = Bundle.main.url(forResource: books.bookSelected!.type.rawValue, withExtension: nil)
-                    let makeBook = makeProcess()
-                    makeBook.arguments! += ["cd '" +
-                            books.bookSelected!.path +
-                            "' && '" + script!.path + "' " +
-                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                    ]
-                    do {
-                        try makeBook.run()
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }){
-                Text("Selected book")}
-                /// Disable this button if no book is selected.
-                .disabled(books.bookSelected == nil)
+            Button {
+                let script = Bundle.main.url(forResource: books.bookSelected!.type.rawValue, withExtension: nil)
+                let makeBook = makeProcess()
+                makeBook.arguments! += ["cd '" +
+                                            books.bookSelected!.path +
+                                            "' && '" + script!.path + "' " +
+                                            getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
+                ]
+                do {
+                    try makeBook.run()
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            } label: {
+                Text("Selected book")
+            }
+            .disabled(books.bookSelected == nil)
             /// Make all books
-            Button(
-                action: {
-                    let script = Bundle.main.url(forResource: BookItem.BookType.allBooks.rawValue, withExtension: nil)
-                    let makeAllBooks = makeProcess()
-                    makeAllBooks.arguments! += ["'\(script!.path)' " +
-                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    do {
-                        try makeAllBooks.run()
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }){
-                Text("All books")}
+            Button {
+                let script = Bundle.main.url(forResource: BookItem.BookType.allBooks.rawValue, withExtension: nil)
+                let makeAllBooks = makeProcess()
+                makeAllBooks.arguments! += ["'\(script!.path)' " +
+                        getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
+                do {
+                    try makeAllBooks.run()
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            } label: {
+                Text("All books")
+            }
             /// Make all collections
-            Button(
-                action: {
-                    let script = Bundle.main.url(forResource: BookItem.BookType.allCollections.rawValue, withExtension: nil)
-                    let makeAllCollections = makeProcess()
-                    makeAllCollections.arguments! += ["'\(script!.path)' " +
-                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    do {
-                        try makeAllCollections.run()
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }){
-                Text("Collections")}
+            Button {
+                let script = Bundle.main.url(forResource: BookItem.BookType.allCollections.rawValue, withExtension: nil)
+                let makeAllCollections = makeProcess()
+                makeAllCollections.arguments! += ["'\(script!.path)' " +
+                        getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
+                do {
+                    try makeAllCollections.run()
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            } label: {
+                Text("Collections")
+            }
             /// Make all tags
-            Button(
-                action: {
-                    let script = Bundle.main.url(forResource: BookItem.BookType.allTags.rawValue, withExtension: nil)
-                    let makeAllTags = makeProcess()
-                    makeAllTags.arguments! += ["'\(script!.path)' " +
-                            GetArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
-                    do {
-                        try makeAllTags.run()
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
-                }){
-                Text("Tags")}
+            Button {
+                let script = Bundle.main.url(forResource: BookItem.BookType.allTags.rawValue, withExtension: nil)
+                let makeAllTags = makeProcess()
+                makeAllTags.arguments! += ["'\(script!.path)' " +
+                        getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)]
+                do {
+                    try makeAllTags.run()
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            } label: {
+                Text("Tags")
+            }
         }
         .padding([.leading, .bottom, .trailing])
         .disabled(scripts.showSheet)
@@ -102,10 +101,10 @@ struct MakeView: View {
         scripts.activeSheet = .log
         scripts.isRunning = true
         scripts.showSheet = true
-        ///Make a new process
+        /// Make a new process
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/bin/zsh")
-        process.arguments = ["--login","-c"]
+        process.arguments = ["--login", "-c"]
         /// Logging stuff
         let standardOutput = Pipe()
         let standardError = Pipe()
@@ -154,8 +153,7 @@ struct MakeView: View {
         process.standardOutput = standardOutput
         process.standardError = standardError
         /// Notice for end of process
-        process.terminationHandler =  {
-            _ in DispatchQueue.main.async {
+        process.terminationHandler = { _ in DispatchQueue.main.async {
                 scripts.isRunning = false
                 scripts.log.append(Log(type: .logEnd, message: "Done!"))
             }

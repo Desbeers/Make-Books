@@ -26,25 +26,27 @@ struct MakeBooksApp: App {
                 .background(Color("BackgroundColor"))
                 /// Apply the theme setting
                 .onAppear {
-                    ApplyTheme(appTheme)
+                    applyTheme(appTheme)
                 }
         }
         .windowToolbarStyle(DefaultWindowToolbarStyle())
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()
-            CommandGroup(after: .sidebar)  {
-                Button(action: {
+            CommandGroup(after: .sidebar) {
+                Button {
                     scripts.activeSheet = .log
                     scripts.showSheet = true
-                }) {
+                }
+                label: {
                     Text("Show log")
                 }
                 .keyboardShortcut("L")
-                Button(action: {
+                Button {
                     scripts.activeSheet = .dropper
                     scripts.showSheet = true
-                }) {
+                }
+                label: {
                     Text("Show Markdown dropper")
                 }
                 .keyboardShortcut("D")
