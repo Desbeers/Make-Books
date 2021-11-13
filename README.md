@@ -1,6 +1,6 @@
 # Make-books
 
-Scripts to convert Markdown to PDF and ePub books with Pandoc. Command-line for Linux and GUI for macOS written in SwiftUI 2.0
+Scripts to convert Markdown to PDF and ePub books with Pandoc. Command-line for Linux and GUI for macOS written in SwiftUI 3.
 
 ## Write a beautiful book
 

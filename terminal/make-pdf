@@ -35,7 +35,6 @@ do
         --template=$PANDOC_TEMPLATES/desbeers-pdf-single-page.tex \
         --variable documentclass=memoir \
         --top-level-division=chapter \
-        --metadata=use-colours \
         --metadata=papersize:$papersize \
         --metadata=fontsize:$fontsize \
         --pdf-engine lualatex
