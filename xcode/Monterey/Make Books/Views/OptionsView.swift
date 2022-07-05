@@ -31,7 +31,7 @@ struct OptionsView: View {
                     /// Another VStack to align the content to the left
                     VStack(alignment: .leading) {
                         /// Start the ForEach at 1, because 0 is the "clean" option at the botom
-                        ForEach(1 ..< makeOptions.options.count) { index in
+                        ForEach(1 ..< makeOptions.options.count, id: \.self) { index in
                             Toggle(isOn: $makeOptions.options[index].isSelected) {
                                 Text(makeOptions.options[index].label)
                                     .fontWeight(.bold)
