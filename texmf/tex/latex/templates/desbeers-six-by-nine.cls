@@ -16,10 +16,6 @@
 % float: exact image positioning
 \RequirePackage{graphicx,etoolbox,fontspec,caption,float}
 \captionsetup[figure]{font=small}
-% use a font with all funny characters
-\setmainfont{CMU Serif}
-\setsansfont{CMU Sans Serif}
-\setmonofont{CMU Typewriter Text}
 % ulem: for strikethroughs. normalem needed or else italic is underlined.
 \RequirePackage[normalem]{ulem}
 
