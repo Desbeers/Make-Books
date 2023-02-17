@@ -40,3 +40,11 @@ function Image (el)
     return el
 end
 
+function Figure(el)
+    if FORMAT:match 'latex' then
+        -- Return the image as formatted by the 'Image' function
+        -- If this function is not here; the image will be wrapped again
+        local inlines = pandoc.utils.blocks_to_inlines(el.content)
+        return pandoc.RawBlock('latex',inlines[1]['text'])
+    end
+end

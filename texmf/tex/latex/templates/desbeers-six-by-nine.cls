@@ -14,10 +14,9 @@
 % fontspec: use TTF fonts; used for drop-caps.
 % caption: captions underneath images.
 % float: exact image positioning
-\RequirePackage{graphicx,etoolbox,fontspec,caption,float}
+% soul: underlining, striking out, etc...
+\RequirePackage{graphicx,etoolbox,fontspec,caption,float, soul}
 \captionsetup[figure]{font=small}
-% ulem: for strikethroughs. normalem needed or else italic is underlined.
-\RequirePackage[normalem]{ulem}
 
 %%% PAGE DIMENSIONS
 % -------------------------------------------------

@@ -6,7 +6,7 @@
 
 function Pandoc(doc)
     local myblocks = {}
-    for i,el in pairs(doc.blocks) do   
+    for i,el in pairs(doc.blocks) do
         if (el.tag == 'Header') and (el.level == 1) then
             firstpara = true            
         elseif (el.tag == 'Para' and firstpara) then

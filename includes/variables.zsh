@@ -53,16 +53,16 @@ if [[ -f $metadata_file ]]; then
     # Only do this for the actual book; not if we are preparing collectons.
     if [[ $PANDOC_ACTION != "Prepair" ]]; then
         if grep -q '{.book}' *.md ; then
-            EPUB_CHAPTER_LEVEL=3
+            SPLIT_LEVEL=3
         elif grep -q '{.part}' *.md ; then
-            EPUB_CHAPTER_LEVEL=2
+            SPLIT_LEVEL=2
         else
-            EPUB_CHAPTER_LEVEL=1
+            SPLIT_LEVEL=1
         fi
     fi
 fi
 
-export SOURCE_DIR BUILD_DIR BUILD_TITLE EXPORT_DIR EXPORT_TITLE EPUB_CHAPTER_LEVEL
+export SOURCE_DIR BUILD_DIR BUILD_TITLE EXPORT_DIR EXPORT_TITLE SPLIT_LEVEL
 
 # Function to reset all 'dynamic' variables:
 clear_variables() {

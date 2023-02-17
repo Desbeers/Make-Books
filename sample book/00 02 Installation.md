@@ -4,7 +4,7 @@ A basic technical knowledge is required to use this system; it’s working from 
 
 ---
 
-This system is only tested on macOS Big Sur and Ubuntu 20.04. There is no Windows support and that is also not a my todo list; I have no clue about that system.
+This system is only tested on macOS Ventura and Ubuntu 20.04. There is no Windows support and that is also not a my todo list; I have no clue about that system.
 
 ## Software
 

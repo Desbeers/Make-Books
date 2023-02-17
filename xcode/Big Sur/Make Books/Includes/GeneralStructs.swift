@@ -121,7 +121,6 @@ struct GetBooksList {
         book.path = file.path
         do {
             let data = try String(contentsOf: file, encoding: .utf8)
-            
             for line in data.components(separatedBy: .newlines) {
                 var value = ""
                 if line.range(of: "[a-z]", options: .regularExpression) != nil {
@@ -151,7 +150,10 @@ struct GetBooksList {
                         let add = lineArr[1].components(separatedBy: ";")
                         add.forEach { item in
                             let part = item.components(separatedBy: "=")
-                            let collection = BookCollection(name: part[0].trimmingCharacters(in: .whitespaces), position: part[1].trimmingCharacters(in: .whitespaces))
+                            let collection = BookCollection(
+                                name: part[0].trimmingCharacters(in: .whitespaces),
+                                position: part[1].trimmingCharacters(in: .whitespaces)
+                            )
                             book.addToCollection.append(collection)
                         }
                     case "tag":

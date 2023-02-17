@@ -10,12 +10,13 @@
 #		  	#
 #############
 
+#PANDOC := /Users/Desbeers/Builds/pandoc
 PANDOC := pandoc
 RM := rm
 MKDIR := mkdir
 LUALATEX := lualatex
 KOBOGEN := kepubify
-CONVERT := convert
+CONVERT := magick
 
 PANDOC_OPTIONS := \
     --metadata-file=assets/make-book.md \
@@ -29,7 +30,6 @@ PANDOC_OPTIONS := \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-matters.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-images.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-quotes.lua" \
-    --file-scope \
     --toc-depth=2
     
 PANDOC_TEX := \
@@ -56,7 +56,7 @@ PANDOC_EPUB := \
 	--epub-embed-font="$(PANDOC_FONTS)/GreatVibes.ttf" \
 	--css="$(PANDOC_CSS)/epub-css.css" \
 	--css="$(PANDOC_CSS)/epub-greatvibes.css" \
-	--epub-chapter-level=$(EPUB_CHAPTER_LEVEL) \
+	--split-level=$(SPLIT_LEVEL) \
 	+RTS -K100000000 -RTS \
 
 # ePub optimised for Kobo
@@ -72,7 +72,6 @@ PANDOC_COLLECT := \
 
 PANDOC_NATIVE := \
 	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
-	--file-scope \
 	--to=native \
 	+RTS -K100000000 -RTS \
 

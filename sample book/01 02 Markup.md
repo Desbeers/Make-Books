@@ -78,17 +78,20 @@ They can have numbers as well...
 
 ### Footnotes:
 
-Footnotes can be in the paragraph itself `^[This is a footnote.]` However, the Pandoc way of putting footnotes in a book also allows for naming the footnote inline like so:
+Footnotes can be in the paragraph itself `^[This is a footnote.]`^[This is a footnote.] However, the Pandoc way of putting footnotes in a book also allows for naming the footnote inline like so:
 
 	Here is a footnote reference,[^1]
 
 and the footnote itself can be at the end of the document like so[^1]:
 
 	[^1]: Here is the footnote.
+    
+**Make sure the name of of the note is unique in your book[^unique].**
 
 ---
 
 Last but not least: have an empty line between all the block elements; eg, headers, lists, images, quotes etcetera or else strange things can happen. Also, at all times, end your documents with an empty line. You’ve been warned...
 
-[^1]: Here is the footnote.
+[^1]: Here is the footnote with a name.
+[^unique]: Or else your footnote might be another note...
 
