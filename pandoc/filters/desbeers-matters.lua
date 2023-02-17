@@ -9,7 +9,6 @@
 if FORMAT:match 'latex' then
 
     function Pandoc(doc)
-        local next = next 
         local myblocks = {}
         havebooks = false
         haveparts = false

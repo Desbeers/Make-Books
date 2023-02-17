@@ -22,14 +22,12 @@ PANDOC_OPTIONS := \
     --metadata-file=assets/make-book.md \
     --from native \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-metadata.lua" \
-	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-dropcaps.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-linebreaks.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-chapterprecis.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-headers.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-matters.lua" \
     --lua-filter "$(PANDOC_FILTERS)/desbeers-images.lua" \
-    --lua-filter "$(PANDOC_FILTERS)/desbeers-quotes.lua" \
     --toc-depth=2
     
 PANDOC_TEX := \
@@ -72,6 +70,9 @@ PANDOC_COLLECT := \
 
 PANDOC_NATIVE := \
 	--lua-filter "$(PANDOC_FILTERS)/desbeers-hashtags.lua" \
+	--lua-filter "$(PANDOC_FILTERS)/desbeers-native.lua" \
+	--lua-filter "$(PANDOC_FILTERS)/desbeers-quotes.lua" \
+	--from=markdown \
 	--to=native \
 	+RTS -K100000000 -RTS \
 
@@ -115,18 +116,6 @@ all: pdf epub
 $(BUILD_DIR)/$(BUILD_TITLE).pandoc: $(SOURCES)
 	$(call prepare)
 	@$(PANDOC) $(PANDOC_NATIVE) --output $@ $^
-
-# Collection
-
-collect: $(BUILD_DIR)/$(BUILD_TITLE)-content.md $(BUILD_DIR)/$(BUILD_TITLE)-book.md
-	$(call log,Collected $(EXPORT_TITLE).,targetEnd,✓)
-
-$(BUILD_DIR)/$(BUILD_TITLE)-content.md: $(SOURCES)
-	@$(PANDOC) $(PANDOC_COLLECT) --output $@ $^
-	$(call log,Collecting $(EXPORT_TITLE)...,targetStart,❁)
-
-$(BUILD_DIR)/$(BUILD_TITLE)-book.md: assets/make-book.md
-	@echo "# $(EXPORT_TITLE) {.book}" > $(BUILD_DIR)/$(BUILD_TITLE)-book.md
 	
 # Dedication for LaTeX and ePub
 	

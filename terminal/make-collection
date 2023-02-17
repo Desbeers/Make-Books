@@ -44,10 +44,8 @@ collect() {
     mkdir -p $collect_dir/images
     # Sync the original files with build directory
     rsync --recursive --update --delete . $collect_dir
-    # Rename the metadata file, but keep the original date/time
-    # or else Make thinks the file is new and will rebuild.
+    # Rename the metadata file
     mv $collect_dir/assets/make-collection.md $collect_dir/assets/make-book.md
-    touch -r assets/make-collection.md $collect_dir/assets/make-book.md
     # Find our books and process it:
     find $books -name make-book.md -exec grep -lw 'add-to-collection:.*'$COLLECTION {} + \
         | while read file; do process "$file"; done
@@ -62,11 +60,8 @@ process() {
     export=$EXPORT_DIR
     clear_variables
     . $local/includes/variables.zsh
-    export EXPORT_DIR=$export
-    export BUILD_DIR=$collect_dir
-    export BUILD_TITLE=$collection_position
-    export PANDOC_ACTION='Prepair'
-    $local/terminal/make-book --gui $GUI collect
+    for f in *.md; do cat $f >> $collect_dir/$collection_position-content.md; echo "\n\n" >> $collect_dir/$collection_position-content.md; done;
+    echo "# $EXPORT_TITLE {.book}" > $collect_dir/$collection_position-book.md
 }
 
 build() {

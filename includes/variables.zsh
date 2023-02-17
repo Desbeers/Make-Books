@@ -50,15 +50,12 @@ if [[ -f $metadata_file ]]; then
     # Breakup the HTML files in small portions, depending on level.
     # If a book has parts, header is shifted once, if it has books too
     # the header is shifted twice.
-    # Only do this for the actual book; not if we are preparing collectons.
-    if [[ $PANDOC_ACTION != "Prepair" ]]; then
-        if grep -q '{.book}' *.md ; then
-            SPLIT_LEVEL=3
-        elif grep -q '{.part}' *.md ; then
-            SPLIT_LEVEL=2
-        else
-            SPLIT_LEVEL=1
-        fi
+    if grep -q '{.book}' *.md ; then
+        SPLIT_LEVEL=3
+    elif grep -q '{.part}' *.md ; then
+        SPLIT_LEVEL=2
+    else
+        SPLIT_LEVEL=1
     fi
 fi
 
