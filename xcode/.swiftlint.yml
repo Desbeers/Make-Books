@@ -1,0 +1,25 @@
+disabled_rules:
+# none
+opt_in_rules:
+- empty_count
+- empty_string
+- operator_usage_whitespace
+- conditional_returns_on_newline
+- unneeded_parentheses_in_closure_argument
+- multiline_parameters_brackets
+- multiline_parameters
+- switch_case_on_newline
+identifier_name:
+    min_length: 2 # Default is 3, so 'id' gives warning but is often used in structs
+function_body_length:
+    warning: 80
+cyclomatic_complexity:
+    ignores_case_statements: true
+line_length:
+    warning: 160
+    error: 1000
+nesting:
+    type_level:
+        warning: 4 # I like to nest JSON structs
+        error: 6
+reporter: "xcode"
