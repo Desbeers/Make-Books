@@ -12,7 +12,7 @@ The following software must be installed on your computer:
 
 - [`Pandoc`](https://pandoc.org), the swiss-army knife for file converting.
 - A `LaTeX` distribution like [MacTEX](http://www.tug.org/mactex/) for the Mac. For Ubuntu, I did `sudo apt install texlive-full` to get all the goodies in one time and no complains about missing packages.
-- The `zsh` shell; standard on macOS Big Sur; install it on Ubuntu.
+- The `zsh` shell; standard on macOS Ventura; install it on Ubuntu.
 - `rsync`; should be standard...
 - The `make` program. Part of Xcode or grab it from [Homebrew](https://brew.sh) when you are on a Mac. Else; do your Linux magic.
 - For a ‘Kobo’ ePub, ‘kepubify’ and 'ImageMagick' are needed. Get it [here](https://pgaskin.net/kepubify/) and [here](https://imagemagick.org). 

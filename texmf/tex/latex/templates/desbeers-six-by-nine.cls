@@ -15,7 +15,7 @@
 % caption: captions underneath images.
 % float: exact image positioning
 % soul: underlining, striking out, etc...
-\RequirePackage{graphicx,etoolbox,fontspec,caption,float, soul}
+\RequirePackage{graphicx,etoolbox,fontspec,caption,float,soul}
 \captionsetup[figure]{font=small}
 
 %%% PAGE DIMENSIONS
