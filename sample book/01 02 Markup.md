@@ -36,7 +36,7 @@ Images are done in “normal” Markdown; except you can set the width for an im
 
 	![Caption for image](images/chapter-header.png){width=85%}
 
-![Caption for image](images/image-sample.png){width=85%}
+![Caption for image with **bold** and *italic*](images/image-sample.png){width=85%}
 
 The `caption` is not required; nor the `width`. If no width is specified; it will default to 92% because I think that looks nice with the indentation of the paragraphs. Assuming the image is larger than the page itself...
 

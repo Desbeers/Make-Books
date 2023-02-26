@@ -16,7 +16,19 @@
 % float: exact image positioning
 % soul: underlining, striking out, etc...
 \RequirePackage{graphicx,etoolbox,fontspec,caption,float,soul}
-\captionsetup[figure]{font=small}
+
+% Configure the caption of images
+\DeclareCaptionFormat{custom}
+{
+    \small #3
+}
+\captionsetup{format=custom}
+
+% Override default figure placement
+% To be within the flow of the text rather than on it's own page.
+\makeatletter
+\def\fps@figure{H} 
+\makeatother
 
 %%% PAGE DIMENSIONS
 % -------------------------------------------------
