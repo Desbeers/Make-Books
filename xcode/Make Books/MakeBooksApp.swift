@@ -26,6 +26,7 @@ struct MakeBooksApp: App {
                 .background(Color("BackgroundColor"))
         }
         .windowToolbarStyle(.automatic)
+        .windowResizability(.contentMinSize)
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()

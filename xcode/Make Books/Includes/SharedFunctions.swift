@@ -136,23 +136,6 @@ func openInTerminal(url: URL?) {
     NSWorkspace.shared.open([url], withApplicationAt: terminal, configuration: configuration)
 }
 
-// MARK: runInShell()
-
-// Run a shell command
-/// https://stackoverflow.com/questions/26971240/how-do-i-run-a-terminal-command-in-a-swift-script-e-g-xcodebuild
-func runInShell(_ command: String) -> String {
-    let task = Process()
-    let pipe = Pipe()
-    task.standardOutput = pipe
-    task.standardError = pipe
-    task.arguments = ["-c", command]
-    task.launchPath = "/bin/zsh"
-    task.launch()
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)!.trimmingCharacters(in: .whitespacesAndNewlines)
-    return output
-}
-
 // MARK: Roman()
 
 /// Convert Int to Roman

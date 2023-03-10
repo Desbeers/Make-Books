@@ -21,6 +21,7 @@ struct ContentView: View {
             BooksView()
         }, detail: {
             OptionsView()
+                .frame(minWidth: 400, minHeight: 400)
         })
         .navigationSubtitle("Write a beautiful book")
         .sheet(isPresented: $scripts.showSheet, content: sheetContent)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		016D359A24FC58A3001F9C66 /* MakeBooksHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = 016D359924FC58A3001F9C66 /* MakeBooksHelp.help */; };
 		01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */; };
+		D70F5D8629BB7E2E00B95552 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70F5D8529BB7E2E00B95552 /* Shell.swift */; };
 		D71F5869244368C00021D95F /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F5868244368C00021D95F /* BooksView.swift */; };
 		D7252FC0299FD8AA005EDF8C /* make in Resources */ = {isa = PBXBuildFile; fileRef = D7252FB8299FD8A9005EDF8C /* make */; };
 		D7252FC1299FD8AA005EDF8C /* kobo in Resources */ = {isa = PBXBuildFile; fileRef = D7252FB9299FD8A9005EDF8C /* kobo */; };
@@ -36,6 +37,7 @@
 		016D359924FC58A3001F9C66 /* MakeBooksHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MakeBooksHelp.help; sourceTree = "<group>"; };
 		01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D704B53E24506D4E00470582 /* MakeBooksDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MakeBooksDebug.entitlements; sourceTree = "<group>"; };
+		D70F5D8529BB7E2E00B95552 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		D71F5868244368C00021D95F /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
 		D723611726A08205005C8CB2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D7252FB8299FD8A9005EDF8C /* make */ = {isa = PBXFileReference; lastKnownFileType = folder; name = make; path = ../../../make; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				D78704EB2446B69300AE2E97 /* ObservableObjects.swift */,
 				D7C9EF90244CC31F004589AE /* SharedFunctions.swift */,
 				D74D4FBF25F250FB005AF488 /* GeneralStructs.swift */,
+				D70F5D8529BB7E2E00B95552 /* Shell.swift */,
 				D74D4FC225F2CE7E005AF488 /* Credits.rtf */,
 			);
 			path = Includes;
@@ -264,6 +267,7 @@
 				D71F5869244368C00021D95F /* BooksView.swift in Sources */,
 				D7D3FCFB24399D9D00965BAE /* LogView.swift in Sources */,
 				D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */,
+				D70F5D8629BB7E2E00B95552 /* Shell.swift in Sources */,
 				01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */,
 				D78704EC2446B69300AE2E97 /* ObservableObjects.swift in Sources */,
 				D74D4FC025F250FB005AF488 /* GeneralStructs.swift in Sources */,

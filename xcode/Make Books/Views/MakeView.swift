@@ -20,144 +20,111 @@ struct MakeView: View {
     @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     /// The body of the View
     var body: some View {
-        Text(books.bookSelected != nil ? "\"\(books.bookSelected!.title)\" is selected" : " ")
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .animation(.easeInOut)
-        HStack {
-            /// Make selected book
-            Button {
-                let script = Bundle.main.url(forResource: books.bookSelected!.type.rawValue, withExtension: nil)
-                let makeBook = makeProcess()
-                makeBook.arguments! += ["cd '" +
-                                            books.bookSelected!.path +
-                                            "' && '" + script!.path + "' " +
-                                            getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                ]
-                do {
-                    try makeBook.run()
-                } catch {
-                    print("Error: \(error.localizedDescription)")
-                }
-            } label: {
-                Text("Selected book")
+        VStack {
+            if let book = books.bookSelected {
+                Text("\"\(book.title)\" is selected")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
-            .disabled(books.bookSelected == nil)
-            /// Make all books
-            Button {
-                let script = Bundle.main.url(forResource: BookItem.BookType.allBooks.rawValue, withExtension: nil)
-                let makeAllBooks = makeProcess()
-                makeAllBooks.arguments! += ["'\(script!.path)' " +
-                        getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                ]
-                do {
-                    try makeAllBooks.run()
-                } catch {
-                    print("Error: \(error.localizedDescription)")
+            HStack {
+                /// Make selected book
+                Button {
+                    if let book = books.bookSelected,
+                       let script = Bundle.main.url(forResource: book.type.rawValue, withExtension: nil) {
+                        let arguments = ["cd '" +
+                                         book.path +
+                                         "' && '" + script.path + "' " +
+                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
+                        ]
+                        runShellScript(arguments: arguments)
+                    }
+                } label: {
+                    Text("Selected book")
                 }
-            } label: {
-                Text("All books")
-            }
-            /// Make all collections
-            Button {
-                let script = Bundle.main.url(forResource: BookItem.BookType.allCollections.rawValue, withExtension: nil)
-                let makeAllCollections = makeProcess()
-                makeAllCollections.arguments! += ["'\(script!.path)' " +
-                        getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                ]
-                do {
-                    try makeAllCollections.run()
-                } catch {
-                    print("Error: \(error.localizedDescription)")
+                .disabled(books.bookSelected == nil)
+                /// Make all books
+                Button {
+                    if let script = Bundle.main.url(forResource: BookItem.BookType.allBooks.rawValue, withExtension: nil) {
+                        let arguments = ["'\(script.path)' " +
+                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
+                        ]
+                        runShellScript(arguments: arguments)
+                    }
+                } label: {
+                    Text("All books")
                 }
-            } label: {
-                Text("Collections")
-            }
-            /// Make all tags
-            Button {
-                let script = Bundle.main.url(forResource: BookItem.BookType.allTags.rawValue, withExtension: nil)
-                let makeAllTags = makeProcess()
-                makeAllTags.arguments! += ["'\(script!.path)' " +
-                        getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                ]
-                do {
-                    try makeAllTags.run()
-                } catch {
-                    print("Error: \(error.localizedDescription)")
+                /// Make all collections
+                Button {
+                    if let script = Bundle.main.url(forResource: BookItem.BookType.allCollections.rawValue, withExtension: nil) {
+                        let arguments = ["'\(script.path)' " +
+                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
+                        ]
+                        runShellScript(arguments: arguments)
+                    }
+                } label: {
+                    Text("Collections")
                 }
-            } label: {
-                Text("Tags")
+                /// Make all tags
+                Button {
+                    if let script = Bundle.main.url(forResource: BookItem.BookType.allTags.rawValue, withExtension: nil) {
+                        let arguments = ["'\(script.path)' " +
+                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
+                        ]
+                        runShellScript(arguments: arguments)
+                    }
+                } label: {
+                    Text("Tags")
+                }
             }
+            .padding([.leading, .bottom, .trailing])
         }
-        .padding([.leading, .bottom, .trailing])
+        .frame(height: 40, alignment: .bottom)
         .disabled(scripts.showSheet)
-        // END actions buttons
     }
-    // START makeProcess
-    func makeProcess() -> Process {
-        /// Start with a fresh log
-        scripts.log = [Log(type: .logStart, message: "Making your books")]
-        scripts.activeSheet = .log
-        scripts.isRunning = true
-        scripts.showSheet = true
-        /// Make a new process
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/zsh")
-        process.arguments = ["--login", "-c"]
-        /// Logging stuff
-        let standardOutput = Pipe()
-        let standardError = Pipe()
-        /// Grab the STOUT
-        standardOutput.fileHandleForReading.readabilityHandler = { pipe in
-            if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
-                if !line.isEmpty {
-                    var type: Log.LogType = .unknown
-                    var message = line.trimmingCharacters(in: .whitespacesAndNewlines)
-                    let lineArr = message.components(separatedBy: ":")
-                    switch lineArr[0] {
-                    case "action":
-                        type = .action
-                        message = lineArr[1]
-                    case "notice":
-                        type = .notice
-                        message = lineArr[1]
-                    case "targetStart":
-                        type = .targetStart
-                        message = lineArr[1]
-                    case "targetEnd":
-                        type = .targetEnd
-                        message = lineArr[1]
-                    case "targetClean":
-                        type = .targetClean
-                        message = lineArr[1]
-                    default:
-                        type = .unknown
-                    }
-                    DispatchQueue.main.sync {
-                        scripts.log.append(Log(type: type, message: message))
-                    }
+
+    func runShellScript(arguments: [String]) {
+        Task {
+            /// Start with a fresh log
+            scripts.log = [Log(type: .logStart, message: "Making your books")]
+            scripts.activeSheet = .log
+            scripts.showSheet = true
+            scripts.isRunning = true
+            for await output in shell(arguments: arguments) {
+                switch output {
+                case let .standardOutput(outputLine):
+                    parseLogLine(line: outputLine)
+                case let .standardError(errorLine):
+                    parseLogLine(line: errorLine)
                 }
             }
+            scripts.isRunning = false
+            scripts.log.append(Log(type: .logEnd, message: "Done!"))
         }
-        /// Grab the STERR
-        standardError.fileHandleForReading.readabilityHandler = { pipe in
-            if let line = String(data: pipe.availableData, encoding: String.Encoding.utf8) {
-                if !line.isEmpty {
-                    DispatchQueue.main.sync {
-                        scripts.log.append(Log(type: .error, message: line.trimmingCharacters(in: .whitespacesAndNewlines)))
-                    }
-                }
-            }
+    }
+
+    func parseLogLine(line: String) {
+        var type: Log.LogType = .unknown
+        var message = line.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lineArr = message.components(separatedBy: ":")
+        switch lineArr[0] {
+        case "action":
+            type = .action
+            message = lineArr[1]
+        case "notice":
+            type = .notice
+            message = lineArr[1]
+        case "targetStart":
+            type = .targetStart
+            message = lineArr[1]
+        case "targetEnd":
+            type = .targetEnd
+            message = lineArr[1]
+        case "targetClean":
+            type = .targetClean
+            message = lineArr[1]
+        default:
+            type = .unknown
         }
-        process.standardOutput = standardOutput
-        process.standardError = standardError
-        /// Notice for end of process
-        process.terminationHandler = { _ in
-            Task { @MainActor in
-                scripts.isRunning = false
-                scripts.log.append(Log(type: .logEnd, message: "Done!"))
-            }
-        }
-        return process
+        scripts.log.append(Log(type: type, message: message))
     }
 }
