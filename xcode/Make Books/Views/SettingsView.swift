@@ -31,16 +31,13 @@ extension SettingsView {
     struct Folders: View {
         /// Get the list of books
         @EnvironmentObject var books: Books
-        /// Saved settings
-        @AppStorage("pathBooks") var pathBooks: String = getDocumentsDirectory()
-        @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
         /// The body of the View
         var body: some View {
             VStack {
                 Text("Where are your books?")
                     .font(.headline)
                 HStack {
-                    Label(getLastPath(pathBooks), systemImage: "square.and.arrow.up.on.square")
+                    Label(FolderBookmark.getLastPath(bookmark: "BooksPath"), systemImage: "square.and.arrow.up.on.square")
                         .truncationMode(.head)
                     Button {
                         selectBooksFolder(books)
@@ -52,10 +49,10 @@ extension SettingsView {
                 Text("Where shall we export them?")
                     .font(.headline)
                 HStack {
-                    Label(getLastPath(pathExport), systemImage: "square.and.arrow.down.on.square")
+                    Label(FolderBookmark.getLastPath(bookmark: "ExportPath"), systemImage: "square.and.arrow.down.on.square")
                         .truncationMode(.head)
                     Button {
-                        selectExportFolder()
+                        selectExportFolder(books)
                     } label: {
                         Text("Change")
                     }

@@ -11,15 +11,24 @@ struct BooksView: View {
     @EnvironmentObject var books: Books
     @State var search: String = ""
     var body: some View {
-        List(selection: $books.bookSelected) {
-            ForEach(books.bookList.authors) { author in
-                Section(header: Text(author.name)) {
-                    ForEach(author.books.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
-                        BookListRow(book: book)
-                            .contextMenu {
-                                BookButtons(book: book)
-                            }
+        List(selection: $books.selectedBook) {
+            if search.isEmpty {
+                ForEach(books.authorList) { author in
+                    Section(header: Text(author.name)) {
+                        ForEach(author.books, id: \.self) { book in
+                            BookListRow(book: book)
+                                .contextMenu {
+                                    BookButtons(book: book)
+                                }
+                        }
                     }
+                }
+            } else {
+                ForEach(books.bookList.filter({$0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
+                    BookListRow(book: book)
+                        .contextMenu {
+                            BookButtons(book: book)
+                        }
                 }
             }
         }
@@ -39,8 +48,8 @@ extension BooksView {
         var body: some View {
             HStack {
                 Group {
-                    if let cover = book.cover {
-                        Image(nsImage: getCover(cover: cover.path))
+                    if let cover = book.coverURL {
+                        Image(nsImage: getCover(cover: cover))
                             .resizable()
                     } else {
                         ZStack {
@@ -67,7 +76,7 @@ extension BooksView {
                         .foregroundColor(.secondary)
                     if book.type == .collection {
                         /// List all the books in this collection
-                        let filterbooks = books.bookList.authors.flatMap { $0.books }
+                        let filterbooks = books.authorList.flatMap { $0.books }
                             .filter { $0.addToCollection.contains(where: { $0.name == book.collection })}
                         VStack(alignment: .leading) {
                             ForEach(filterbooks) { list in
@@ -86,9 +95,13 @@ extension BooksView {
     }
 
     struct BookButtons: View {
+        /// The book item
         let book: BookItem
-        /// Saved settings
-        @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
+        /// The export path
+        var pathExport: String {
+            FolderBookmark.getURL(bookmark: "ExportPath").path(percentEncoded: false)
+        }
+        /// The body of the `View`
         var body: some View {
             Button {
                 openInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
@@ -98,12 +111,12 @@ extension BooksView {
             .disabled(!doesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
             Divider()
             Button {
-                openInFinder(url: URL(fileURLWithPath: book.path))
+                openInFinder(url: book.folderURL)
             } label: {
                 Text("Open source in Finder")
             }
             Button {
-                openInTerminal(url: URL(fileURLWithPath: book.path))
+                openInTerminal(url: book.folderURL)
             } label: {
                 Text("Open source in Terminal")
             }

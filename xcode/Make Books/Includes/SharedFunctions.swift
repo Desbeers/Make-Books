@@ -5,100 +5,52 @@
 
 import SwiftUI
 
-// MARK: getDocumentsDirectory()
-
-/// Returns the users Documents directory
-/// Used when no folders are selected by the user
-func getDocumentsDirectory() -> String {
-    return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-}
-
-// MARK: getLastPath(path)
-
-/// Gets the full path to the folder
-/// Returns the last path
-func getLastPath(_ path: String) -> String {
-    let lastPath = (URL(fileURLWithPath: path).lastPathComponent)
-    return lastPath
-}
-
-// MARK: getArgs(path)
-
-/// Gets the full book object
-/// Returns a string with arguments
-func getArgs(_ options: MakeOptions, _ pathBooks: String, _ pathExport: String, _ pdfPaper: String, _ pdfFont: String) -> String {
-    var makeArgs = "--gui mac "
-    makeArgs += "--paper " + pdfPaper + " "
-    makeArgs += "--font " + pdfFont + " "
-    makeArgs += "--books \"" + pathBooks + "\" "
-    makeArgs += "--export \"" + pathExport + "\" "
-    for option in options.options where option.isSelected == true {
-        makeArgs += " " + option.make + " "
-    }
-    return (makeArgs)
-}
-
 // MARK: Folder selector
 
 /// Books folder selection
-func selectBooksFolder(_ books: Books) {
-    let base = UserDefaults.standard.object(forKey: "pathBooks") as? String ?? getDocumentsDirectory()
-    let dialog = NSOpenPanel()
-    dialog.showsResizeIndicator = true
-    dialog.showsHiddenFiles = false
-    dialog.canChooseFiles = false
-    dialog.canChooseDirectories = true
-    dialog.directoryURL = URL(fileURLWithPath: base)
-    dialog.message = "Select the folder with your books"
-    dialog.prompt = "Select"
-    dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
-        if result == NSApplication.ModalResponse.OK {
-            let result = dialog.url
-            /// Save the url
-            UserDefaults.standard.set(result!.path, forKey: "pathBooks")
+/// - Parameter books: The books model
+@MainActor func selectBooksFolder(_ books: Books) {
+    FolderBookmark.select(
+        prompt: "Select",
+        message: "Select the folder with your books",
+        bookmark: "BooksPath"
+    ) {
+        Task {
             /// Refresh the list of books
-            books.bookList = GetBooksList()
-            /// Clear the selected book (if any)
-            books.bookSelected = nil
+            await books.getFiles()
         }
     }
 }
 
 /// Export folder selection
-func selectExportFolder() {
-    let base = UserDefaults.standard.object(forKey: "pathExport") as? String ?? getDocumentsDirectory()
-    let dialog = NSOpenPanel()
-    dialog.showsResizeIndicator = true
-    dialog.showsHiddenFiles = false
-    dialog.canChooseFiles = false
-    dialog.canChooseDirectories = true
-    dialog.directoryURL = URL(fileURLWithPath: base)
-    dialog.message = "Select the export folder for your books"
-    dialog.prompt = "Select"
-    dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
-        if result == NSApplication.ModalResponse.OK {
-            let result = dialog.url
-            UserDefaults.standard.set(result!.path, forKey: "pathExport")
-        }
+/// - Parameter books: The books model
+@MainActor func selectExportFolder(_ books: Books) {
+    FolderBookmark.select(
+        prompt: "Select",
+        message: "Select the export folder for your books",
+        bookmark: "ExportPath"
+    ) {
+        // No action needed after selection
     }
 }
 
-// MARK: getCover(path)
+// MARK: getCover
 
-/// Gets path to cover
-/// Returns the cover image
-func getCover(cover: String) -> NSImage {
-    let url = URL(fileURLWithPath: cover)
-    if let imageData = try? Data(contentsOf: url) {
+/// Get the cover of a book
+/// - Parameter cover: The cover URL
+/// - Returns: An NSImage with the cover
+func getCover(cover: URL) -> NSImage {
+    if let imageData = try? Data(contentsOf: cover) {
         return NSImage(data: imageData)!
     }
     /// This should not happen
     return NSImage()
 }
 
-// MARK: openInFinder(url)
+// MARK: openInFinder
 
 /// Open a folder in the Finder
+/// - Parameter url: The URL of the folder
 func openInFinder(url: URL?) {
     guard let url = url else {
         print("Not a valid URL")
@@ -110,20 +62,10 @@ func openInFinder(url: URL?) {
     NSWorkspace.shared.activateFileViewerSelecting([url])
 }
 
-// MARK: doesFileExists(url)
-
-/// Checks if a file or folder exists
-/// Returns TRUE or FALSE
-func doesFileExists(url: URL) -> Bool {
-    if FileManager.default.fileExists(atPath: url.path) {
-        return true
-    }
-    return false
-}
-
-// MARK: openInTerminal(url)
+// MARK: openInTerminal
 
 /// Open a folder in the Terminal
+/// - Parameter url: The URL of the folder
 func openInTerminal(url: URL?) {
     guard let terminal = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal") else {
         return
@@ -136,9 +78,23 @@ func openInTerminal(url: URL?) {
     NSWorkspace.shared.open([url], withApplicationAt: terminal, configuration: configuration)
 }
 
-// MARK: Roman()
+// MARK: doesFileExists
 
-/// Convert Int to Roman
+/// Check if a file or folder exists
+/// - Parameter url: The URL to the item
+/// - Returns: True or false
+func doesFileExists(url: URL) -> Bool {
+    if FileManager.default.fileExists(atPath: url.path) {
+        return true
+    }
+    return false
+}
+
+// MARK: romanNumber
+
+/// Convert a numer to Roman
+/// - Parameter number: The number
+/// - Returns: The number in roman style
 func romanNumber(number: String) -> String {
     let romanValues = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
     let arabicValues = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]

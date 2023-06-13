@@ -58,7 +58,7 @@ struct DropView: View {
             }
             Button {
                 isRunning = true
-                let script = Bundle.main.url(forResource: BookItem.BookType.makePDF.rawValue, withExtension: nil)
+                let script = Bundle.main.url(forResource: BookType.makePDF.rawValue, withExtension: nil)
                 let makePdf = Process()
                 makePdf.executableURL = URL(fileURLWithPath: "/bin/zsh")
                 makePdf.arguments = [

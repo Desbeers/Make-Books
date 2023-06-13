@@ -11,18 +11,16 @@ import SwiftUI
 struct OptionsView: View {
     /// Get the list of books
     @EnvironmentObject var books: Books
-    /// Get the Make options
+    /// Get the build options
     @StateObject var makeOptions = MakeOptions()
-    /// The export path
-    @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
     /// The body of the View
     var body: some View {
         VStack {
             /// In a ZStack because it has a background
             ZStack {
                 Group {
-                    if let selection = books.bookSelected, let cover = selection.cover {
-                        Image(nsImage: getCover(cover: cover.path))
+                    if let selection = books.selectedBook, let cover = selection.coverURL {
+                        Image(nsImage: getCover(cover: cover))
                             .resizable()
                             .cornerRadius(10)
                             .padding()
@@ -67,6 +65,6 @@ struct OptionsView: View {
             /// Add the buttons below this view
             MakeView(makeOptions: makeOptions)
         }
-        .animation(.default, value: books.bookSelected)
+        .animation(.default, value: books.selectedBook)
     }
 }

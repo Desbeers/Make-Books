@@ -7,21 +7,18 @@ import SwiftUI
 
 /// The action buttons
 struct MakeView: View {
+    /// The state of the application
+    @EnvironmentObject var appState: AppState
     /// Get the list of books
     @EnvironmentObject var books: Books
     /// Get the Make options
-    var makeOptions: MakeOptions
+    let makeOptions: MakeOptions
     /// Observe script related stuff
     @EnvironmentObject var scripts: Scripts
-    /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = getDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
-    @AppStorage("pdfFont") var pdfFont: String = "11pt"
-    @AppStorage("pdfPaper") var pdfPaper: String = "ebook"
     /// The body of the View
     var body: some View {
         VStack {
-            if let book = books.bookSelected {
+            if let book = books.selectedBook {
                 Text("\"\(book.title)\" is selected")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -29,25 +26,23 @@ struct MakeView: View {
             HStack {
                 /// Make selected book
                 Button {
-                    if let book = books.bookSelected,
+                    if let book = books.selectedBook,
                        let script = Bundle.main.url(forResource: book.type.rawValue, withExtension: nil) {
                         let arguments = ["cd '" +
-                                         book.path +
+                                         book.folderURL.path(percentEncoded: false) +
                                          "' && '" + script.path + "' " +
-                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
+                                         makeOptions.arguments
                         ]
                         runShellScript(arguments: arguments)
                     }
                 } label: {
                     Text("Selected book")
                 }
-                .disabled(books.bookSelected == nil)
+                .disabled(books.selectedBook == nil)
                 /// Make all books
                 Button {
-                    if let script = Bundle.main.url(forResource: BookItem.BookType.allBooks.rawValue, withExtension: nil) {
-                        let arguments = ["'\(script.path)' " +
-                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                        ]
+                    if let script = Bundle.main.url(forResource: BookType.allBooks.rawValue, withExtension: nil) {
+                        let arguments = ["'\(script.path)' " + makeOptions.arguments ]
                         runShellScript(arguments: arguments)
                     }
                 } label: {
@@ -55,10 +50,8 @@ struct MakeView: View {
                 }
                 /// Make all collections
                 Button {
-                    if let script = Bundle.main.url(forResource: BookItem.BookType.allCollections.rawValue, withExtension: nil) {
-                        let arguments = ["'\(script.path)' " +
-                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                        ]
+                    if let script = Bundle.main.url(forResource: BookType.allCollections.rawValue, withExtension: nil) {
+                        let arguments = ["'\(script.path)' " + makeOptions.arguments ]
                         runShellScript(arguments: arguments)
                     }
                 } label: {
@@ -66,10 +59,8 @@ struct MakeView: View {
                 }
                 /// Make all tags
                 Button {
-                    if let script = Bundle.main.url(forResource: BookItem.BookType.allTags.rawValue, withExtension: nil) {
-                        let arguments = ["'\(script.path)' " +
-                                         getArgs(makeOptions, pathBooks, pathExport, pdfPaper, pdfFont)
-                        ]
+                    if let script = Bundle.main.url(forResource: BookType.allTags.rawValue, withExtension: nil) {
+                        let arguments = ["'\(script.path)' " +  makeOptions.arguments ]
                         runShellScript(arguments: arguments)
                     }
                 } label: {
@@ -79,15 +70,15 @@ struct MakeView: View {
             .padding([.leading, .bottom, .trailing])
         }
         .frame(height: 40, alignment: .bottom)
-        .disabled(scripts.showSheet)
+        .disabled(appState.showSheet)
     }
 
     func runShellScript(arguments: [String]) {
         Task {
             /// Start with a fresh log
             scripts.log = [Log(type: .logStart, message: "Making your books")]
-            scripts.activeSheet = .log
-            scripts.showSheet = true
+            appState.activeSheet = .log
+            appState.showSheet = true
             scripts.isRunning = true
             for await output in shell(arguments: arguments) {
                 switch output {

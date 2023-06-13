@@ -9,6 +9,8 @@ import SwiftUI
 
 /// Show the log. Presented in a sheet.
 struct LogView: View {
+    /// The state of the application
+    @EnvironmentObject var appState: AppState
     /// Get the list of books
     @EnvironmentObject var books: Books
     /// Observe script related stuff
@@ -54,7 +56,7 @@ struct LogView: View {
                     ProgressView()
                 } else {
                     Button("Close") {
-                        scripts.showSheet = false
+                        appState.showSheet = false
                     }
                     .keyboardShortcut(.defaultAction)
                 }

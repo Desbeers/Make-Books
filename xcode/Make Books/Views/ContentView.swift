@@ -9,13 +9,13 @@ import SwiftUI
 /// - Left is the book list
 /// - Right is the options and make view
 struct ContentView: View {
+    /// The state of the application
+    @EnvironmentObject var appState: AppState
     /// Get the list of books
     @EnvironmentObject var books: Books
     /// Observe script related stuff
     @EnvironmentObject var scripts: Scripts
-    /// Saved settings
-    @AppStorage("pathBooks") var pathBooks: String = getDocumentsDirectory()
-    @AppStorage("pathExport") var pathExport: String = getDocumentsDirectory()
+    /// The body of the View
     var body: some View {
         NavigationSplitView(sidebar: {
             BooksView()
@@ -24,7 +24,7 @@ struct ContentView: View {
                 .frame(minWidth: 400, minHeight: 400)
         })
         .navigationSubtitle("Write a beautiful book")
-        .sheet(isPresented: $scripts.showSheet, content: sheetContent)
+        .sheet(isPresented: $appState.showSheet, content: sheetContent)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
@@ -32,25 +32,24 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "square.and.arrow.up.on.square")
                 }
-                .help("The folder with your books: " + getLastPath(pathBooks))
+                .help("The folder with your books: \(FolderBookmark.getLastPath(bookmark: "BooksPath"))")
                 Button {
-                    withAnimation {
-                        books.bookList = GetBooksList()
-                        books.bookSelected = nil
+                    Task {
+                        await books.getFiles()
                     }
                 } label: {
                     Image(systemName: "arrow.clockwise")
                 }
                 .help("Refresh the list of books")
                 Button {
-                    selectExportFolder()
+                    selectExportFolder(books)
                 } label: {
                     Image(systemName: "square.and.arrow.down.on.square")
                 }
-                .help("The export folder: " + getLastPath(pathExport))
+                .help("The export folder: \(FolderBookmark.getLastPath(bookmark: "ExportPath"))")
                 Button {
-                    scripts.activeSheet = .dropper
-                    scripts.showSheet = true
+                    appState.activeSheet = .dropper
+                    appState.showSheet = true
                 } label: {
                     Image(systemName: "square.and.pencil")
                 }
@@ -64,7 +63,7 @@ extension ContentView {
 
     /// The content for a sheet
     @ViewBuilder func sheetContent() -> some View {
-        switch scripts.activeSheet {
+        switch appState.activeSheet {
         case .log:
             LogView()
         case .dropper:

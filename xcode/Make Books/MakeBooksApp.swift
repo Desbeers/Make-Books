@@ -11,6 +11,8 @@ import SwiftUI
 
 @main
 struct MakeBooksApp: App {
+    /// The state of the application
+    @StateObject var appState = AppState()
     /// Get the list of books
     @StateObject var books = Books()
     /// Observe script related stuff
@@ -21,9 +23,13 @@ struct MakeBooksApp: App {
     var body: some Scene {
         Window("Make Books", id: "main") {
             ContentView()
+                .environmentObject(appState)
                 .environmentObject(books)
                 .environmentObject(scripts)
-                .background(Color("BackgroundColor"))
+                .background(Color(nsColor: .textBackgroundColor))
+                .task {
+                    await books.getFiles()
+                }
         }
         .windowToolbarStyle(.automatic)
         .windowResizability(.contentMinSize)
@@ -32,16 +38,16 @@ struct MakeBooksApp: App {
             SidebarCommands()
             CommandGroup(after: .sidebar) {
                 Button {
-                    scripts.activeSheet = .log
-                    scripts.showSheet = true
+                    appState.activeSheet = .log
+                    appState.showSheet = true
                 }
                 label: {
                     Text("Show log")
                 }
                 .keyboardShortcut("L")
                 Button {
-                    scripts.activeSheet = .dropper
-                    scripts.showSheet = true
+                    appState.activeSheet = .dropper
+                    appState.showSheet = true
                 }
                 label: {
                     Text("Show Markdown dropper")
