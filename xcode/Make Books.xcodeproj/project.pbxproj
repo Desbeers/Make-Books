@@ -11,7 +11,6 @@
 		01F66C8124E9D56C00E80869 /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F66C8024E9D56C00E80869 /* MakeBooksApp.swift */; };
 		D71F5869244368C00021D95F /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F5868244368C00021D95F /* BooksView.swift */; };
 		D7252FC0299FD8AA005EDF8C /* make in Resources */ = {isa = PBXBuildFile; fileRef = D7252FB8299FD8A9005EDF8C /* make */; };
-		D7252FC1299FD8AA005EDF8C /* kobo in Resources */ = {isa = PBXBuildFile; fileRef = D7252FB9299FD8A9005EDF8C /* kobo */; };
 		D7252FC2299FD8AA005EDF8C /* config.zsh in Resources */ = {isa = PBXBuildFile; fileRef = D7252FBA299FD8AA005EDF8C /* config.zsh */; };
 		D7252FC3299FD8AA005EDF8C /* includes in Resources */ = {isa = PBXBuildFile; fileRef = D7252FBB299FD8AA005EDF8C /* includes */; };
 		D7252FC4299FD8AA005EDF8C /* pandoc in Resources */ = {isa = PBXBuildFile; fileRef = D7252FBC299FD8AA005EDF8C /* pandoc */; };
@@ -237,7 +236,6 @@
 				D7252FC7299FD8AA005EDF8C /* fonts in Resources */,
 				D7252FC4299FD8AA005EDF8C /* pandoc in Resources */,
 				D7252FC5299FD8AA005EDF8C /* terminal in Resources */,
-				D7252FC1299FD8AA005EDF8C /* kobo in Resources */,
 				D7252FC2299FD8AA005EDF8C /* config.zsh in Resources */,
 				D7252FC3299FD8AA005EDF8C /* includes in Resources */,
 			);
