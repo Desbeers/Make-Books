@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-/// The list of all books
+/// SwiftUI View  for all the books
 struct BooksView: View {
     /// Get the list of books
     @EnvironmentObject var books: Books
@@ -67,8 +67,8 @@ extension BooksView {
                 VStack(alignment: .leading) {
                     Text(book.title).fontWeight(.bold).lineLimit(2)
                     Text(book.author)
-                    if !book.belongsToCollection.isEmpty {
-                        Text("\(book.belongsToCollection) \(book.groupPositionRoman)")
+                    if let belongsToCollection = book.belongsToCollection {
+                        Text("\(belongsToCollection) \(book.groupPositionRoman)")
                             .font(.caption)
                     }
                     Text("\(book.description) • " + book.date.prefix(4))
@@ -104,19 +104,19 @@ extension BooksView {
         /// The body of the `View`
         var body: some View {
             Button {
-                openInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
+                FolderBookmark.openInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
             } label: {
                 Text("Open export in Finder")
             }
             .disabled(!doesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
             Divider()
             Button {
-                openInFinder(url: book.folderURL)
+                FolderBookmark.openInFinder(url: book.folderURL)
             } label: {
                 Text("Open source in Finder")
             }
             Button {
-                openInTerminal(url: book.folderURL)
+                Terminal.openURL(url: book.folderURL)
             } label: {
                 Text("Open source in Terminal")
             }

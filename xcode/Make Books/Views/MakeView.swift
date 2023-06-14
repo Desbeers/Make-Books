@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-/// The action buttons
+/// SwiftUI View for the action buttons
 struct MakeView: View {
     /// The state of the application
     @EnvironmentObject var appState: AppState
@@ -25,7 +25,7 @@ struct MakeView: View {
             }
             HStack {
                 /// Make selected book
-                Button {
+                Button("Selected book") {
                     if let book = books.selectedBook,
                        let script = Bundle.main.url(forResource: book.type.rawValue, withExtension: nil) {
                         let arguments = ["cd '" +
@@ -35,36 +35,28 @@ struct MakeView: View {
                         ]
                         runShellScript(arguments: arguments)
                     }
-                } label: {
-                    Text("Selected book")
                 }
                 .disabled(books.selectedBook == nil)
                 /// Make all books
-                Button {
+                Button("All books") {
                     if let script = Bundle.main.url(forResource: BookType.allBooks.rawValue, withExtension: nil) {
                         let arguments = ["'\(script.path)' " + makeOptions.arguments ]
                         runShellScript(arguments: arguments)
                     }
-                } label: {
-                    Text("All books")
                 }
                 /// Make all collections
-                Button {
+                Button("Collections") {
                     if let script = Bundle.main.url(forResource: BookType.allCollections.rawValue, withExtension: nil) {
                         let arguments = ["'\(script.path)' " + makeOptions.arguments ]
                         runShellScript(arguments: arguments)
                     }
-                } label: {
-                    Text("Collections")
                 }
                 /// Make all tags
-                Button {
+                Button("Tags") {
                     if let script = Bundle.main.url(forResource: BookType.allTags.rawValue, withExtension: nil) {
-                        let arguments = ["'\(script.path)' " +  makeOptions.arguments ]
+                        let arguments = ["'\(script.path)' " + makeOptions.arguments ]
                         runShellScript(arguments: arguments)
                     }
-                } label: {
-                    Text("Tags")
                 }
             }
             .padding([.leading, .bottom, .trailing])
@@ -76,11 +68,11 @@ struct MakeView: View {
     func runShellScript(arguments: [String]) {
         Task {
             /// Start with a fresh log
-            scripts.log = [Log(type: .logStart, message: "Making your books")]
+            scripts.log = [.init(type: .logStart, message: "Making your books")]
             appState.activeSheet = .log
             appState.showSheet = true
             scripts.isRunning = true
-            for await output in shell(arguments: arguments) {
+            for await output in Terminal.runInShell(arguments: arguments) {
                 switch output {
                 case let .standardOutput(outputLine):
                     parseLogLine(line: outputLine)
@@ -89,12 +81,12 @@ struct MakeView: View {
                 }
             }
             scripts.isRunning = false
-            scripts.log.append(Log(type: .logEnd, message: "Done!"))
+            scripts.log.append(.init(type: .logEnd, message: "Done!"))
         }
     }
 
     func parseLogLine(line: String) {
-        var type: Log.LogType = .unknown
+        var type: Scripts.LogItem.LogType = .unknown
         var message = line.trimmingCharacters(in: .whitespacesAndNewlines)
         let lineArr = message.components(separatedBy: ":")
         switch lineArr[0] {
@@ -116,6 +108,6 @@ struct MakeView: View {
         default:
             type = .unknown
         }
-        scripts.log.append(Log(type: type, message: message))
+        scripts.log.append(.init(type: type, message: message))
     }
 }

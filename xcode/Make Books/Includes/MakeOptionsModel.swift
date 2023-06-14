@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: ObservableObject: MakeOptions
 
-/// The options for Make
+/// The class with options for Make
 final class MakeOptions: ObservableObject {
     @Published var options: [MakeOption]
 
@@ -83,7 +83,7 @@ extension MakeOptions {
 
 // MARK: struct
 
-/// A Make option
+/// The structure of a Make option
 struct MakeOption: Identifiable {
     var id = UUID()
     var make: String

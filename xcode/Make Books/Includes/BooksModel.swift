@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: ObservableObject: Books
 
-/// A list of all the books
+/// The class with the list of  books
 final class Books: ObservableObject {
     /// The list of books
     @Published var bookList: [BookItem] = []
@@ -95,7 +95,7 @@ extension Books {
                     case "belongs-to-collection":
                         book.belongsToCollection = value
                     case "group-position":
-                        book.groupPosition = value
+                        book.groupPosition = Int(value) ?? 1
                     /// Internal stuff...
                     case "collection":
                         /// This book is a collection:
@@ -112,7 +112,7 @@ extension Books {
                             book.addToCollection.append(collection)
                         }
                     case "tag":
-                        /// This book is a collection:
+                        /// This book is a tag collection:
                         book.type = .tag
                         book.tag = value
                     default:
@@ -142,8 +142,8 @@ struct BookItem: Identifiable, Hashable {
     var author: String = ""
     var date: String = ""
     var coverURL: URL?
-    var belongsToCollection: String = ""
-    var groupPosition: String = ""
+    var belongsToCollection: String?
+    var groupPosition: Int = 1
     var groupPositionRoman: String {
         return romanNumber(number: groupPosition)
     }
@@ -169,7 +169,7 @@ struct BookItem: Identifiable, Hashable {
     }
 }
 
-/// The type of book and the name of its script.
+/// Type of book with the name of its script.
 enum BookType: String {
     case book = "terminal/make-book"
     case collection = "terminal/make-collection"
@@ -180,14 +180,14 @@ enum BookType: String {
     case makePDF = "terminal/make-pdf"
 }
 
-/// The structure for a book collection
+/// The structure of a book collection
 struct BookCollection: Identifiable, Hashable {
     var id = UUID()
     var name: String = ""
     var position: String = ""
 }
 
-/// The structure for a author item
+/// The structure of a author item
 struct AuthorItem: Identifiable, Hashable {
     let id = UUID()
     let name: String

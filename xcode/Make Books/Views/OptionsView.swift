@@ -5,9 +5,7 @@
 
 import SwiftUI
 
-// MARK: - View: OptionsView
-
-/// The types of book to make
+/// SwiftUI View for all the options
 struct OptionsView: View {
     /// Get the list of books
     @EnvironmentObject var books: Books

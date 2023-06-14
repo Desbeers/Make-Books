@@ -5,12 +5,8 @@
 
 import SwiftUI
 
-// MARK: - App: MakeBooksApp
-
-// The application scene
-
-@main
-struct MakeBooksApp: App {
+/// SwiftUI Scene for the application
+@main struct MakeBooksApp: App {
     /// The state of the application
     @StateObject var appState = AppState()
     /// Get the list of books

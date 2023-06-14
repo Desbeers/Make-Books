@@ -47,37 +47,6 @@ func getCover(cover: URL) -> NSImage {
     return NSImage()
 }
 
-// MARK: openInFinder
-
-/// Open a folder in the Finder
-/// - Parameter url: The URL of the folder
-func openInFinder(url: URL?) {
-    guard let url = url else {
-        print("Not a valid URL")
-        return
-    }
-    /// This opens the actual folder:
-    /// NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: url.path)
-    /// This selects the folder; I like that better:
-    NSWorkspace.shared.activateFileViewerSelecting([url])
-}
-
-// MARK: openInTerminal
-
-/// Open a folder in the Terminal
-/// - Parameter url: The URL of the folder
-func openInTerminal(url: URL?) {
-    guard let terminal = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal") else {
-        return
-    }
-    guard let url = url else {
-        print("Not a valid URL")
-        return
-    }
-    let configuration = NSWorkspace.OpenConfiguration()
-    NSWorkspace.shared.open([url], withApplicationAt: terminal, configuration: configuration)
-}
-
 // MARK: doesFileExists
 
 /// Check if a file or folder exists
@@ -95,11 +64,11 @@ func doesFileExists(url: URL) -> Bool {
 /// Convert a numer to Roman
 /// - Parameter number: The number
 /// - Returns: The number in roman style
-func romanNumber(number: String) -> String {
+func romanNumber(number: Int) -> String {
     let romanValues = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
     let arabicValues = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
     var romanValue = ""
-    var startingValue = Int(number) ?? 1
+    var startingValue = number
     for (index, romanChar) in romanValues.enumerated() {
         let arabicValue = arabicValues[index]
         let div = startingValue / arabicValue

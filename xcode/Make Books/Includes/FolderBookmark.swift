@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-/// Functions to work with persistent selected folders
+/// Persistent folder utilities
 enum FolderBookmark {
     // Just a placeholder
 }
@@ -73,19 +73,6 @@ extension FolderBookmark {
             return
         }
         NSWorkspace.shared.activateFileViewerSelecting([url])
-    }
-}
-
-extension FolderBookmark {
-
-    /// Get the last path component of a bookmark
-    /// - Parameter bookmark: The name of the bookmark
-    /// - Returns: The last path component of the bookmark
-    static func getLastPath(bookmark: String) -> String {
-        guard let persistentURL = FolderBookmark.getPersistentFileURL(bookmark) else {
-            return FolderBookmark.getDocumentsDirectory().lastPathComponent
-        }
-        return persistentURL.lastPathComponent
     }
 }
 

@@ -5,9 +5,7 @@
 
 import SwiftUI
 
-// MARK: - View: LogView
-
-/// Show the log. Presented in a sheet.
+/// SwiftUI View for the log
 struct LogView: View {
     /// The state of the application
     @EnvironmentObject var appState: AppState

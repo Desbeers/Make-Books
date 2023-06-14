@@ -5,8 +5,7 @@
 
 import SwiftUI
 
-/// A view where you can drop a Markdown file that will be converted to PDF
-/// Presented in a sheet
+/// SwiftUI View for the Markdown drop
 struct DropView: View {
     @State var isDrop: Bool = false
     @State var isRunning: Bool = false

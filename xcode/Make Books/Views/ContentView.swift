@@ -5,9 +5,7 @@
 
 import SwiftUI
 
-/// The content of the whole application
-/// - Left is the book list
-/// - Right is the options and make view
+/// SwiftUI View  for the main content
 struct ContentView: View {
     /// The state of the application
     @EnvironmentObject var appState: AppState
@@ -32,7 +30,7 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "square.and.arrow.up.on.square")
                 }
-                .help("The folder with your books: \(FolderBookmark.getLastPath(bookmark: "BooksPath"))")
+                .help("The folder with your books: \(FolderBookmark.getURL(bookmark: "BooksPath").lastPathComponent)")
                 Button {
                     Task {
                         await books.getFiles()
@@ -46,7 +44,7 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: "square.and.arrow.down.on.square")
                 }
-                .help("The export folder: \(FolderBookmark.getLastPath(bookmark: "ExportPath"))")
+                .help("The export folder: \(FolderBookmark.getURL(bookmark: "ExportPath").lastPathComponent)")
                 Button {
                     appState.activeSheet = .dropper
                     appState.showSheet = true

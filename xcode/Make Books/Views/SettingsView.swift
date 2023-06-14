@@ -5,7 +5,7 @@
 
 import SwiftUI
 
-/// The preferences for Make Books
+/// SwiftUI View for the settings
 struct SettingsView: View {
     /// The body of the View
     var body: some View {
@@ -13,11 +13,11 @@ struct SettingsView: View {
             TabView {
                 Folders()
                     .tabItem {
-                        Image(systemName: "folder"); Text("Folders")
+                        Label("folders", systemImage: "folder")
                     }
                 Pdf()
                     .tabItem {
-                        Image(systemName: "doc"); Text("PDF")
+                        Label("PDF", systemImage: "doc")
                     }
             }
             .padding(40)
@@ -37,24 +37,26 @@ extension SettingsView {
                 Text("Where are your books?")
                     .font(.headline)
                 HStack {
-                    Label(FolderBookmark.getLastPath(bookmark: "BooksPath"), systemImage: "square.and.arrow.up.on.square")
-                        .truncationMode(.head)
-                    Button {
+                    Label(
+                        FolderBookmark.getURL(bookmark: "BooksPath").lastPathComponent,
+                        systemImage: "square.and.arrow.up.on.square"
+                    )
+                    .truncationMode(.head)
+                    Button("Change") {
                         selectBooksFolder(books)
-                    } label: {
-                        Text("Change")
                     }
                 }
                 Divider().padding(.vertical)
                 Text("Where shall we export them?")
                     .font(.headline)
                 HStack {
-                    Label(FolderBookmark.getLastPath(bookmark: "ExportPath"), systemImage: "square.and.arrow.down.on.square")
-                        .truncationMode(.head)
-                    Button {
+                    Label(
+                        FolderBookmark.getURL(bookmark: "ExportPath").lastPathComponent,
+                        systemImage: "square.and.arrow.down.on.square"
+                    )
+                    .truncationMode(.head)
+                    Button("Change") {
                         selectExportFolder(books)
-                    } label: {
-                        Text("Change")
                     }
                 }
             }

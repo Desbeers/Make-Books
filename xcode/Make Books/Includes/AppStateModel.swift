@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: ObservableObject: AppState
 
-/// State of application
+/// The class with the application state
 class AppState: ObservableObject {
     /// Show sheet with log or dropper
     @Published var showSheet = false
