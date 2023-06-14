@@ -23,11 +23,11 @@
 		D73FCFBD2439A4D600FE6897 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73FCFBC2439A4D600FE6897 /* SettingsView.swift */; };
 		D74D4FC325F2CE7E005AF488 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D74D4FC225F2CE7E005AF488 /* Credits.rtf */; };
 		D75E51B52A38932100724F4D /* BooksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E51B42A38932100724F4D /* BooksModel.swift */; };
-		D75E51B72A38947400724F4D /* FolderBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E51B62A38947400724F4D /* FolderBookmark.swift */; };
 		D75E51B92A38E11900724F4D /* MakeOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E51B82A38E11900724F4D /* MakeOptionsModel.swift */; };
 		D75E51BB2A38E54900724F4D /* ScriptsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E51BA2A38E54900724F4D /* ScriptsModel.swift */; };
 		D75E51BF2A38EB2100724F4D /* AppStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E51BE2A38EB2100724F4D /* AppStateModel.swift */; };
 		D7622D232450DBA700F9DABC /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622D222450DBA700F9DABC /* ActionsView.swift */; };
+		D776A7862A3A2BC100C1630C /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D776A7852A3A2BC100C1630C /* SwiftlyFolderUtilities */; };
 		D78704EE2447BBFB00AE2E97 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78704ED2447BBFB00AE2E97 /* ContentView.swift */; };
 		D7941C562A3938CA0070DF89 /* Terminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7941C552A3938CA0070DF89 /* Terminal.swift */; };
 		D7AC56EE25D5729700AFD713 /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC56ED25D5729700AFD713 /* DropView.swift */; };
@@ -58,7 +58,6 @@
 		D73FCFBC2439A4D600FE6897 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D74D4FC225F2CE7E005AF488 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		D75E51B42A38932100724F4D /* BooksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksModel.swift; sourceTree = "<group>"; };
-		D75E51B62A38947400724F4D /* FolderBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderBookmark.swift; sourceTree = "<group>"; };
 		D75E51B82A38E11900724F4D /* MakeOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeOptionsModel.swift; sourceTree = "<group>"; };
 		D75E51BA2A38E54900724F4D /* ScriptsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptsModel.swift; sourceTree = "<group>"; };
 		D75E51BE2A38EB2100724F4D /* AppStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateModel.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D776A7862A3A2BC100C1630C /* SwiftlyFolderUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +132,6 @@
 				D75E51BA2A38E54900724F4D /* ScriptsModel.swift */,
 				D7C9EF90244CC31F004589AE /* SharedFunctions.swift */,
 				D7941C552A3938CA0070DF89 /* Terminal.swift */,
-				D75E51B62A38947400724F4D /* FolderBookmark.swift */,
 				D74D4FC225F2CE7E005AF488 /* Credits.rtf */,
 			);
 			path = Includes;
@@ -184,6 +183,9 @@
 			dependencies = (
 			);
 			name = "Make Books";
+			packageProductDependencies = (
+				D776A7852A3A2BC100C1630C /* SwiftlyFolderUtilities */,
+			);
 			productName = "Make books";
 			productReference = D739D2C423B36419006EF379 /* Make Books.app */;
 			productType = "com.apple.product-type.application";
@@ -213,6 +215,9 @@
 				Base,
 			);
 			mainGroup = D739D2BB23B36419006EF379;
+			packageReferences = (
+				D776A7842A3A2BC100C1630C /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */,
+			);
 			productRefGroup = D739D2C523B36419006EF379 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -282,7 +287,6 @@
 				D75E51B52A38932100724F4D /* BooksModel.swift in Sources */,
 				D7C9EF91244CC31F004589AE /* SharedFunctions.swift in Sources */,
 				D7AC56EE25D5729700AFD713 /* DropView.swift in Sources */,
-				D75E51B72A38947400724F4D /* FolderBookmark.swift in Sources */,
 				D75E51BF2A38EB2100724F4D /* AppStateModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +489,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D776A7842A3A2BC100C1630C /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D776A7852A3A2BC100C1630C /* SwiftlyFolderUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D776A7842A3A2BC100C1630C /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */;
+			productName = SwiftlyFolderUtilities;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D739D2BC23B36419006EF379 /* Project object */;
 }

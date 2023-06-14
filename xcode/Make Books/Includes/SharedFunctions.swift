@@ -4,6 +4,7 @@
 //  © 2023 Nick Berendsen
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 // MARK: Folder selector
 

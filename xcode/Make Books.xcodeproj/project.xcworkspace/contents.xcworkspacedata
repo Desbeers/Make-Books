@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/Desbeers/Documents/Make-books/xcode/Big Sur/Make Books.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftlyFolderUtilities
 
 // MARK: ObservableObject: Books
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 // MARK: ObservableObject: MakeOptions
 
