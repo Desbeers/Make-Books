@@ -16,22 +16,23 @@ struct BooksView: View {
                 ForEach(books.authorList) { author in
                     Section(header: Text(author.name)) {
                         ForEach(author.books, id: \.self) { book in
-                            BookListRow(book: book)
+                            Row(book: book)
                                 .contextMenu {
-                                    BookButtons(book: book)
+                                    Buttons(book: book)
                                 }
                         }
                     }
                 }
             } else {
                 ForEach(books.bookList.filter({$0.search.localizedCaseInsensitiveContains(search)}), id: \.self) { book in
-                    BookListRow(book: book)
+                    Row(book: book)
                         .contextMenu {
-                            BookButtons(book: book)
+                            Buttons(book: book)
                         }
                 }
             }
         }
+        .listStyle(.inset(alternatesRowBackgrounds: true))
         .searchable(text: $search, prompt: "Search for book or author")
     }
 }
@@ -39,7 +40,7 @@ struct BooksView: View {
 extension BooksView {
 
     /// A row in the book list
-    struct BookListRow: View {
+    struct Row: View {
         let book: BookItem
         /// Get the list of books
         @EnvironmentObject var books: Books
@@ -65,36 +66,37 @@ extension BooksView {
                 .frame(width: 60.0, height: 90.0)
                 .shadow(radius: 2, x: 2, y: 2)
                 VStack(alignment: .leading) {
-                    Text(book.title).fontWeight(.bold).lineLimit(2)
-                    Text(book.author)
-                    if let belongsToCollection = book.belongsToCollection {
-                        Text("\(belongsToCollection) \(book.groupPositionRoman)")
-                            .font(.caption)
-                    }
-                    Text("\(book.description) • " + book.date.prefix(4))
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    if book.type == .collection {
-                        /// List all the books in this collection
-                        let filterbooks = books.authorList.flatMap { $0.books }
-                            .filter { $0.addToCollection.contains(where: { $0.name == book.collection })}
-                        VStack(alignment: .leading) {
-                            ForEach(filterbooks) { list in
-                                Text(list.title)
-                            }
+                    Text(book.title)
+                        .fontWeight(.bold)
+                        .lineLimit(2)
+                    Group {
+                        Text(book.author)
+                        if let belongsToCollection = book.belongsToCollection {
+                            Text("\(belongsToCollection) \(romanNumber(number: book.groupPosition))")
+                                .font(.caption)
                         }
-                        .font(.caption2)
+                        Text("\(book.description) • " + book.date.prefix(4))
+                            .font(.caption)
+                        if book.type == .collection {
+                            /// List all the books in this collection
+                            let filterbooks = books.authorList.flatMap { $0.books }
+                                .filter { $0.addToCollection.contains(where: { $0.name == book.collection })}
+                            VStack(alignment: .leading) {
+                                ForEach(filterbooks) { list in
+                                    Text(list.title)
+                                }
+                            }
+                            .font(.caption2)
+                        }
                     }
+                    .foregroundColor(.secondary)
                 }
             }
             .padding(.vertical, 2)
-            .help(
-                book.help
-            )
         }
     }
 
-    struct BookButtons: View {
+    struct Buttons: View {
         /// The book item
         let book: BookItem
         /// The export path

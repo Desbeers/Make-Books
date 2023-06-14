@@ -24,7 +24,7 @@ struct OptionsView: View {
                             .padding()
                     } else {
                         Image("MainBackground")
-                        /// Resizable needed or else it does not risize
+                        /// Resizable needed or else it does not resize
                             .resizable()
                     }
                 }
@@ -44,10 +44,12 @@ struct OptionsView: View {
                                 .foregroundColor(.secondary)
                                 .padding(.leading)
                         }
-                    }.padding(.horizontal)
+                    }
+                    .padding(.horizontal)
                 }
                 /// No more ZStack
             }
+            .frame(maxHeight: .infinity)
             /// And at last, the 'clean' option
             Toggle(isOn: $makeOptions.options[0].isSelected) {
                 Text(makeOptions.options[0].label)
@@ -61,8 +63,7 @@ struct OptionsView: View {
                 .padding(.bottom)
             /// END `options for Make`
             /// Add the buttons below this view
-            MakeView(makeOptions: makeOptions)
+            ActionsView(makeOptions: makeOptions)
         }
-        .animation(.default, value: books.selectedBook)
     }
 }

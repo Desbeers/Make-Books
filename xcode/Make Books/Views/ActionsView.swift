@@ -1,4 +1,4 @@
-//  MakeView.swift
+//  ActionsView.swift
 //  Make books
 //
 //  © 2023 Nick Berendsen
@@ -6,7 +6,7 @@
 import SwiftUI
 
 /// SwiftUI View for the action buttons
-struct MakeView: View {
+struct ActionsView: View {
     /// The state of the application
     @EnvironmentObject var appState: AppState
     /// Get the list of books

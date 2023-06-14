@@ -144,18 +144,12 @@ struct BookItem: Identifiable, Hashable {
     var coverURL: URL?
     var belongsToCollection: String?
     var groupPosition: Int = 1
-    var groupPositionRoman: String {
-        return romanNumber(number: groupPosition)
-    }
     var type: BookType = .book
     var tag: String = ""
     var collection: String = ""
     var addToCollection = [BookCollection]()
     var search: String {
-        return "\(title) \(author)"
-    }
-    var help: String {
-        return "\(author): \(title)"
+        "\(title) \(author)"
     }
     var description: String {
         switch type {

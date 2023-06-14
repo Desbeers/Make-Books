@@ -22,6 +22,7 @@ struct ContentView: View {
                 .frame(minWidth: 400, minHeight: 400)
         })
         .navigationSubtitle("Write a beautiful book")
+        .animation(.default, value: books.selectedBook)
         .sheet(isPresented: $appState.showSheet, content: sheetContent)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
