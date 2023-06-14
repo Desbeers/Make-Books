@@ -32,7 +32,6 @@ struct BooksView: View {
                 }
             }
         }
-        .listStyle(.inset(alternatesRowBackgrounds: true))
         .searchable(text: $search, prompt: "Search for book or author")
     }
 }
@@ -92,7 +91,6 @@ extension BooksView {
                     .foregroundColor(.secondary)
                 }
             }
-            .padding(.vertical, 2)
         }
     }
 
