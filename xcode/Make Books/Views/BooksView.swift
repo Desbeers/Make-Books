@@ -5,6 +5,7 @@
 
 import SwiftUI
 import SwiftlyFolderUtilities
+import SwiftlyTerminalUtilities
 
 /// SwiftUI View  for all the books
 struct BooksView: View {

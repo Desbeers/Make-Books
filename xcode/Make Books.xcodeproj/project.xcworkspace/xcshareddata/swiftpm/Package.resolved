@@ -8,6 +8,15 @@
         "branch" : "main",
         "revision" : "0c369c00563de26e54759f1aade7bd97321abe2b"
       }
+    },
+    {
+      "identity" : "swiftlyterminalutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyTerminalUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "589734bea0383134a2e2948c165b1bd25dc05b93"
+      }
     }
   ],
   "version" : 2
