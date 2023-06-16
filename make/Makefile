@@ -16,7 +16,6 @@ RM := rm
 MKDIR := mkdir
 LUALATEX := lualatex
 KOBOGEN := kepubify
-CONVERT := magick
 
 PANDOC_OPTIONS := \
     --metadata-file=assets/make-book.md \
@@ -86,9 +85,8 @@ PANDOC_NATIVE := \
 COVER := assets/cover-screen.jpg
 ifneq ("$(wildcard $(COVER))","")
 	PANDOC_EPUB+= --epub-cover-image=$(COVER)
-	PANDOC_MOBI+= --epub-cover-image=$(COVER)
+	PANDOC_KOBO+= --epub-cover-image=$(COVER)
 	PANDOC_PDF+= --metadata=have-cover
-	PANDOC_KOBO+= --epub-cover-image=$(BUILD_DIR)/cover-screen-kobo.jpg
 endif
 
 # Add optional style:
@@ -212,9 +210,6 @@ $(BUILD_DIR)/KOBO_$(BUILD_TITLE).kepub.epub: $(BUILD_DIR)/KOBO_$(BUILD_TITLE).ep
 $(BUILD_DIR)/KOBO_$(BUILD_TITLE).epub: $(BUILD_DIR)/$(BUILD_TITLE).pandoc assets/make-book.md
 	$(call prepare)
 	$(call log,Making your Kobo book...,targetStart,❁)
-ifneq ("$(wildcard $(COVER))","")
-	@$(CONVERT) assets/cover-screen.jpg -resize 544x816\! -colorspace Gray $(BUILD_DIR)/cover-screen-kobo.jpg
-endif
 	@$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_KOBO) --output $@ $<
 
 #####################
