@@ -39,12 +39,14 @@ extension SettingsView {
                     .font(.headline)
                 HStack {
                     Label(
-                        FolderBookmark.getURL(bookmark: "BooksPath").lastPathComponent,
+                        FolderBookmark.getLastSelectedURL(bookmark: "BooksPath").lastPathComponent,
                         systemImage: "square.and.arrow.up.on.square"
                     )
                     .truncationMode(.head)
                     Button("Change") {
-                        selectBooksFolder(books)
+                        Task {
+                            await selectBooksFolder(books)
+                        }
                     }
                 }
                 Divider().padding(.vertical)
@@ -52,12 +54,14 @@ extension SettingsView {
                     .font(.headline)
                 HStack {
                     Label(
-                        FolderBookmark.getURL(bookmark: "ExportPath").lastPathComponent,
+                        FolderBookmark.getLastSelectedURL(bookmark: "ExportPath").lastPathComponent,
                         systemImage: "square.and.arrow.down.on.square"
                     )
                     .truncationMode(.head)
                     Button("Change") {
-                        selectExportFolder(books)
+                        Task {
+                            await selectExportFolder(books)
+                        }
                     }
                 }
             }

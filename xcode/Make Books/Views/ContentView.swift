@@ -20,7 +20,7 @@ struct ContentView: View {
             BooksView()
         }, detail: {
             OptionsView()
-                .frame(minWidth: 400, minHeight: 400)
+                .frame(minWidth: 400)
         })
         .navigationSubtitle("Write a beautiful book")
         .animation(.default, value: books.selectedBook)
@@ -28,11 +28,13 @@ struct ContentView: View {
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
-                    selectBooksFolder(books)
+                    Task {
+                        await selectBooksFolder(books)
+                    }
                 } label: {
                     Image(systemName: "square.and.arrow.up.on.square")
                 }
-                .help("The folder with your books: \(FolderBookmark.getURL(bookmark: "BooksPath").lastPathComponent)")
+                .help("The folder with your books: \(FolderBookmark.getLastSelectedURL(bookmark: "BooksPath").lastPathComponent)")
                 Button {
                     Task {
                         await books.getFiles()
@@ -42,11 +44,13 @@ struct ContentView: View {
                 }
                 .help("Refresh the list of books")
                 Button {
-                    selectExportFolder(books)
+                    Task {
+                        await selectExportFolder(books)
+                    }
                 } label: {
                     Image(systemName: "square.and.arrow.down.on.square")
                 }
-                .help("The export folder: \(FolderBookmark.getURL(bookmark: "ExportPath").lastPathComponent)")
+                .help("The export folder: \(FolderBookmark.getLastSelectedURL(bookmark: "ExportPath").lastPathComponent)")
                 Button {
                     appState.activeSheet = .dropper
                     appState.showSheet = true

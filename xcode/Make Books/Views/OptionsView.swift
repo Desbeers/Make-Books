@@ -7,6 +7,8 @@ import SwiftUI
 
 /// SwiftUI View for all the options
 struct OptionsView: View {
+    /// The state of the application
+    @EnvironmentObject var appState: AppState
     /// Get the list of books
     @EnvironmentObject var books: Books
     /// Get the build options
@@ -40,6 +42,7 @@ struct OptionsView: View {
                                 Text(makeOptions.options[index].label)
                                     .fontWeight(.bold)
                             }
+                            .disabled(!makeOptions.available(makeOptions.options[index]))
                             Text(makeOptions.options[index].text)
                                 .foregroundColor(.secondary)
                                 .padding(.leading)
@@ -61,7 +64,7 @@ struct OptionsView: View {
                 .foregroundColor(.secondary)
                 .animation(.easeInOut)
                 .padding(.bottom)
-            /// END `options for Make`
+            /// END `options for Make
             /// Add the buttons below this view
             ActionsView(makeOptions: makeOptions)
         }

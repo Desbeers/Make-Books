@@ -26,42 +26,46 @@ extension Books {
 
     /// Get the book files from the user selected folder
     @MainActor func getFiles() async {
-        /// Clear optional selected book
-        selectedBook = nil
-        /// The found books
-        var books = [BookItem]()
-        /// Get a list of all files
-        await FolderBookmark.action(bookmark: "BooksPath") { persistentURL in
-            if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
-                while let item = items.nextObject() as? URL {
-                    if makeBooksConfigFiles.contains(item.lastPathComponent) {
-                        var book = BookItem(folderURL: item.deletingLastPathComponent().deletingLastPathComponent())
-                        parseBookFile(item, &book)
-                        books.append(book)
+        do {
+            /// Clear optional selected book
+            selectedBook = nil
+            /// The found books
+            var books = [BookItem]()
+            /// Get a list of all files
+            try await FolderBookmark.action(bookmark: "BooksPath") { persistentURL in
+                if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
+                    while let item = items.nextObject() as? URL {
+                        if makeBooksConfigFiles.contains(item.lastPathComponent) {
+                            var book = BookItem(folderURL: item.deletingLastPathComponent().deletingLastPathComponent())
+                            parseBookFile(item, &book)
+                            books.append(book)
+                        }
                     }
                 }
             }
-        }
-        /// Use the Dictionary(grouping:) function so that all the authors are grouped together.
-        let grouped = Dictionary(grouping: books) { (occurrence: BookItem) -> String in
-            occurrence.author
-        }
-        /// We now map over the dictionary and create our author objects.
-        /// Then we want to sort them so that they are in the correct order.
-        authorList = grouped.map { author -> AuthorItem in
-            /// Sort the list by last name
-            var sortName = " \(author.key)"
-            if let index = sortName.lastIndex(of: " ") {
-                sortName = String(sortName[index...])
+            /// Use the Dictionary(grouping:) function so that all the authors are grouped together.
+            let grouped = Dictionary(grouping: books) { (occurrence: BookItem) -> String in
+                occurrence.author
             }
-            return AuthorItem(
-                name: author.key,
-                sortName: sortName,
-                books: author.value.sorted { $0.date < $1.date }
-            )
+            /// We now map over the dictionary and create our author objects.
+            /// Then we want to sort them so that they are in the correct order.
+            authorList = grouped.map { author -> AuthorItem in
+                /// Sort the list by last name
+                var sortName = " \(author.key)"
+                if let index = sortName.lastIndex(of: " ") {
+                    sortName = String(sortName[index...])
+                }
+                return AuthorItem(
+                    name: author.key,
+                    sortName: sortName,
+                    books: author.value.sorted { $0.date < $1.date }
+                )
+            }
+            .sorted { $0.sortName < $1.sortName }
+            bookList = books.sorted { $0.title < $1.title }
+        } catch {
+            print(error.localizedDescription)
         }
-        .sorted { $0.sortName < $1.sortName }
-        bookList = books.sorted { $0.title < $1.title }
     }
 }
 
@@ -86,7 +90,7 @@ extension Books {
                         value = lineArr[1].trimmingCharacters(in: .whitespaces)
                     }
                     switch lineArr[0] {
-                    /// Metadata stuff...
+                        /// Metadata stuff...
                     case "author":
                         book.author = value
                     case "title":
@@ -97,7 +101,7 @@ extension Books {
                         book.belongsToCollection = value
                     case "group-position":
                         book.groupPosition = Int(value) ?? 1
-                    /// Internal stuff...
+                        /// Internal stuff...
                     case "collection":
                         /// This book is a collection:
                         book.type = .collection

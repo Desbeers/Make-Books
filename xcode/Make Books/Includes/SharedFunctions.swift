@@ -10,28 +10,31 @@ import SwiftlyFolderUtilities
 
 /// Books folder selection
 /// - Parameter books: The books model
-@MainActor func selectBooksFolder(_ books: Books) {
-    FolderBookmark.select(
-        prompt: "Select",
-        message: "Select the folder with your books",
-        bookmark: "BooksPath"
-    ) {
-        Task {
-            /// Refresh the list of books
-            await books.getFiles()
-        }
+func selectBooksFolder(_ books: Books) async {
+    do {
+        _ = try await FolderBookmark.select(
+            prompt: "Select",
+            message: "Select the folder with your books",
+            bookmark: "BooksPath"
+        )
+        /// Refresh the list of books
+        await books.getFiles()
+    } catch {
+        print(error.localizedDescription)
     }
 }
 
 /// Export folder selection
 /// - Parameter books: The books model
-@MainActor func selectExportFolder(_ books: Books) {
-    FolderBookmark.select(
-        prompt: "Select",
-        message: "Select the export folder for your books",
-        bookmark: "ExportPath"
-    ) {
-        // No action needed after selection
+func selectExportFolder(_ books: Books) async {
+    do {
+        _ = try await FolderBookmark.select(
+            prompt: "Select",
+            message: "Select the export folder for your books",
+            bookmark: "ExportPath"
+        )
+    } catch {
+        print(error.localizedDescription)
     }
 }
 

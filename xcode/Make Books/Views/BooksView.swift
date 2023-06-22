@@ -101,7 +101,7 @@ extension BooksView {
         let book: BookItem
         /// The export path
         var pathExport: String {
-            FolderBookmark.getURL(bookmark: "ExportPath").path(percentEncoded: false)
+            FolderBookmark.getLastSelectedURL(bookmark: "ExportPath").path(percentEncoded: false)
         }
         /// The body of the `View`
         var body: some View {
