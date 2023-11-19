@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftlyalertmessage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyAlertMessage",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a44b877b34ddfd0093a38c575c73261d7944493b"
+      }
+    },
+    {
+      "identity" : "swiftlyfolderutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4a249ab028faaae49928d653a1799d561083fedc"
+      }
+    },
+    {
+      "identity" : "swiftlystructcache",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyStructCache",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e9b371734411f18e98982944ad213756b7f891fb"
+      }
+    },
+    {
+      "identity" : "swiftlyterminalutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyTerminalUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b54b05009bac9d25945f3698afb4f4387393fde2"
+      }
+    }
+  ],
+  "version" : 2
+}

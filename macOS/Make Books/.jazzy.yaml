@@ -1,0 +1,12 @@
+module: Make_Books
+title: Make Books
+author: Nick Berendsen
+author_url: https://desbeers.nl
+github_url: https://github.com/desbeers/Make-Books
+build_tool_arguments:
+ - -scheme
+ - Make Books
+min_acl: private
+output: Documentation
+clean: true
+theme: apple
