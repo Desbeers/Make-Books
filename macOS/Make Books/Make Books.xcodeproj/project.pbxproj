@@ -48,18 +48,18 @@
 		D78C22A92A80C2B700208AB9 /* ScrollCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78C22A52A80C2B700208AB9 /* ScrollCollectionView.swift */; };
 		D7B83D0B2B090E8600FBDE97 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B83D0A2B090E8600FBDE97 /* CollectionView.swift */; };
 		D7B83D0D2B0A2EDF00FBDE97 /* PartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B83D0C2B0A2EDF00FBDE97 /* PartsView.swift */; };
+		D7B83D152B0A682C00FBDE97 /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D0E2B0A682B00FBDE97 /* terminal */; };
+		D7B83D162B0A682C00FBDE97 /* pandoc in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D0F2B0A682B00FBDE97 /* pandoc */; };
+		D7B83D172B0A682C00FBDE97 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D102B0A682B00FBDE97 /* fonts */; };
+		D7B83D182B0A682C00FBDE97 /* config.zsh in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D112B0A682B00FBDE97 /* config.zsh */; };
+		D7B83D192B0A682C00FBDE97 /* includes in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D122B0A682B00FBDE97 /* includes */; };
+		D7B83D1A2B0A682C00FBDE97 /* make in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D132B0A682C00FBDE97 /* make */; };
+		D7B83D1B2B0A682C00FBDE97 /* texmf in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D142B0A682C00FBDE97 /* texmf */; };
 		D7BCD7E92A66FC79008F134B /* SeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7E82A66FC79008F134B /* SeriesView.swift */; };
 		D7BCD7EB2A66FD7B008F134B /* Serie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7EA2A66FD7B008F134B /* Serie.swift */; };
 		D7BCD7EE2A670FDF008F134B /* SwiftlyTerminalUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7BCD7ED2A670FDF008F134B /* SwiftlyTerminalUtilities */; };
 		D7BCD7F02A671341008F134B /* FileDropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7EF2A671341008F134B /* FileDropperView.swift */; };
 		D7BCD7F22A67134E008F134B /* FileDropperView+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7F12A67134E008F134B /* FileDropperView+Details.swift */; };
-		D7BCD7FB2A67163B008F134B /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7F42A67163B008F134B /* fonts */; };
-		D7BCD7FC2A67163B008F134B /* config.zsh in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7F52A67163B008F134B /* config.zsh */; };
-		D7BCD7FD2A67163B008F134B /* make in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7F62A67163B008F134B /* make */; };
-		D7BCD7FE2A67163B008F134B /* terminal in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7F72A67163B008F134B /* terminal */; };
-		D7BCD7FF2A67163B008F134B /* pandoc in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7F82A67163B008F134B /* pandoc */; };
-		D7BCD8002A67163B008F134B /* texmf in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7F92A67163B008F134B /* texmf */; };
-		D7BCD8012A67163B008F134B /* includes in Resources */ = {isa = PBXBuildFile; fileRef = D7BCD7FA2A67163B008F134B /* includes */; };
 		D7F140292A65432D002D875D /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F140282A65432D002D875D /* MakeBooksApp.swift */; };
 		D7F1402B2A65432D002D875D /* MakeBooksDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1402A2A65432D002D875D /* MakeBooksDocument.swift */; };
 		D7F1402D2A65432D002D875D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1402C2A65432D002D875D /* SidebarView.swift */; };
@@ -131,17 +131,17 @@
 		D78C22A52A80C2B700208AB9 /* ScrollCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollCollectionView.swift; sourceTree = "<group>"; };
 		D7B83D0A2B090E8600FBDE97 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		D7B83D0C2B0A2EDF00FBDE97 /* PartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartsView.swift; sourceTree = "<group>"; };
+		D7B83D0E2B0A682B00FBDE97 /* terminal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = terminal; path = ../../../../terminal; sourceTree = "<group>"; };
+		D7B83D0F2B0A682B00FBDE97 /* pandoc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pandoc; path = ../../../../pandoc; sourceTree = "<group>"; };
+		D7B83D102B0A682B00FBDE97 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../../fonts; sourceTree = "<group>"; };
+		D7B83D112B0A682B00FBDE97 /* config.zsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = config.zsh; path = ../../../../config.zsh; sourceTree = "<group>"; };
+		D7B83D122B0A682B00FBDE97 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../../includes; sourceTree = "<group>"; };
+		D7B83D132B0A682C00FBDE97 /* make */ = {isa = PBXFileReference; lastKnownFileType = folder; name = make; path = ../../../../make; sourceTree = "<group>"; };
+		D7B83D142B0A682C00FBDE97 /* texmf */ = {isa = PBXFileReference; lastKnownFileType = folder; name = texmf; path = ../../../../texmf; sourceTree = "<group>"; };
 		D7BCD7E82A66FC79008F134B /* SeriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesView.swift; sourceTree = "<group>"; };
 		D7BCD7EA2A66FD7B008F134B /* Serie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serie.swift; sourceTree = "<group>"; };
 		D7BCD7EF2A671341008F134B /* FileDropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropperView.swift; sourceTree = "<group>"; };
 		D7BCD7F12A67134E008F134B /* FileDropperView+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileDropperView+Details.swift"; sourceTree = "<group>"; };
-		D7BCD7F42A67163B008F134B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = ../../../fonts; sourceTree = "<group>"; };
-		D7BCD7F52A67163B008F134B /* config.zsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = config.zsh; path = ../../../config.zsh; sourceTree = "<group>"; };
-		D7BCD7F62A67163B008F134B /* make */ = {isa = PBXFileReference; lastKnownFileType = folder; name = make; path = ../../../make; sourceTree = "<group>"; };
-		D7BCD7F72A67163B008F134B /* terminal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = terminal; path = ../../../terminal; sourceTree = "<group>"; };
-		D7BCD7F82A67163B008F134B /* pandoc */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pandoc; path = ../../../pandoc; sourceTree = "<group>"; };
-		D7BCD7F92A67163B008F134B /* texmf */ = {isa = PBXFileReference; lastKnownFileType = folder; name = texmf; path = ../../../texmf; sourceTree = "<group>"; };
-		D7BCD7FA2A67163B008F134B /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = includes; path = ../../../includes; sourceTree = "<group>"; };
 		D7F140252A65432D002D875D /* Make Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Make Books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F140282A65432D002D875D /* MakeBooksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBooksApp.swift; sourceTree = "<group>"; };
 		D7F1402A2A65432D002D875D /* MakeBooksDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBooksDocument.swift; sourceTree = "<group>"; };
@@ -247,13 +247,13 @@
 		D7BCD7F32A6715D4008F134B /* External */ = {
 			isa = PBXGroup;
 			children = (
-				D7BCD7F52A67163B008F134B /* config.zsh */,
-				D7BCD7F42A67163B008F134B /* fonts */,
-				D7BCD7FA2A67163B008F134B /* includes */,
-				D7BCD7F62A67163B008F134B /* make */,
-				D7BCD7F82A67163B008F134B /* pandoc */,
-				D7BCD7F72A67163B008F134B /* terminal */,
-				D7BCD7F92A67163B008F134B /* texmf */,
+				D7B83D112B0A682B00FBDE97 /* config.zsh */,
+				D7B83D102B0A682B00FBDE97 /* fonts */,
+				D7B83D122B0A682B00FBDE97 /* includes */,
+				D7B83D132B0A682C00FBDE97 /* make */,
+				D7B83D0F2B0A682B00FBDE97 /* pandoc */,
+				D7B83D0E2B0A682B00FBDE97 /* terminal */,
+				D7B83D142B0A682C00FBDE97 /* texmf */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -460,15 +460,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7BCD7FE2A67163B008F134B /* terminal in Resources */,
-				D7BCD8002A67163B008F134B /* texmf in Resources */,
-				D7BCD7FD2A67163B008F134B /* make in Resources */,
-				D7BCD7FB2A67163B008F134B /* fonts in Resources */,
-				D7BCD7FF2A67163B008F134B /* pandoc in Resources */,
+				D7B83D152B0A682C00FBDE97 /* terminal in Resources */,
+				D7B83D172B0A682C00FBDE97 /* fonts in Resources */,
+				D7B83D1A2B0A682C00FBDE97 /* make in Resources */,
+				D7B83D1B2B0A682C00FBDE97 /* texmf in Resources */,
+				D7B83D192B0A682C00FBDE97 /* includes in Resources */,
 				D7F140342A65432E002D875D /* Preview Assets.xcassets in Resources */,
 				D7F1402F2A65432E002D875D /* Assets.xcassets in Resources */,
-				D7BCD8012A67163B008F134B /* includes in Resources */,
-				D7BCD7FC2A67163B008F134B /* config.zsh in Resources */,
+				D7B83D162B0A682C00FBDE97 /* pandoc in Resources */,
+				D7B83D182B0A682C00FBDE97 /* config.zsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
