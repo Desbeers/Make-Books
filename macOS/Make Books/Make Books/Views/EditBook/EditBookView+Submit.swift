@@ -15,26 +15,13 @@ extension EditBookView {
     /// The submit buttons for the form
     var submitButtons: some View {
         HStack {
-            Button("ERROR") {
-                self.error = Status.BookError.bookExtists.alert()
-            }
-            Button("ERROR ACTION") {
-                self.error = Status.BookError.bookExtists.alert {
-                    print("He's sorry...")
-                }
-            }
-            Button("ALERT") {
-                self.confirmation = Status.BookError.overwriteFile.alert(role: .destructive) {
-                    print("CONFIRMED")
-                }
-            }
             Button("Cancel") {
                 if book != values {
                     self.confirmation = Status.BookError.unsavedData.alert {
-                        scene.goBack()
+                        goBack()
                     }
                 } else {
-                    scene.goBack()
+                    goBack()
                 }
             }
             Spacer()
@@ -72,13 +59,13 @@ extension EditBookView {
                             bookmark: UserSetting.newBookFolder.rawValue
                         )
                         values.sourceURL = url.appendingPathComponent(values.title)
-                        try createBook()
+                        try await createBook()
                         /// Add the book to the library
                         library.books.append(values)
                         /// Update the DetailView
                         scene.detailSelection = .book(book: values)
                         /// Close the View and show the Book
-                        scene.goBack(book: values)
+                        goBack(book: values)
                     } catch {
                         self.error = error.alert()
                     }
@@ -102,7 +89,7 @@ extension EditBookView {
     }
 
     /// Create a new book
-    func createBook() throws {
+    @MainActor func createBook() throws {
         let manager = FileManager.default
         do {
             try manager.createDirectory(
@@ -148,8 +135,6 @@ extension EditBookView {
         if let index = library.books.firstIndex(where: { $0.id == values.id }) {
             /// Update the Book
             library.books[index] = values
-//            /// Update the DetailView
-//            scene.detailSelection = .book(book: values)
         }
         do {
             if let content = values.yamlEport, let fileURL = values.yalmURL {
@@ -158,6 +143,32 @@ extension EditBookView {
         } catch {
             throw error
         }
-        scene.goBack(book: values)
+        goBack(book: values)
+    }
+
+    func goBack(book: Book? = nil) {
+        if scene.navigationStack.isEmpty {
+            if let book {
+                scene.mainSelection = .book(book: book)
+            } else {
+                scene.mainSelection = .books
+            }
+        } else {
+            scene.navigationStack.removeLast()
+            /// Replace last item in the stack with the updated book
+            if let book {
+                scene.navigationStack.removeLast()
+                switch book.media {
+                case .book:
+                    scene.navigationStack.append(.book(book: book))
+                case .collection:
+                    scene.navigationStack.append(library.getCollectionLink(collection: book))
+                case .tag:
+                    scene.navigationStack.append(.tag(tag: book))
+                default:
+                    break
+                }
+            }
+        }
     }
 }

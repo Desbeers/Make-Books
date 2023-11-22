@@ -17,8 +17,8 @@ extension Buttons {
 
     /// SwiftUI `View`  to select the Books folder
     struct BooksFolderButton: View {
-        /// The focussed Scene
-        @FocusedObject private var scene: SceneState?
+        /// The state of the Scene
+        @Environment(SceneState.self) private var scene
         /// The state of the Library
         @Environment(Library.self) private var library
         /// The body of the `View`
@@ -32,7 +32,7 @@ extension Buttons {
                                 message: "Select the folder with your books",
                                 bookmark: UserSetting.booksFolder.rawValue
                             )
-                            scene?.mainSelection = .books
+                            scene.mainSelection = .books
                             await library.getAllBooks()
                         } catch {
                             print(error.localizedDescription)
@@ -77,28 +77,6 @@ extension Buttons {
     }
 }
 
-//extension Buttons {
-//
-//    /// SwiftUI `View` for a new ``Book``button
-//    struct NewBookButton: View {
-//        /// The focussed Scene
-//        @FocusedObject private var scene: SceneState?
-//        /// The body of the `View`
-//        var body: some View {
-//            Button(
-//                action: {
-//                    scene?.editBook = Book()
-//                },
-//                label: {
-//                    Label("Add a new book", systemImage: "plus")
-//                }
-//            )
-//            .help("Add a new book")
-//            .keyboardShortcut("b")
-//        }
-//    }
-//}
-
 extension Buttons {
 
     /// SwiftUI `View` to select the folder for a new ``Book``
@@ -135,7 +113,7 @@ extension Buttons {
         /// The ``Router`` item for the button
         let router: Router
         /// The state of the Scene
-        @EnvironmentObject var scene: SceneState
+        @Environment(SceneState.self) private var scene
         /// The body of the `View`
         var body: some View {
             Button(

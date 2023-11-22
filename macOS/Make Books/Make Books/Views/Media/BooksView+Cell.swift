@@ -16,7 +16,7 @@ extension BooksView {
         @AppStorage(UserSetting.collectionDisplayMode.rawValue)
         var showAsList: Bool = false
         /// The state of the Scene
-        @EnvironmentObject var scene: SceneState
+        @Environment(SceneState.self) private var scene
         /// The state of the Library
         @Environment(Library.self) private var library
         /// The body of the View
@@ -26,7 +26,6 @@ extension BooksView {
                     switch book.media {
                     case .book:
                         scene.navigationStack.append(.book(book: book))
-                        scene.detailSelection = .book(book: book)
                     case .collection:
                         scene.navigationStack.append(library.getCollectionLink(collection: book))
                     case .tag:
@@ -45,19 +44,10 @@ extension BooksView {
                                 .contentShape(Rectangle())
                         }
                     }
-                    .padding()
                 }
             )
-            .buttonStyle(.bookItemButton(book: book))
-//            .onChange(of: library.books) {
-//                guard
-//                    let update = library.books.first(where: { $0.id == book.id }),
-//                    update != book
-//                else {
-//                    return
-//                }
-//                book = update
-//            }
+            .padding()
+            .buttonStyle(.plain)
         }
     }
 }

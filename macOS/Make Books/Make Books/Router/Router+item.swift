@@ -149,7 +149,7 @@ extension Router {
                 loading: "Converting your file",
                 empty: "Something went wrong",
                 icon: "tray.and.arrow.down",
-                color: Color.accentColor
+                color: Color.purple
             )
         case .search:
             return Item(
@@ -179,7 +179,7 @@ extension Router {
                 loading: "Add a new Book",
                 empty: "Add a new Book",
                 icon: "square.and.pencil",
-                color: Color.accentColor
+                color: Color.purple
             )
         }
     }

@@ -14,7 +14,7 @@ struct EditBookView: View {
     /// The book we want to edit
     let book: Book
     /// The state of the Scene
-    @EnvironmentObject var scene: SceneState
+    @Environment(SceneState.self) var scene
     /// The state of the Library
     @Environment(Library.self) var library
     /// The Form values
@@ -60,19 +60,13 @@ struct EditBookView: View {
                             belongsToCollections
                         }
 
-                        // MARK: Read
-
-                        Toggle(isOn: bind($values.hasBeenRead, default: false)) {
-                            Text(Metadata.hasBeenRead.label)
-                            Text(Metadata.hasBeenRead.description)
-                        }
-
                         // MARK: Submit buttons
 
                         submitButtons
+                            .padding(.vertical)
                     }
+                    .padding()
                 }
-                //.formStyle(.grouped)
             }
         }
         .frame(maxWidth: .infinity)

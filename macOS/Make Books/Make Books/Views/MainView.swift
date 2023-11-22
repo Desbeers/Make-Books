@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI `View` for the main content
 struct MainView: View {
     /// The state of the Scene
-    @StateObject private var scene = SceneState()
+    @Environment(SceneState.self) private var scene
     /// The state of the Library
     @Environment(Library.self) private var library
     /// The state of Make
@@ -19,6 +19,7 @@ struct MainView: View {
     @State private var navigationSplitViewVisibility: NavigationSplitViewVisibility = .all
     /// The body of the `View`
     var body: some View {
+        @Bindable var scene = scene
         NavigationSplitView(
             columnVisibility: $navigationSplitViewVisibility,
             sidebar: {
@@ -33,6 +34,7 @@ struct MainView: View {
                             Router.DestinationView(router: router)
                                 .navigationTitle(router.item.title)
                                 .opacity(scene.navigationStack.last == router ? 1 : 0)
+                                .background(Color.windowBackground)
                         }
                         .opacity(scene.navigationStack.isEmpty ? 1 : 0)
                 }
@@ -46,6 +48,7 @@ struct MainView: View {
                     .background(Color.windowBackground)
             }
         )
+        .searchable(text: $scene.searchQuery, placement: .automatic, prompt: "Search for books")
         .inspector(isPresented: $scene.showInspector) {
             PreviewView()
                 .inspectorColumnWidth(min: 200, ideal: 400, max: 800)
@@ -77,22 +80,17 @@ struct MainView: View {
                 }
             }
         }
-        .searchable(text: $scene.searchQuery, placement: .sidebar, prompt: "Search for books")
         .fileDropper()
         .animation(.default, value: scene.detailSelection)
         .navigationTitle("Make Books")
         .navigationSubtitle(scene.detailSelection.item.description)
-        .focusedSceneObject(scene)
-        .environmentObject(scene)
         .environmentObject(make)
         .task {
             await library.getAllBooks()
             await make.checkUtilities()
         }
         .onChange(of: scene.navigationStack) { _, item in
-            Task { @MainActor in
-                scene.detailSelection = (item.isEmpty ? scene.mainSelection : item.last) ?? scene.mainSelection
-            }
+            scene.detailSelection = (item.isEmpty ? scene.mainSelection : item.last) ?? scene.mainSelection
         }
     }
 }

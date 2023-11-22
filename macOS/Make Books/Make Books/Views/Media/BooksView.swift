@@ -12,7 +12,7 @@ struct BooksView: View {
     /// The Books to show
     let books: [Book]
     /// The state of the Scene
-    @EnvironmentObject var scene: SceneState
+    @Environment(SceneState.self) private var scene
     /// The state of the Library
     @Environment(Library.self) private var library
     /// The state of the sorting
@@ -55,7 +55,7 @@ struct BooksView: View {
         .animation(.default, value: sorting)
         .animation(.default, value: showAsList)
         .task(id: books) {
-            sorting = library.getSortSetting(router: scene.sidebarSelection)
+            sorting = library.getSortSetting(router: scene.detailSelection)
             collection = groupBooks(sorting: sorting)
         }
         .onChange(of: sorting) { _, newSort in
@@ -90,14 +90,17 @@ struct BooksView: View {
             ])
         case .date:
             return Dictionary(grouping: bookList) { book in
-                var section = "Unknown"
+                var sectionLabel = "Unknown"
+                var indexLabel = "Unknown"
                 if let year = Int(book.date?.prefix(4) ?? "") {
-                    section = String((year / 10) * 10)
+                    let decade = (year / 10) * 10
+                    sectionLabel = "Between \(decade) and \(decade + 9)"
+                    indexLabel = String(decade)
                 }
                 return ScrollCollectionHeader(
-                    sectionLabel: section,
-                    indexLabel: section,
-                    sort: section
+                    sectionLabel: sectionLabel,
+                    indexLabel: indexLabel,
+                    sort: indexLabel
                 )
             }
             .sorted(using: KeyPathComparator(\.key.sort))

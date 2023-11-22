@@ -10,65 +10,71 @@ import SwiftUI
 extension EditBookView {
 
     var media: some View {
-        Section("Media") {
+        Section(
+            content: {
 
-            // MARK: Media
+                // MARK: Media
 
-            Picker(
-                selection: $values.media,
-                content: {
-                    ForEach(Media.create, id: \.self) { media in
-                        Text(media.label)
-                            .tag(media)
+                Picker(
+                    selection: $values.media,
+                    content: {
+                        ForEach(Media.create, id: \.self) { media in
+                            Text(media.label)
+                                .tag(media)
+                        }
+                    },
+                    label: {
+                        Text(Metadata.media.label)
                     }
-                },
-                label: {
-                    Text(Metadata.media.label)
-                }
-            )
-            .disabled(values.status == .existing)
-            if values.media == .collection {
-                Form {
+                )
+                .disabled(values.status == .existing)
+                if values.media == .collection {
+                    Form {
 
-                    // MARK: Collection
+                        // MARK: Collection
 
-                    TextField(text: bind($values.collection, default: ""), prompt: Text(Metadata.collection.empty)) {
-                        Text(Metadata.collection.label)
+                        TextField(text: bind($values.collection, default: ""), prompt: Text(Metadata.collection.empty)) {
+                            Text(Metadata.collection.label)
+                        }
+                        .focused($focus, equals: .collection)
+                        CollectionBooks(book: values)
                     }
-                    .focused($focus, equals: .collection)
-                    CollectionBooks(book: values)
+                    .padding()
+                    .background(.ultraThinMaterial)
                 }
-                .padding()
-                .background(.ultraThinMaterial)
+                if values.media == .tag {
+                    Form {
+
+                        // MARK: Tag
+
+                        TextField(text: bind($values.tag, default: ""), prompt: Text(Metadata.tag.empty)) {
+                            Text(Metadata.tag.label)
+                        }
+                        .focused($focus, equals: .tag)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                }
+
+                // MARK: Chapter style
+
+                Picker(
+                    selection: bind($values.chapterStyle, default: .thatcher),
+                    content: {
+                        ForEach(Book.ChapterStyle.allCases, id: \.self) { style in
+                            Text(style.label)
+                                .tag(style)
+                        }
+                    },
+                    label: {
+                        Text(Metadata.chapterStyle.label)
+                    }
+                )
+            },
+            header: {
+                Text("Media")
+                    .font(.title)
             }
-            if values.media == .tag {
-                Form {
-
-                    // MARK: Tag
-
-                    TextField(text: bind($values.tag, default: ""), prompt: Text(Metadata.tag.empty)) {
-                        Text(Metadata.tag.label)
-                    }
-                    .focused($focus, equals: .tag)
-                }
-                .padding()
-                .background(.ultraThinMaterial)
-            }
-
-            // MARK: Chapter style
-
-            Picker(
-                selection: bind($values.chapterStyle, default: .thatcher),
-                content: {
-                    ForEach(Book.ChapterStyle.allCases, id: \.self) { style in
-                        Text(style.label)
-                            .tag(style)
-                    }
-                },
-                label: {
-                    Text(Metadata.chapterStyle.label)
-                }
-            )
-        }
+        )
     }
 }

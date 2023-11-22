@@ -13,15 +13,21 @@ extension EditBookView {
 
         // MARK: Belongs to collections
 
-        Section("Collections") {
-            Toggle(isOn: $showCollections) {
-                Text("Add to collections")
-            }
+        Section(
+            content: {
+                Toggle(isOn: $showCollections) {
+                    Text("Add to collections")
+                }
 
-            if showCollections {
-                CollectionEdit(book: $values)
+                if showCollections {
+                    CollectionEdit(book: $values)
+                }
+            },
+            header: {
+                Text("Collections")
+                    .font(.title)
             }
-        }
+        )
     }
 
     struct CollectionBooks: View {

@@ -12,13 +12,14 @@ struct OptionsView: View {
     /// The book to show
     let books: [Book]
     /// The state of the Scene
-    @EnvironmentObject private var scene: SceneState
+    @Environment(SceneState.self) private var scene
     /// The state of the Library
     @Environment(Library.self) private var library
     /// The state of Make
     @EnvironmentObject private var make: MakeState
     /// The body of the View
     var body: some View {
+        @Bindable var scene = scene
         VStack {
             Image(.hugeIcon)
                 .resizable()
@@ -71,7 +72,7 @@ struct OptionsView: View {
     var buttonLabel: Text {
         switch books.count {
         case 1:
-            return Text("Make '**\(scene.detailSelection.item.title)**'")
+            return Text("Make '**\(books.first?.title ?? "")**'")
         default:
             return Text("Make \(books.count) books")
         }

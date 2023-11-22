@@ -9,12 +9,15 @@ import SwiftUI
 
 /// SwiftUI `Scene` for the application`
 @main struct MakeBooksApp: App {
+    /// The state of the Scene
+    @State private var scene = SceneState()
     /// The state of the Library
     @State private var library = Library()
     /// The body of the `Scene`
     var body: some Scene {
-        WindowGroup {
+        Window("Make Books", id: "makeBooks") {
             MainView()
+                .environment(scene)
                 .environment(library)
                 .frame(minWidth: 950, minHeight: 600)
         }
@@ -26,6 +29,8 @@ import SwiftUI
                 Divider()
                 Button("Reload Library") {
                     Task { @MainActor in
+                        scene.navigationStack = []
+                        scene.mainSelection = .books
                         await library.getAllBooks()
                     }
                 }
@@ -40,6 +45,7 @@ import SwiftUI
         }
         Settings {
             SettingsView()
+                .environment(scene)
                 .environment(library)
         }
         .windowResizability(.contentSize)

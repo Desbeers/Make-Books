@@ -13,7 +13,7 @@ struct TagView: View {
     /// The 'tag' book to show
     let tag: Book
     /// The state of the Scene
-    @EnvironmentObject var scene: SceneState
+    @Environment(SceneState.self) private var scene
     /// The files of the book
     @State private var files: [File] = []
     /// The body of the ``View``

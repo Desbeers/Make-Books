@@ -16,7 +16,7 @@ extension BookView {
         /// The book to show
         let book: Book
         /// The state of the Scene
-        @EnvironmentObject var scene: SceneState
+        @Environment(SceneState.self) private var scene
         /// The body of the `View`
         var body: some View {
             Form {
@@ -68,13 +68,6 @@ extension BookView {
                     value: book.hasBeenRead ?? false ? "Yes" : "No"
                 )
                 .formStyle(.columns)
-            }
-            .task(id: book) {
-                if let previewURL = book.pdfPreviewURL {
-                    scene.previewURL = SceneState.PreviewURL(url: previewURL)
-                } else {
-                    scene.previewURL = nil
-                }
             }
         }
     }

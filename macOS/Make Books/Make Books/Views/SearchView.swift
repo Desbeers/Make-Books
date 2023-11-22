@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI `View` for search results
 struct SearchView: View {
     /// The state of the Scene
-    @EnvironmentObject var scene: SceneState
+    @Environment(SceneState.self) private var scene
     /// The state of the Library
     @Environment(Library.self) private var library
     /// The books that we found

@@ -11,7 +11,7 @@ import PDFKit
 /// SwiftUI `View` with a preview of a dropped Markdown file
 struct FileDropperView: View {
     /// The state of the Scene
-    @EnvironmentObject private var scene: SceneState
+    @Environment(SceneState.self) private var scene
     /// The body of the `View`
     var body: some View {
         VStack {

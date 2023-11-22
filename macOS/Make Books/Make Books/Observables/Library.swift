@@ -11,6 +11,7 @@ import SwiftlyFolderUtilities
 /// The class with the Library
 @Observable
 final class Library {
+
     /// The list of books
     var books: [Book] = []
     /// The list of collections

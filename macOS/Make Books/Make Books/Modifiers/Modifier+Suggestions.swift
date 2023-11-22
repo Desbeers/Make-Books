@@ -32,7 +32,7 @@ extension Modifier {
                 }
                 .popover(
                     isPresented: $popupPresented,
-                    attachmentAnchor: .point(.trailing),
+                    attachmentAnchor: .point(.center),
                     arrowEdge: .bottom
                 ) {
                     ScrollView {

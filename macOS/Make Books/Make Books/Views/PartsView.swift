@@ -15,7 +15,7 @@ extension PartsView {
 
     struct NoContentView: View {
         /// The state of the Scene
-        @EnvironmentObject private var scene: SceneState
+        @Environment(SceneState.self) private var scene
         var body: some View {
             ContentUnavailableView(
                 scene.detailSelection.item.description,

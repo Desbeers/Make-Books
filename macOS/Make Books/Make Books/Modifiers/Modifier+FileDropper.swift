@@ -15,11 +15,12 @@ extension Modifier {
     /// A `ViewModifier` to animate the navigation stack
     struct FileDropper: ViewModifier {
         /// The state of the Scene
-        @EnvironmentObject var scene: SceneState
+        @Environment(SceneState.self) private var scene
         /// The state of the Library
         @Environment(Library.self) private var library
         /// The modifier
         func body(content: Content) -> some View {
+            @Bindable var scene = scene
             content
             /// Below avoids opening a new Window when dropping a file on the App Icon or into the Window
             .handlesExternalEvents(preferring: ["*"], allowing: ["*"])

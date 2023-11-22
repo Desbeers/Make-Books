@@ -8,47 +8,46 @@
 import SwiftUI
 
 /// The class with the Scene state
-final class SceneState: ObservableObject {
+@Observable final class SceneState {
 
     // MARK: Navigation
 
     /// The main selection from the sidebar
-    @Published var mainSelection: Router = .books
+    var mainSelection: Router = .books
     /// The Navigation stack of the router
-    @Published var navigationStack: [Router] = []
+    var navigationStack: [Router] = []
     /// The detail selection
-    @Published var detailSelection: Router = .books
-    /// The sidebar selection
-    var sidebarSelection: Router {
-        if let stack = navigationStack.last {
-            return stack
-        }
-        return mainSelection
-    }
+    var detailSelection: Router = .books
+//    /// The sidebar selection
+//    var sidebarSelection: Router {
+//        if let stack = navigationStack.last {
+//            return stack
+//        }
+//        return mainSelection
+//    }
 
-    @Published var showInspector: Bool = false
+    var showInspector: Bool = false
 
     // MARK: Dropped URL
 
     /// The optional dropped URL
-    @Published var droppedURL: URL?
+    var droppedURL: URL?
     /// Bool if the dropping is in progress
-    @Published var isDropping = false
+    var isDropping = false
 
     // MARK: Sheets
 
     /// Show sheet with Make
-    @Published var makeBooksSheet: Bool = false
+    var makeBooksSheet: Bool = false
 //    /// Show sheet to edit a book
 //    @Published var editBook: Book?
     /// Show preview in the inspector
-    @Published var previewURL: PreviewURL?
+    var previewURL: PreviewURL?
 
     // MARK: Search
 
     /// The search query
-    @Published var searchQuery: String = ""
-}
+    var searchQuery: String = ""}
 
 extension SceneState {
 
@@ -63,18 +62,32 @@ extension SceneState {
 
 extension SceneState {
 
-    func goBack(book: Book? = nil) {
-        dump(navigationStack.map {$0.item.description})
-        if navigationStack.isEmpty {
-            if let book {
-                navigationStack.append(.book(book: book))
-            } else {
-                mainSelection = .books
-            }
-        } else {
-            navigationStack.removeLast()
-        }
-    }
+//    func goBack(book: Book? = nil) {
+//        dump(navigationStack.map {$0.item.description})
+//        if navigationStack.isEmpty {
+//            if let book {
+//                navigationStack.append(.book(book: book))
+//            } else {
+//                mainSelection = .books
+//            }
+//        } else {
+//            navigationStack.removeLast()
+//            /// Replace last item in the stack with the updated book
+//            if let book {
+//                switch book.media {
+//                case .book:
+//                    navigationStack.append(.book(book: book))
+//                case .tag:
+//                    navigationStack.append(library.getCollectionLink(collection: book))
+//                case .collection:
+//
+//                default:
+//                    break
+//                }
+//            }
+//
+//        }
+//    }
 
 }
 

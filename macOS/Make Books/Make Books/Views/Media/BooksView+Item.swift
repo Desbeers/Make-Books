@@ -22,6 +22,7 @@ extension BooksView {
                     .padding(4)
                     .cornerRadius(StaticSetting.cornerRadius)
                     .background(.ultraThinMaterial)
+                    .cornerRadius(StaticSetting.cornerRadius)
             }
             .overlay(alignment: .bottomLeading) {
                 Image(systemName: "checkmark.circle.fill")

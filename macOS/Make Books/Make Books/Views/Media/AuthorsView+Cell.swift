@@ -12,7 +12,7 @@ extension AuthorsView {
         /// The Author to show
         let author: Author
         /// The state of the Scene
-        @EnvironmentObject var scene: SceneState
+        @Environment(SceneState.self) private var scene
         /// The body of the View
         var body: some View {
             Button(

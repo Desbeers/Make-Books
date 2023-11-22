@@ -11,7 +11,7 @@ import SwiftUI
 struct MakeView: View {
 
     /// The state of the Scene
-    @EnvironmentObject private var scene: SceneState
+    @Environment(SceneState.self) private var scene
 
     /// The state of Make
     @EnvironmentObject private var make: MakeState

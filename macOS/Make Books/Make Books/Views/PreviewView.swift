@@ -12,7 +12,7 @@ struct PreviewView: View {
 //    /// The preview URL to show
 //    let previewURL: SceneState.PreviewURL?
     /// The state of the Scene
-    @EnvironmentObject private var scene: SceneState
+    @Environment(SceneState.self) private var scene
     /// The Data of the preview
     @State private var data: Data?
     /// The body of the `View`

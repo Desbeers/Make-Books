@@ -10,40 +10,46 @@ import SwiftUI
 extension EditBookView {
 
     var series: some View {
-        Section("Series") {
 
-            // MARK: Belong to serie
+        Section(
+            content: {
 
-            TextField(text: bind($values.belongsToSerie, default: ""), prompt: Text(Metadata.belongsToSerie.empty)) {
-                Text(Metadata.belongsToSerie.label)
-                Text(Metadata.belongsToSerie.description)
-            }
-            .focused($focus, equals: .belongsToSerie)
-            .suggestions(
-                focus: focus == .belongsToSerie,
-                suggestions: Array(Set(library.books.compactMap(\.belongsToSerie))).sorted(),
-                value: bind($values.belongsToSerie, default: "")
-            )
-            if let serie = values.belongsToSerie, !serie.isEmpty {
-                Form {
-                    // MARK: Serie position
+                // MARK: Belong to serie
 
-                    Picker(
-                        selection: bind($values.seriePosition, default: 1),
-                        content: {
-                            ForEach(1 ... 100, id: \.self) { index in
-                                Text("Serie number \(index)")
-                                    .tag(index)
-                            }
-                        },
-                        label: {
-                            Text(Metadata.seriePosition.label)
-                        }
-                    )
+                TextField(text: bind($values.belongsToSerie, default: ""), prompt: Text(Metadata.belongsToSerie.empty)) {
+                    Text(Metadata.belongsToSerie.label)
                 }
-                .padding()
-                .background(.ultraThinMaterial)
+                .focused($focus, equals: .belongsToSerie)
+                .suggestions(
+                    focus: focus == .belongsToSerie,
+                    suggestions: Array(Set(library.books.compactMap(\.belongsToSerie))).sorted(),
+                    value: bind($values.belongsToSerie, default: "")
+                )
+                if let serie = values.belongsToSerie, !serie.isEmpty {
+                    Form {
+                        // MARK: Serie position
+
+                        Picker(
+                            selection: bind($values.seriePosition, default: 1),
+                            content: {
+                                ForEach(1 ... 100, id: \.self) { index in
+                                    Text("Serie number \(index)")
+                                        .tag(index)
+                                }
+                            },
+                            label: {
+                                Text(Metadata.seriePosition.label)
+                            }
+                        )
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                }
+            },
+            header: {
+                Text("Series")
+                    .font(.title)
             }
-        }
+        )
     }
 }

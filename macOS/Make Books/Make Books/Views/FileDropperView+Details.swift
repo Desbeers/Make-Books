@@ -13,7 +13,7 @@ extension FileDropperView {
     /// SwiftUI `View` for details of the dropped Markdown file
     struct Details: View {
         /// The state of the Scene
-        @EnvironmentObject private var scene: SceneState
+        @Environment(SceneState.self) private var scene
         /// The state of the script
         @State private var isRunning: Bool = false
         /// The body of the `View`

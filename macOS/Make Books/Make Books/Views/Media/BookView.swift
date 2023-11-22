@@ -11,7 +11,7 @@ import SwiftUI
 struct BookView: View {
     let book: Book
     /// The state of the Scene
-    @EnvironmentObject var scene: SceneState
+    @Environment(SceneState.self) private var scene
     var body: some View {
         VStack(alignment: .leading) {
             VStack {
@@ -40,6 +40,7 @@ struct BookView: View {
                 BookCover.Cover(book: book)
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: 200)
+                    .cornerRadius(StaticSetting.cornerRadius)
                 BookView.Details(book: book)
             }
             .padding()
@@ -80,6 +81,13 @@ struct BookView: View {
             }
             .padding()
             Spacer()
+        }
+        .task(id: book) {
+            if let previewURL = book.pdfPreviewURL {
+                scene.previewURL = SceneState.PreviewURL(url: previewURL)
+            } else {
+                scene.previewURL = nil
+            }
         }
     }
 }
