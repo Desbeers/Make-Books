@@ -94,7 +94,7 @@
 \settocpreprocessor{part}{%
   \let\tempf@rtoc\f@rtoc%
   \def\f@rtoc{%
-      \texorpdfstring{\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
+      \texorpdfstring{\uppercase{\tempf@rtoc}}{\tempf@rtoc}}%
 }
 \makeatother
 
