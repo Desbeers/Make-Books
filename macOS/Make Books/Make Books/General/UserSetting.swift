@@ -17,7 +17,7 @@ enum UserSetting: String {
     case exportFolder = "ExportFolder"
     /// The books folder
     case booksFolder = "BooksFolder"
-    /// The folder for a ew book
+    /// The folder for a new book
     case newBookFolder = "NewBookFolder"
     /// The PDF paper format
     case paper = "Paper"

@@ -1,4 +1,5 @@
 {
+  "originHash" : "065387951bc6b24fee3bc77d2089600b179899f06b79f0a0030d2514c199255d",
   "pins" : [
     {
       "identity" : "swiftlyfolderutilities",
@@ -6,7 +7,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "4a249ab028faaae49928d653a1799d561083fedc"
+        "revision" : "3335858a2e3f953018d933c5484aa8b4d681d11a"
       }
     },
     {
@@ -19,5 +20,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

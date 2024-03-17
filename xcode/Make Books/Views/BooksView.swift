@@ -106,14 +106,14 @@ extension BooksView {
         /// The body of the `View`
         var body: some View {
             Button {
-                FolderBookmark.openInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
+                FolderUtil.openInFinder(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)"))
             } label: {
                 Text("Open export in Finder")
             }
             .disabled(!doesFileExists(url: URL(fileURLWithPath: "\(pathExport)/\(book.author)/\(book.title)")))
             Divider()
             Button {
-                FolderBookmark.openInFinder(url: book.folderURL)
+                FolderUtil.openInFinder(url: book.folderURL)
             } label: {
                 Text("Open source in Finder")
             }

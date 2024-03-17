@@ -23,27 +23,18 @@ extension Buttons {
         @Environment(Library.self) private var library
         /// The body of the `View`
         var body: some View {
-            Button(
-                action: {
-                    Task {
-                        do {
-                            _ = try await FolderBookmark.select(
-                                prompt: "Select",
-                                message: "Select the folder with your books",
-                                bookmark: UserSetting.booksFolder.rawValue
-                            )
-                            scene.mainSelection = .books
-                            await library.getAllBooks()
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                },
-                label: {
-                    Label("Select Books Folder", systemImage: "square.and.arrow.down.on.square")
+            FolderBookmark.SelectFolderButton(
+                bookmark: UserSetting.booksFolder.rawValue,
+                message: "Select the folder with your books",
+                confirmationLabel: "Select",
+                buttonLabel: "Books",
+                buttonSystemImage: "square.and.arrow.down.on.square"
+            ) {
+                Task { @MainActor in
+                    scene.mainSelection = .books
+                    await library.getAllBooks()
                 }
-            )
-            .help("Select the folder with your books")
+            }
         }
     }
 }
@@ -54,54 +45,15 @@ extension Buttons {
     struct ExportFolderButton: View {
         /// The body of the `View`
         var body: some View {
-            Button(
-                action: {
-                    Task {
-                        do {
-                            _ = try await FolderBookmark.select(
-                                prompt: "Select",
-                                message: "Select the export folder for your books",
-                                bookmark: UserSetting.exportFolder.rawValue
-                            )
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                },
-                label: {
-                    Label("Select Export Folder", systemImage: "square.and.arrow.up.on.square")
-                }
-            )
-            .help("Select the export folder for your books")
-        }
-    }
-}
-
-extension Buttons {
-
-    /// SwiftUI `View` to select the folder for a new ``Book``
-    struct NewBookFolderButton: View {
-        /// The body of the `View`
-        var body: some View {
-            Button(
-                action: {
-                    Task {
-                        do {
-                            _ = try await FolderBookmark.select(
-                                prompt: "Select",
-                                message: "Select the folder for your new book",
-                                bookmark: UserSetting.newBookFolder.rawValue
-                            )
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                },
-                label: {
-                    Label("Create book", systemImage: "square.and.arrow.up.on.square")
-                }
-            )
-            .help("Select the folder for your new book")
+            FolderBookmark.SelectFolderButton(
+                bookmark: UserSetting.exportFolder.rawValue,
+                message: "Select the export folder for your books",
+                confirmationLabel: "Select",
+                buttonLabel: "Export",
+                buttonSystemImage: "square.and.arrow.up.on.square"
+            ) {
+                // No action needed
+            }
         }
     }
 }

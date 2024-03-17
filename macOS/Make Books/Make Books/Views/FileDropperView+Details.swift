@@ -29,6 +29,7 @@ extension FileDropperView {
                         .frame(width: 160, height: 160)
                         .foregroundColor((scene.droppedURL != nil) ? .accentColor : .secondary)
                         .opacity(isRunning ? 0.1 : 1 )
+                        .symbolEffect(.bounce, value: scene.droppedURL)
                     RoundedRectangle(cornerRadius: 10)
                         .strokeBorder(
                             style: StrokeStyle(

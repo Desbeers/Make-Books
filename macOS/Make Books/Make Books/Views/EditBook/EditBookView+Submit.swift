@@ -49,34 +49,56 @@ extension EditBookView {
 
     /// Button to submit a new book
     var newBookButton: some View {
-        Button(
-            action: {
-                Task {
-                    do {
-                        let url = try await FolderBookmark.select(
-                            prompt: "Select",
-                            message: "Select the folder for your new book",
-                            bookmark: UserSetting.newBookFolder.rawValue
-                        )
-                        values.sourceURL = url.appendingPathComponent(values.title)
-                        try await createBook()
-                        /// Add the book to the library
-                        library.books.append(values)
-                        /// Update the DetailView
-                        scene.detailSelection = .book(book: values)
-                        /// Close the View and show the Book
-                        goBack(book: values)
-                    } catch {
-                        self.error = error.alert()
-                    }
+        FolderBookmark.SelectFolderButton(
+            bookmark: UserSetting.newBookFolder.rawValue,
+            message: "Select the folder for your new book",
+            confirmationLabel: "Select",
+            buttonLabel: "Create book",
+            buttonSystemImage: "square.and.arrow.up.on.square"
+        ) {
+            Task { @MainActor in
+                if let url = FolderBookmark.getBookmarkLink(bookmark: UserSetting.newBookFolder.rawValue) {
+                    values.sourceURL = url.appendingPathComponent(values.title)
+                    try createBook()
+                    /// Add the book to the library
+                    library.books.append(values)
+                    /// Update the DetailView
+                    scene.detailSelection = .book(book: values)
+                    /// Close the View and show the Book
+                    goBack(book: values)
                 }
-            },
-            label: {
-                Label("Create book", systemImage: "square.and.arrow.up.on.square")
             }
-        )
+        }
         .help("Select the folder for your new book")
         .labelStyle(.titleOnly)
+//        Button(
+//            action: {
+//                Task {
+//                    do {
+//                        let url = try await FolderBookmark.select(
+//                            prompt: "Select",
+//                            message: "Select the folder for your new book",
+//                            bookmark: UserSetting.newBookFolder.rawValue
+//                        )
+//                        values.sourceURL = url.appendingPathComponent(values.title)
+//                        try await createBook()
+//                        /// Add the book to the library
+//                        library.books.append(values)
+//                        /// Update the DetailView
+//                        scene.detailSelection = .book(book: values)
+//                        /// Close the View and show the Book
+//                        goBack(book: values)
+//                    } catch {
+//                        self.error = error.alert()
+//                    }
+//                }
+//            },
+//            label: {
+//                Label("Create book", systemImage: "square.and.arrow.up.on.square")
+//            }
+//        )
+//        .help("Select the folder for your new book")
+//        .labelStyle(.titleOnly)
     }
 
     /// Bool if the submit button should be disabled

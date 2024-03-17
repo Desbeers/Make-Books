@@ -27,14 +27,8 @@ struct ContentView: View {
         .sheet(isPresented: $appState.showSheet, content: sheetContent)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
-                Button {
-                    Task {
-                        await selectBooksFolder(books)
-                    }
-                } label: {
-                    Image(systemName: "square.and.arrow.up.on.square")
-                }
-                .help("The folder with your books: \(FolderBookmark.getLastSelectedURL(bookmark: "BooksPath").lastPathComponent)")
+                selectBooksFolder(books)
+                selectExportFolder(books)
                 Button {
                     Task {
                         await books.getFiles()
@@ -43,14 +37,6 @@ struct ContentView: View {
                     Image(systemName: "arrow.clockwise")
                 }
                 .help("Refresh the list of books")
-                Button {
-                    Task {
-                        await selectExportFolder(books)
-                    }
-                } label: {
-                    Image(systemName: "square.and.arrow.down.on.square")
-                }
-                .help("The export folder: \(FolderBookmark.getLastSelectedURL(bookmark: "ExportPath").lastPathComponent)")
                 Button {
                     appState.activeSheet = .dropper
                     appState.showSheet = true

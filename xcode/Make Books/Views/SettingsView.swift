@@ -43,11 +43,8 @@ extension SettingsView {
                         systemImage: "square.and.arrow.up.on.square"
                     )
                     .truncationMode(.head)
-                    Button("Change") {
-                        Task {
-                            await selectBooksFolder(books)
-                        }
-                    }
+                    selectBooksFolder(books)
+                        .labelStyle(.titleOnly)
                 }
                 Divider().padding(.vertical)
                 Text("Where shall we export them?")
@@ -58,11 +55,8 @@ extension SettingsView {
                         systemImage: "square.and.arrow.down.on.square"
                     )
                     .truncationMode(.head)
-                    Button("Change") {
-                        Task {
-                            await selectExportFolder(books)
-                        }
-                    }
+                    selectExportFolder(books)
+                        .labelStyle(.titleOnly)
                 }
             }
         }

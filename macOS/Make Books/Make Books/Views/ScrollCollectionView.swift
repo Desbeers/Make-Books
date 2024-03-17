@@ -101,10 +101,19 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
                 case .asList:
                     LazyVStack(alignment: .center, spacing: 0, pinnedViews: pinnedViews) {
                         content
+                            .scrollTransition(.animated) { content, phase in
+                                content
+                                    .opacity(phase != .identity ? 0.3 : 1)
+                            }
                     }
                 case .asGrid:
                     LazyVGrid(columns: grid, alignment: .center, spacing: 0, pinnedViews: pinnedViews) {
                         content
+                            .scrollTransition(.animated) { content, phase in
+                                content
+                                    .scaleEffect(phase != .identity ? 0.6 : 1)
+                                    .opacity(phase != .identity ? 0.3 : 1)
+                            }
                     }
                 case .asPlain:
                     LazyVStack(alignment: .center, spacing: 0) {
