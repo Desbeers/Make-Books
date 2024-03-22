@@ -12,6 +12,9 @@ export PANDOC_ACTION='Prepair'
 # Include the shared script:
 . "${0:a:h:h}/includes/shared.zsh"
 
+# Arguments passed to the scripts
+arg=($(echo $*))
+
 # Logging
 start_log $0
 
@@ -75,7 +78,7 @@ build() {
     clear_variables
     # Make the collection:
     export PANDOC_ACTION='Collection'
-    $local/terminal/make-book ${config[@]} $(echo $*)
+    $local/terminal/make-book ${config[@]} $arg
 }
 
 # Do it!
