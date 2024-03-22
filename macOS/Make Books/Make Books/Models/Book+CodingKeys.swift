@@ -59,40 +59,40 @@ extension Book.CodingKeys {
     var label: String {
         switch self {
         case .title:
-            return "Title"
+            "Title"
         case .author:
-            return "Author"
+            "Author"
         case .description:
-            return "Description"
+            "Description"
         case .date:
-            return "Date"
+            "Date"
         case .rights:
-            return "Rights"
+            "Rights"
         case .publisher:
-            return "Publisher"
+            "Publisher"
         case .language:
-            return "Language"
+            "Language"
         case .belongsToSerie:
-            return "Part of serie"
+            "Part of serie"
         case .seriePosition:
-            return "Serie number"
+            "Serie number"
         case .media:
-            return "Type of book"
+            "Type of book"
         case .hasBeenRead:
-            return "Has been read"
+            "Has been read"
         case .chapterStyle:
-            return "Chapter style"
+            "Chapter style"
         case .revision:
-            return "Revision"
+            "Revision"
         case .subject:
-            return "Subject"
+            "Subject"
         case .collection:
-            return "Collection"
+            "Collection"
         case .tag:
-            return "Tag"
+            "Tag"
 
         default:
-            return rawValue
+            rawValue
         }
     }
 
@@ -100,42 +100,42 @@ extension Book.CodingKeys {
     var empty: String {
         switch self {
         case .title:
-            return "Title (required)"
+            "Title (required)"
         case .author:
-            return "Author (required)"
+            "Author (required)"
         case .description:
-            return "No description available"
+            "No description available"
         case .date:
-            return "Unknown date"
+            "Unknown date"
         case .rights:
-            return "No rights available"
+            "Unknown  rights"
         case .publisher:
-            return "Unknown publisher"
+            "Unknown publisher"
         case .language:
-            return "Unknown language"
+            "Unknown language"
         case .belongsToSerie:
-            return "Not a part of a serie"
+            "Not a part of a serie"
         case .revision:
-            return "Unknown revision"
+            "Unknown revision"
         case .subject:
-            return "Unknown subject"
+            "Unknown subject"
         case .collection:
-            return "Name of the collection (required)"
+            "Name of the collection (required)"
         case .tag:
-            return "The tag for the book (required)"
+            "The tag for the book (required)"
         default:
-            return rawValue
+            rawValue
         }
     }
 
     var description: String {
         switch self {
         case .belongsToSerie:
-            return("The serie this book belongs to")
+            "The serie this book belongs to"
         case .hasBeenRead:
-            return ("Mark this book as read")
+            "Mark this book as read"
         default:
-            return ""
+            ""
         }
     }
 }

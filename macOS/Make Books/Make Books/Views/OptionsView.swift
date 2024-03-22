@@ -16,15 +16,12 @@ struct OptionsView: View {
     /// The state of the Library
     @Environment(Library.self) private var library
     /// The state of Make
-    @EnvironmentObject private var make: MakeState
+    @Environment(MakeState.self) private var make
     /// The body of the View
     var body: some View {
         @Bindable var scene = scene
+        @Bindable var make = make
         VStack {
-            Image(.hugeIcon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 200)
             Form {
                 /// Start the ForEach at 1, because 0 is the "clean" option at the botom
                 ForEach(1 ..< make.options.count, id: \.self) { index in
@@ -40,11 +37,12 @@ struct OptionsView: View {
                 /// And at last, the 'clean' option
                 Toggle(isOn: $make.options[0].isSelected) {
                     Label(make.options[0].label, systemImage: "eraser")
-                    Text(make.options[0].isSelected ? make.options[0].description : " ")
-                        .foregroundColor(.secondary)
                 }
                 .disabled(!make.available(make.options[0]))
+                Text(make.options[0].isSelected ? make.options[0].description : " ")
+                    .foregroundColor(.secondary)
             }
+            .scrollContentBackground(.hidden)
             Button(
                 action: {
                     scene.makeBooksSheet = true
@@ -54,15 +52,8 @@ struct OptionsView: View {
                 }
             )
             .disabled(make.options.filter { $0.isSelected == true }.isEmpty)
-            Spacer()
+            .padding([.horizontal, .bottom])
         }
-        .frame(maxHeight: .infinity)
-        .overlay(alignment: .bottom) {
-            if !make.notAvailable.isEmpty {
-                Text(.init(make.notAvailable.joined(separator: "\n")))
-            }
-        }
-        .padding(.horizontal)
         .animation(.default, value: make.options[0].isSelected)
         .sheet(isPresented: $scene.makeBooksSheet) {
             MakeView(books: books)

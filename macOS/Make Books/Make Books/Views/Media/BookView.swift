@@ -6,62 +6,46 @@
 //
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for a ``Book``
 struct BookView: View {
     let book: Book
     /// The state of the Scene
     @Environment(SceneState.self) private var scene
+    /// The state of the Library
+    @Environment(Library.self) private var library
+    /// The state of Make
+    @Environment(MakeState.self) private var make
+
+    @State private var haveExport: Bool = false
+
     var body: some View {
         VStack(alignment: .leading) {
-            VStack {
-                Text(.init(scene.detailSelection.item.title))
-                    .font(.largeTitle)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.horizontal, 40)
-                Text(.init(scene.detailSelection.item.description))
-                    .font(.title3)
-            }
-            .padding(.horizontal, 60)
-            .padding()
-            .frame(height: 80)
-            .frame(maxWidth: .infinity)
-            .overlay(alignment: .leading) {
-                Image(systemName: scene.detailSelection.item.icon)
-                    .font(.system(size: 40))
-                    .padding(.leading)
-            }
-            .background(.thinMaterial)
-            .cornerRadius(StaticSetting.cornerRadius)
-            .padding([.top, .horizontal])
-            Spacer()
+            BookView.Header()
             HStack {
                 BookCover.Cover(book: book)
                     .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: 200)
+                    .containerRelativeFrame(.horizontal) { length, _ in
+                        length / 3
+                    }
                     .cornerRadius(StaticSetting.cornerRadius)
                 BookView.Details(book: book)
             }
             .padding()
             HStack {
                 Button {
-                    scene.showInspector.toggle()
-                } label: {
-                    Label("Preview PDF", systemImage: scene.showInspector ? "eye.fill" : "eye")
-                }
-                .disabled(book.pdfPreviewURL == nil)
-                Button {
                     scene.navigationStack.append(.edit(book: book))
                 } label: {
                     Label("Edit book", systemImage: "pencil")
                 }
+                Button {
+                    book.exportFolderURL.openInFinder()
+                } label: {
+                    Label("Open export in Finder", systemImage: "folder")
+                }
+                .disabled(!haveExport)
                 Menu {
-                    Button {
-                        book.sourceURL.openInFinder()
-                    } label: {
-                        Text("Open source in Finder")
-                    }
                     Button {
                         book.sourceURL.openInTerminal()
                     } label: {
@@ -69,18 +53,46 @@ struct BookView: View {
                     }
                 } label: {
                     Label(title: {
-                        Text("Open export in Finder")
+                        Text("Open source in Finder")
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }, icon: {
                         Image(systemName: "folder")
                     })
                 } primaryAction: {
-                    book.exportFolderURL.openInFinder()
+                    book.sourceURL.openInFinder()
                 }
                 .frame(maxWidth: 200)
             }
             .padding()
-            Spacer()
+
+            if !book.collectionItems.isEmpty {
+                Text("Collections containing '\(book.title)':")
+                    .fontWeight(.bold)
+                    .foregroundStyle(.secondary)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(book.collectionItems) { item in
+                            if let collection = library.books.first(where: { $0.collection == item.name }) {
+                                Button(
+                                    action: {
+                                        scene.navigationStack.append(library.getCollectionLink(collection: collection))
+                                    },
+                                    label: {
+                                        BookCover.Cover(book: collection)
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: 100)
+                                            .cornerRadius(6)
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .buttonStyle(.plain)
+            }
         }
         .task(id: book) {
             if let previewURL = book.pdfPreviewURL {
@@ -88,6 +100,10 @@ struct BookView: View {
             } else {
                 scene.previewURL = nil
             }
+        }
+        .task(id: make.scriptIsRunning) {
+            let export = FolderUtil.doesUrlExist(url: book.exportFolderURL)
+            haveExport = export == nil ? false : true
         }
     }
 }

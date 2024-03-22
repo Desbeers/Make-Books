@@ -34,7 +34,7 @@ struct PreviewView: View {
     }
 
     private var description: Text {
-        if scene.detailSelection.item.book == nil {
+        if scene.detailSelection.item.book == nil && scene.mainSelection != .fileDropper {
             Text("No Book selected")
         } else {
             Text("The PDF is not yet created")

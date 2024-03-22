@@ -11,6 +11,8 @@ import SwiftUI
 struct SidebarView: View {
     /// The state of the Scene
     @Environment(SceneState.self) private var scene
+    /// The state of Make
+    @Environment(MakeState.self) private var make
     /// The body of the `View`
     var body: some View {
         @Bindable var scene = scene
@@ -35,7 +37,15 @@ struct SidebarView: View {
         }
         .onChange(of: scene.mainSelection) {
             scene.detailSelection = scene.mainSelection
+            scene.navigationStack = []
             scene.previewURL = nil
+        }
+        .overlay(alignment: .bottom) {
+            if !make.notAvailable.isEmpty {
+                Text(.init(make.notAvailable.joined(separator: "\n")))
+                    .font(.footnote)
+                    .padding()
+            }
         }
     }
 }

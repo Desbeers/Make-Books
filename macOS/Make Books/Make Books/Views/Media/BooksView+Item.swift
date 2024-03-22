@@ -26,7 +26,7 @@ extension BooksView {
             }
             .overlay(alignment: .bottomLeading) {
                 Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(book.hasBeenRead ?? false ? .green : .clear)
+                    .foregroundColor(book.hasBeenRead ? .green : .clear)
             }
             .cornerRadius(StaticSetting.cornerRadius)
             .frame(
@@ -38,11 +38,11 @@ extension BooksView {
         var icon: String {
             switch book.media {
             case .collection:
-                return "square.stack"
+                "square.stack"
             case .tag:
-                return "tag"
+                "tag"
             default:
-                return "book"
+                "book"
             }
         }
     }

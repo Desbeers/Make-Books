@@ -19,7 +19,6 @@ public struct ScrollCollectionHeader: Hashable {
         self.indexLabel = indexLabel
         self.sort = sort
     }
-
     /// The label of the section
     public let sectionLabel: String
     /// The label for the index
@@ -103,17 +102,23 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
                         content
                             .scrollTransition(.animated) { content, phase in
                                 content
-                                    .opacity(phase != .identity ? 0.3 : 1)
+                                    .opacity(phase != .identity ? 0.6 : 1)
                             }
                     }
                 case .asGrid:
                     LazyVGrid(columns: grid, alignment: .center, spacing: 0, pinnedViews: pinnedViews) {
-                        content
-                            .scrollTransition(.animated) { content, phase in
-                                content
-                                    .scaleEffect(phase != .identity ? 0.6 : 1)
-                                    .opacity(phase != .identity ? 0.3 : 1)
+                        ForEach(collection, id: \.0) { section, elements in
+                            header(section)
+                                .id(section.sectionLabel)
+                            ForEach(Array(zip(elements.indices, elements)), id: \.0) { index, element in
+                                cell(index, element)
+                                    .id(element.id)
                             }
+                        }
+                        .scrollTransition(.animated) { content, phase in
+                            content
+                                .opacity(phase != .identity ? 0.6 : 1)
+                        }
                     }
                 case .asPlain:
                     LazyVStack(alignment: .center, spacing: 0) {
@@ -125,7 +130,6 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
                     }
                 }
             }
-#if !os(tvOS)
             .overlay {
                 if !headers.isEmpty {
                     HStack {
@@ -139,7 +143,6 @@ public struct ScrollCollectionView<Element: Identifiable, HeaderView: View, Cell
                     }
                 }
             }
-#endif
             .id(collection.map(\.0))
         }
     }

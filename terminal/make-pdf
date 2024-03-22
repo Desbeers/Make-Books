@@ -37,6 +37,7 @@ do
         --top-level-division=chapter \
         --metadata=papersize:$papersize \
         --metadata=fontsize:$fontsize \
+        --metadata=lang:$lang \
         --pdf-engine lualatex
 done
 

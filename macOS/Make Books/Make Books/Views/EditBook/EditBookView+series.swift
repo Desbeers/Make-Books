@@ -16,21 +16,24 @@ extension EditBookView {
 
                 // MARK: Belong to serie
 
-                TextField(text: bind($values.belongsToSerie, default: ""), prompt: Text(Metadata.belongsToSerie.empty)) {
+                TextField(
+                    text: $values.belongsToSerie,
+                    prompt: Text(Metadata.belongsToSerie.empty)
+                ) {
                     Text(Metadata.belongsToSerie.label)
                 }
                 .focused($focus, equals: .belongsToSerie)
                 .suggestions(
                     focus: focus == .belongsToSerie,
-                    suggestions: Array(Set(library.books.compactMap(\.belongsToSerie))).sorted(),
-                    value: bind($values.belongsToSerie, default: "")
+                    suggestions: Array(Set(library.books.map(\.belongsToSerie))).sorted(),
+                    value: $values.belongsToSerie
                 )
-                if let serie = values.belongsToSerie, !serie.isEmpty {
+                if !values.belongsToSerie.isEmpty {
                     Form {
                         // MARK: Serie position
 
                         Picker(
-                            selection: bind($values.seriePosition, default: 1),
+                            selection: $values.seriePosition,
                             content: {
                                 ForEach(1 ... 100, id: \.self) { index in
                                     Text("Serie number \(index)")
@@ -42,8 +45,7 @@ extension EditBookView {
                             }
                         )
                     }
-                    .padding()
-                    .background(.ultraThinMaterial)
+                    .labelsHidden()
                 }
             },
             header: {

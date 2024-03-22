@@ -33,33 +33,37 @@ extension EditBookView {
 
                         // MARK: Collection
 
-                        TextField(text: bind($values.collection, default: ""), prompt: Text(Metadata.collection.empty)) {
+                        TextField(
+                            text: $values.collection,
+                            prompt: Text(Metadata.collection.empty)
+                        ) {
                             Text(Metadata.collection.label)
                         }
                         .focused($focus, equals: .collection)
                         CollectionBooks(book: values)
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
                 }
                 if values.media == .tag {
                     Form {
 
                         // MARK: Tag
 
-                        TextField(text: bind($values.tag, default: ""), prompt: Text(Metadata.tag.empty)) {
+                        TextField(
+                            text: $values.tag,
+                            prompt: Text(Metadata.tag.empty)
+                        ) {
                             Text(Metadata.tag.label)
                         }
                         .focused($focus, equals: .tag)
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
                 }
 
                 // MARK: Chapter style
 
                 Picker(
-                    selection: bind($values.chapterStyle, default: .thatcher),
+                    selection: $values.chapterStyle,
                     content: {
                         ForEach(Book.ChapterStyle.allCases, id: \.self) { style in
                             Text(style.label)

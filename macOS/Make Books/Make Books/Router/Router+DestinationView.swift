@@ -15,6 +15,8 @@ extension Router {
         let router: Router
         /// The state of the Library
         @Environment(Library.self) private var library
+        /// The state of the Scene
+        @Environment(SceneState.self) private var scene
         /// The body of the `View`
         var body: some View {
             switch router {

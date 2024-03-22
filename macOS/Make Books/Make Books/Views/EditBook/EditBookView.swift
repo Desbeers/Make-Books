@@ -27,55 +27,47 @@ struct EditBookView: View {
 
     /// Focus state of the form
     @FocusState var focus: Metadata?
-    /// The title of the form
-    @State private var title: String?
     /// Bool to show the collection View
     @State var showCollections: Bool = false
+    /// The date of the book
+    @State var date: Date = Date.now
     /// The body of the `Viehw`
     var body: some View {
-        VStack(spacing: 0) {
-            if let title {
-                HStack {
-                    BookCover.Cover(book: book)
-                        .aspectRatio(contentMode: .fit)
-                    VStack {
-                        Text(title)
-                            .font(.title)
-                            .foregroundStyle(.secondary)
-                        Text(values.title)
-                            .font(.largeTitle)
+        ScrollView {
+            BookView.Header()
+            HStack(alignment: .top) {
+                BookCover.Cover(book: book)
+                    .aspectRatio(contentMode: .fit)
+                    .containerRelativeFrame(.horizontal) { length, _ in
+                        length / 3
                     }
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .frame(maxWidth: .infinity)
-                }
-                .frame(height: 100)
-                .background(.ultraThinMaterial)
-                ScrollView {
-                    Form {
-                        general
-                        media
-                        series
-                        if values.media != .collection {
-                            belongsToCollections
-                        }
-
-                        // MARK: Submit buttons
-
-                        submitButtons
-                            .padding(.vertical)
+                    .cornerRadius(StaticSetting.cornerRadius)
+                Form {
+                    general
+                    media
+                    series
+                    if values.media != .collection {
+                        belongsToCollections
                     }
-                    .padding()
+
+                    // MARK: Submit buttons
+
+                    submitButtons
+                        .padding(.vertical)
                 }
+                .frame(maxWidth: .infinity)
+                .formStyle(.grouped)
             }
+            .padding()
         }
-        .frame(maxWidth: .infinity)
+        .scrollContentBackground(.hidden)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .task(id: book.id) {
             if !book.collectionItems.isEmpty {
                 showCollections = true
             }
             values = book
-            title = book.status == .existing ? "Edit book" : "Add a new book"
+            date = StaticSetting.bookDateFormatter.date(from: values.date) ?? Date.now
         }
         .errorAlert(message: $error)
         .confirmationDialog(message: $confirmation)

@@ -1,6 +1,6 @@
 # A real macOS application
 
-In the `/xcode` folder there is the source for a real macOS application. It is written in SwiftUI 4, so it only works on macOS Ventura. It is a frontend for the scripts.
+In the `/macOS` folder there is the source for a real macOS application. It is written in SwiftUI 5, so it only works on macOS Sonoma. It is a frontend for the scripts.
 
 If you build the application, it will be "self contained", e.g., all the scripts will be inside the app bundle and you can drop it anywhere you like. It has it's own configuration as well and doesn't care about the settings in `config.zsh` and the scripts don't have to be in your `$PATH`.
 

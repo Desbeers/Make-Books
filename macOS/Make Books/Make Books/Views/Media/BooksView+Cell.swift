@@ -36,9 +36,9 @@ extension BooksView {
                 }, label: {
                     HStack {
                         Item(book: book)
-                            .padding(showAsList ? 10 : 0)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, showAsList ? 10 : 0)
                         if showAsList {
-
                             BookView.Details(book: book)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 .contentShape(Rectangle())

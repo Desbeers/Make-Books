@@ -11,14 +11,15 @@ local="${0:a:h:h}"
 gui="cmd"
 
 # Overrule config from command line
-zparseopts -E -D -gui:=g -paper:=p -font:=f -export:=e -books:=b
+zparseopts -E -D -gui:=g -paper:=p -font:=f -export:=e -books:=b -lang:=l
 if [[ -n $g ]]; then gui=${g[2]} fi
 if [[ -n $p ]]; then papersize=${p[2]} fi
 if [[ -n $f ]]; then fontsize=${f[2]} fi
 if [[ -n $e ]]; then export=${e[2]} fi
 if [[ -n $b ]]; then books=${b[2]} fi
+if [[ -n $l ]]; then lang=${l[2]} fi
 # Preserve config with spaces in directory names.
-config=(--gui $gui --paper $papersize --font $fontsize --export $export --books $books)
+config=(--gui $gui --paper $papersize --font $fontsize --export $export --books $books --lang $lang)
 
 # Configuration:
 

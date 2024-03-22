@@ -13,13 +13,20 @@ import SwiftUI
     @State private var scene = SceneState()
     /// The state of the Library
     @State private var library = Library()
+    /// The state of Make
+    @State private var make = MakeState()
     /// The body of the `Scene`
     var body: some Scene {
         Window("Make Books", id: "makeBooks") {
             MainView()
                 .environment(scene)
                 .environment(library)
-                .frame(minWidth: 950, minHeight: 600)
+                .environment(make)
+                .frame(minWidth: 1100, minHeight: 660)
+                .task {
+                    await library.getAllBooks()
+                    await make.checkUtilities()
+                }
         }
         .windowResizability(.contentSize)
         .defaultPosition(.center)
@@ -43,6 +50,14 @@ import SwiftUI
                 }
             }
         }
+
+        Window("Preview", id: "preview") {
+            PreviewView()
+                .environment(scene)
+                .environment(library)
+                .frame(minWidth: 300, minHeight: 450)
+        }
+
         Settings {
             SettingsView()
                 .environment(scene)

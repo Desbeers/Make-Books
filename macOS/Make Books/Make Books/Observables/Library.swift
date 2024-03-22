@@ -46,11 +46,11 @@ final class Library {
     }
     /// The list of series
     var series: [Serie] {
-        let books = books.filter { $0.belongsToSerie != nil }
+        let books = books.filter { !$0.belongsToSerie.isEmpty }
 
         /// Use the Dictionary(grouping:) function so that all the series are grouped together.
         let grouped = Dictionary(grouping: books) { book -> String in
-            book.belongsToSerie ?? ""
+            book.belongsToSerie
         }
         /// We now map over the dictionary and create our serie objects.
         /// Then we want to sort them so that they are in the correct order.
@@ -74,6 +74,17 @@ final class Library {
 
 extension Library {
 
+
+    /// Get an optional router link to the serie a book belongs to
+    /// - Parameter book: The ``Book``
+    /// - Returns: A ``Router`` to the serie
+    func getSerieLink(book: Book) -> Router? {
+        if let serie = series.first(where: { $0.title == book.belongsToSerie }) {
+            return .serie(serie: serie)
+        }
+        return nil
+    }
+
     /// Get a link to a ``Collection``
     /// - Parameter collection: The ``Collection``
     /// - Returns: A ``Router`` item
@@ -88,10 +99,10 @@ extension Library {
     /// - Parameter collection: The ``Collection``
     /// - Returns: A ``Book`` array
     func getCollectionBooks(collection: Book ) -> [Book]? {
-        if let name = collection.collection {
+        if !collection.collection.isEmpty {
             let books = books
                 .filter { book -> Bool in
-                    book.collectionItems.contains { $0.name == name }
+                    book.collectionItems.contains { $0.name == collection.collection }
                 }
                 .sorted {
                     $0.collectionItems.first { $0.name == collection.collection }?.collectionPosition ?? 0
@@ -172,7 +183,7 @@ extension Library {
                     case .description:
                         book.description = value
                     case .date:
-                        book.date = value
+                        book.date = value + (value.count == 4 ? "-01-01" : "")
                     case .rights:
                         book.rights = value
                     case .publisher:
@@ -208,7 +219,7 @@ extension Library {
                     case .hasBeenRead:
                         book.hasBeenRead = value == "1" ? true : false
                     case .chapterStyle:
-                        book.chapterStyle = Book.ChapterStyle(rawValue: value)
+                        book.chapterStyle = Book.ChapterStyle(rawValue: value) ?? .thatcher
                     case .media:
                         book.media = Media(rawValue: value) ?? .book
                     default:

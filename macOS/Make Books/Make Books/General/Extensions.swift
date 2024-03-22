@@ -43,15 +43,3 @@ extension Bool.Comparable: ExpressibleByBooleanLiteral {
         self = value ? .true : .false
     }
 }
-
-// MARK: Binding extensions
-
-/// Rebind a Binding<T?> as Binding<T> using a default value
-/// https://stackoverflow.com/questions/57021722/swiftui-optional-textfield
-/// - Note: - Used in ``EditBookView``
-func bind<T>(_ boundOptional: Binding<T?>, `default`: T) -> Binding<T> {
-    Binding(
-        get: { boundOptional.wrappedValue ?? `default` },
-        set: { boundOptional.wrappedValue = $0 }
-    )
-}

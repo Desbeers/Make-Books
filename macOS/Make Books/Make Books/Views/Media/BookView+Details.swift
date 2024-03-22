@@ -17,55 +17,66 @@ extension BookView {
         let book: Book
         /// The state of the Scene
         @Environment(SceneState.self) private var scene
+        /// The state of the Library
+        @Environment(Library.self) private var library
         /// The body of the `View`
         var body: some View {
             Form {
-                Group {
-                    LabeledDetail(
-                        Metadata.title.label,
-                        value: book.title
-                    )
-                    LabeledDetail(
-                        Metadata.author.label,
-                        value: book.author
-                    )
-                    LabeledDetail(
-                        Metadata.subject.label,
-                        value: book.subject ?? Metadata.subject.empty
-                    )
-                    LabeledDetail(
-                        Metadata.description.label,
-                        value: book.description ?? Metadata.description.empty
-                    )
-                }
                 LabeledDetail(
-                    Metadata.date.label,
-                    value: book.date ?? Metadata.date.empty
+                    title: Metadata.title.label,
+                    value: book.title
                 )
                 LabeledDetail(
-                    Metadata.revision.label,
-                    value: book.revision ?? Metadata.revision.empty
+                    title: Metadata.author.label,
+                    value: book.author
                 )
                 LabeledDetail(
-                    Metadata.rights.label,
-                    value: book.rights ?? Metadata.rights.empty
+                    title: Metadata.subject.label,
+                    value: book.subject,
+                    empty: Metadata.subject.empty
                 )
                 LabeledDetail(
-                    Metadata.publisher.label,
-                    value: book.publisher ?? Metadata.publisher.empty
-                )
-                let countryName = Locale.current.localizedString(forLanguageCode: book.language ?? "")
-                LabeledDetail(
-                    Metadata.language.label,
-                    value: countryName ?? Metadata.language.empty
+                    title: Metadata.description.label,
+                    value: book.description,
+                    empty: Metadata.description.empty
                 )
                 LabeledDetail(
-                    Metadata.belongsToSerie.label,
-                    value: book.serie
+                    title: Metadata.date.label,
+                    value: StaticSetting.bookDateFormatter
+                        .date(from: book.date)?.formatted(date: .long, time: .omitted) ?? "",
+                    empty: Metadata.date.empty
                 )
                 LabeledDetail(
-                    Metadata.hasBeenRead.label,
-                    value: book.hasBeenRead ?? false ? "Yes" : "No"
+                    title: Metadata.revision.label,
+                    value: book.revision,
+                    empty: Metadata.revision.empty
+                )
+                LabeledDetail(
+                    title: Metadata.rights.label,
+                    value: book.rights,
+                    empty: Metadata.rights.empty
+                )
+                LabeledDetail(
+                    title: Metadata.publisher.label,
+                    value: book.publisher,
+                    empty: Metadata.publisher.empty
+                )
+                let countryName = Locale.current.localizedString(forIdentifier: book.language)
+                LabeledDetail(
+                    title: Metadata.language.label,
+                    value: countryName ?? "",
+                    empty: Metadata.language.empty
+                )
+                LabeledDetail(
+                    title: Metadata.belongsToSerie.label,
+                    value: book.serie,
+                    empty: Metadata.belongsToSerie.empty,
+                    router: library.getSerieLink(book: book)
+                )
+                Divider()
+                LabeledDetail(
+                    title: Metadata.hasBeenRead.label,
+                    value: book.hasBeenRead ? "Yes" : "No"
                 )
                 .formStyle(.columns)
             }
@@ -81,16 +92,26 @@ extension BookView {
         let title: String
         /// The value of the metadata
         let value: String
-        /// Init the `View`
-        init(_ title: String, value: String) {
-            self.title = title
-            self.value = value
-        }
+        /// The message when the value is empty
+        var empty = "Not available"
+
+        var router: Router?
+
+        /// The state of the Scene
+        @Environment(SceneState.self) private var scene
+
         /// The body of the `View`
         var body: some View {
             LabeledContent(
                 content: {
-                    Text(value)
+                    if let router {
+                        Button(value) {
+                            scene.navigationStack.append(router)
+                        }
+                    } else {
+                        Text(value.isEmpty ? empty : value)
+                            .foregroundStyle(value.isEmpty ? .secondary : .primary)
+                    }
                 },
                 label: {
                     Text("\(title):")

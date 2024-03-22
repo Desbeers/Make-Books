@@ -88,8 +88,6 @@ extension EditBookView {
                     }
                 }
             }
-            .padding()
-            .background(.ultraThinMaterial)
             .task(id: book.id) {
                 findCollectionItems()
             }
@@ -100,7 +98,7 @@ extension EditBookView {
         }
 
         private func findCollectionItems() {
-            let collectionTitles = library.collections.compactMap(\.collection)
+            let collectionTitles = library.collections.map(\.collection)
             for title in collectionTitles {
                 var item: Collection.Item = .init(name: title, collectionPosition: 1, isSelected: false)
                 if let enabled = book.collectionItems.first(where: { $0.name == title }) {

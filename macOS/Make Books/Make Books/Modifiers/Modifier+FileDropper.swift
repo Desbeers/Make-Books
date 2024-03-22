@@ -56,6 +56,7 @@ extension Modifier {
                 NSSound(named: "Submarine")?.play()
                 scene.droppedURL = url
                 scene.mainSelection = .fileDropper
+                scene.navigationStack = []
             default:
                 NSSound(named: "Tink")?.play()
             }

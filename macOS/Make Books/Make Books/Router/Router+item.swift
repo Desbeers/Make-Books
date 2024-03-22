@@ -135,7 +135,7 @@ extension Router {
             return Item(
                 id: "tag+\(tag.title)",
                 title: "\(tag.title)",
-                description: "All files with the `\(tag.tag ?? "ERROR")' tag",
+                description: "All files with the `\(tag.tag)' tag",
                 loading: "Loading files with your Tag",
                 empty: "You have no files with this Tag",
                 icon: "tag",

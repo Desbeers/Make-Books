@@ -14,14 +14,20 @@ extension EditBookView {
             content: {
                 // MARK: Title
 
-                TextField(text: $values.title, prompt: Text(Metadata.title.empty)) {
+                TextField(
+                    text: $values.title,
+                    prompt: Text(Metadata.title.empty)
+                ) {
                     Text(Metadata.title.label)
                 }
                 .focused($focus, equals: .title)
 
                 // MARK: Author
 
-                TextField(text: $values.author, prompt: Text(Metadata.author.empty)) {
+                TextField(
+                    text: $values.author,
+                    prompt: Text(Metadata.author.empty)
+                ) {
                     Text(Metadata.author.label)
                 }
                 .focused($focus, equals: .author)
@@ -33,20 +39,24 @@ extension EditBookView {
 
                 // MARK: Subject
 
-                TextField(text: bind($values.subject, default: ""), prompt: Text(Metadata.subject.empty), axis: .vertical) {
+                TextField(
+                    text: $values.subject,
+                    prompt: Text(Metadata.subject.empty),
+                    axis: .vertical
+                ) {
                     Text(Metadata.subject.label)
                 }
                 .focused($focus, equals: .subject)
                 .suggestions(
                     focus: focus == .subject,
-                    suggestions: Array(Set(library.books.compactMap(\.subject))),
-                    value: bind($values.subject, default: "")
+                    suggestions: Array(Set(library.books.map(\.subject))),
+                    value: $values.subject
                 )
 
                 // MARK: Description
 
                 TextField(
-                    text: bind($values.description, default: ""),
+                    text: $values.description,
                     prompt: Text(Metadata.description.empty),
                     axis: .vertical
                 ) {
@@ -56,57 +66,71 @@ extension EditBookView {
 
                 // MARK: Language
 
-                TextField(text: bind($values.language, default: ""), prompt: Text(Metadata.language.empty), axis: .vertical) {
-                    Text(Metadata.language.label)
-                }
-                .focused($focus, equals: .language)
-                .suggestions(
-                    focus: focus == .language,
-                    suggestions: Array(Set(library.books.compactMap(\.language))),
-                    value: bind($values.language, default: "")
+                Picker(
+                    selection: $values.language,
+                    content: {
+                        ForEach(scene.languages.sorted(by: <), id: \.value) { lang in
+                            Text(lang.key)
+                        }
+                    },
+                    label: {
+                        Text(Metadata.language.label)
+                    }
                 )
 
                 // MARK: Date
 
-                TextField(text: bind($values.date, default: ""), prompt: Text(Metadata.date.empty)) {
-                    Text(Metadata.date.label)
-                }
-                .focused($focus, equals: .date)
+                DatePicker(Metadata.date.label, selection: $date, displayedComponents: .date)
+                    .datePickerStyle(.automatic)
+                    .focused($focus, equals: .date)
+                    .task(id: date) {
+                        values.date = StaticSetting.bookDateFormatter.string(from: date)
+                    }
 
                 // MARK: Revision
 
-                TextField(text: bind($values.revision, default: ""), prompt: Text(Metadata.revision.empty)) {
+                TextField(
+                    text: $values.revision,
+                    prompt: Text(Metadata.revision.empty)
+                ) {
                     Text(Metadata.revision.label)
                 }
                 .focused($focus, equals: .revision)
 
                 // MARK: Rights
 
-                TextField(text: bind($values.rights, default: ""), prompt: Text(Metadata.rights.empty), axis: .vertical) {
+                TextField(
+                    text: $values.rights,
+                    prompt: Text(Metadata.rights.empty),
+                    axis: .vertical
+                ) {
                     Text(Metadata.rights.label)
                 }
                 .focused($focus, equals: .rights)
                 .suggestions(
                     focus: focus == .rights,
-                    suggestions: Array(Set(library.books.compactMap(\.rights))),
-                    value: bind($values.rights, default: "")
+                    suggestions: Array(Set(library.books.map(\.rights))),
+                    value: $values.rights
                 )
 
                 // MARK: Publisher
 
-                TextField(text: bind($values.publisher, default: ""), prompt: Text(Metadata.publisher.empty)) {
+                TextField(
+                    text: $values.publisher,
+                    prompt: Text(Metadata.publisher.empty)
+                ) {
                     Text(Metadata.publisher.label)
                 }
                 .focused($focus, equals: .publisher)
                 .suggestions(
                     focus: focus == .publisher,
-                    suggestions: Array(Set(library.books.compactMap(\.publisher))),
-                    value: bind($values.publisher, default: "")
+                    suggestions: Array(Set(library.books.map(\.publisher))),
+                    value: $values.publisher
                 )
 
                 // MARK: Read
 
-                Toggle(isOn: bind($values.hasBeenRead, default: false)) {
+                Toggle(isOn: $values.hasBeenRead) {
                     Text(Metadata.hasBeenRead.label)
                     Text(Metadata.hasBeenRead.description)
                 }

@@ -21,4 +21,11 @@ enum StaticSetting {
 
     /// The default corner radius
     static let cornerRadius: Double = 6
+
+    /// The `DateFormatter` for a book
+    static var bookDateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter
+    }
 }

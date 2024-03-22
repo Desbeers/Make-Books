@@ -11,15 +11,31 @@ extension BooksView {
 
     struct Header: View {
         let header: ScrollCollectionHeader
+        let style: ScrollCollectionStyle
         var body: some View {
-            VStack {
+
+            switch style {
+            case .asList:
+                VStack {
+                    Text(header.sectionLabel)
+                        .font(.headline)
+                        .padding([.top, .leading])
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Divider()
+                }
+                .background(.regularMaterial)
+            default:
                 Text(header.sectionLabel)
                     .font(.headline)
-                    .padding([.top, .leading])
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
+                    .padding(.horizontal)
+                    .frame(
+                        width: StaticSetting.coverSize.width,
+                        height: StaticSetting.coverSize.height
+                    )
+                    .background(.regularMaterial)
+                    .cornerRadius(StaticSetting.cornerRadius)
+                    .padding()
             }
-            .background(.regularMaterial)
         }
     }
 }

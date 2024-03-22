@@ -25,39 +25,39 @@ enum Media: String, Codable {
     var script: String {
         switch self {
         case .book:
-            return "terminal/make-book"
+            "terminal/make-book"
         case .collection:
-            return "terminal/make-collection"
+            "terminal/make-collection"
         case .tag:
-            return "terminal/make-tag-book"
+            "terminal/make-tag-book"
         case .makePDF:
-            return "terminal/make-pdf"
+            "terminal/make-pdf"
         }
     }
     /// The configuration file for the media
     var yamlFile: String {
         switch self {
         case .book:
-            return "make-book"
+            "make-book"
         case .collection:
-            return "make-collection"
+            "make-collection"
         case .tag:
-            return "make-tag-book"
+            "make-tag-book"
         default:
-            return ""
+            ""
         }
     }
     /// The label for the kind of media
     var label: String {
         switch self {
         case .book:
-            return "Book"
+            "Book"
         case .collection:
-            return "Collection"
+            "Collection"
         case .tag:
-            return "Tag"
+            "Tag"
         default:
-            return "Unknown"
+            "Unknown"
         }
     }
 }

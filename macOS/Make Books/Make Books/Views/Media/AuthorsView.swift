@@ -27,7 +27,7 @@ struct AuthorsView: View {
             style: .asList,
             anchor: .top,
             header: { header in
-                BooksView.Header(header: header)
+                BooksView.Header(header: header, style: .asList)
             },
             cell: { index, author in
                 Cell(author: author)

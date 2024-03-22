@@ -33,6 +33,16 @@ enum UserSetting: String {
     /// Get the selected books foder
     static var getBooksFolder = FolderBookmark.getLastSelectedURL(bookmark: UserSetting.booksFolder.rawValue).path(percentEncoded: false)
 
+    // MARK: PDF settings
+
+    static var getFontSetting: String {
+        UserDefaults.standard.string(forKey: UserSetting.font.rawValue) ?? UserSetting.FontSize.size11.rawValue
+    }
+
+    static var getPaperSetting: String {
+        UserDefaults.standard.string(forKey: UserSetting.paper.rawValue) ?? UserSetting.PaperFormat.ebook.rawValue
+    }
+
     // MARK: Paper formats
 
     /// Paper formats
@@ -51,7 +61,7 @@ enum UserSetting: String {
             case .a4paper:
                 return "A4 paper"
             case .a5paper:
-                return "A4 paper"
+                return "A5 paper"
             }
         }
     }

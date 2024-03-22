@@ -9,12 +9,10 @@ import SwiftUI
 
 /// SwiftUI `View` for the 'make' progress
 struct MakeView: View {
-
     /// The state of the Scene
     @Environment(SceneState.self) private var scene
-
     /// The state of Make
-    @EnvironmentObject private var make: MakeState
+    @Environment(MakeState.self) private var make
     /// The array of ``Book`` to 'make'
     let books: [Book]
     /// The body of the `View`

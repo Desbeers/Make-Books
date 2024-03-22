@@ -14,9 +14,12 @@ struct MainView: View {
     /// The state of the Library
     @Environment(Library.self) private var library
     /// The state of Make
-    @StateObject private var make = MakeState()
+    @Environment(MakeState.self) private var make
     /// The visibility of the splitview
     @State private var navigationSplitViewVisibility: NavigationSplitViewVisibility = .all
+
+    @Environment(\.openWindow) var openWindow
+
     /// The body of the `View`
     var body: some View {
         @Bindable var scene = scene
@@ -27,8 +30,8 @@ struct MainView: View {
                     .toolbar(removing: .sidebarToggle)
                     .navigationSplitViewColumnWidth(200)
             },
-            content: {
-                NavigationStack(path: $scene.navigationStack.animation(.default)) {
+            detail: {
+                NavigationStack(path: $scene.navigationStack) {
                     Router.DestinationView(router: scene.mainSelection)
                         .navigationDestination(for: Router.self) { router in
                             Router.DestinationView(router: router)
@@ -40,18 +43,12 @@ struct MainView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.windowBackground)
-            },
-            detail: {
-                DetailView()
-                    .navigationSplitViewColumnWidth(300)
-                    .frame(width: 300)
-                    .background(Color.windowBackground)
             }
         )
         .searchable(text: $scene.searchQuery, placement: .automatic, prompt: "Search for books")
-        .inspector(isPresented: $scene.showInspector) {
-            PreviewView()
-                .inspectorColumnWidth(min: 200, ideal: 400, max: 800)
+        .inspector(isPresented: .constant(true)) {
+            InspectorView()
+                .inspectorColumnWidth(280)
         }
         .toolbar(id: "Toolbar") {
             ToolbarItem(
@@ -74,23 +71,21 @@ struct MainView: View {
                 showsByDefault: true
             ) {
                 Button {
-                    scene.showInspector.toggle()
+                    openWindow(id: "preview")
                 } label: {
                     Label("Preview", systemImage: scene.showInspector ? "eye.fill" : "eye")
                 }
             }
         }
         .fileDropper()
-        .animation(.default, value: scene.detailSelection)
         .navigationTitle("Make Books")
         .navigationSubtitle(scene.detailSelection.item.description)
-        .environmentObject(make)
-        .task {
-            await library.getAllBooks()
-            await make.checkUtilities()
-        }
         .onChange(of: scene.navigationStack) { _, item in
             scene.detailSelection = (item.isEmpty ? scene.mainSelection : item.last) ?? scene.mainSelection
+        }
+        .onChange(of: scene.searchQuery) {
+            scene.mainSelection = scene.searchQuery.isEmpty ? .books : .search
+            scene.navigationStack = []
         }
     }
 }

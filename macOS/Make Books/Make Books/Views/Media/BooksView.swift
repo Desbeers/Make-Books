@@ -42,7 +42,7 @@ struct BooksView: View {
                 style: showAsList ? .asList : .asGrid,
                 anchor: .top,
                 header: { header in
-                    Header(header: header)
+                    Header(header: header, style: showAsList ? .asList : .asGrid)
                 },
                 cell: { index, book in
                     Cell(book: book)
@@ -90,9 +90,9 @@ struct BooksView: View {
             ])
         case .date:
             return Dictionary(grouping: bookList) { book in
-                var sectionLabel = "Unknown"
-                var indexLabel = "Unknown"
-                if let year = Int(book.date?.prefix(4) ?? "") {
+                var sectionLabel = "?"
+                var indexLabel = "?"
+                if let year = Int(book.date.prefix(4)) {
                     let decade = (year / 10) * 10
                     sectionLabel = "Between \(decade) and \(decade + 9)"
                     indexLabel = String(decade)
@@ -106,7 +106,7 @@ struct BooksView: View {
             .sorted(using: KeyPathComparator(\.key.sort))
         case .hasBeenReed:
             return Dictionary(grouping: bookList) { book in
-                let section = book.hasBeenRead ?? false ? "􀆅 Read" : "􀋂 New Books"
+                let section = book.hasBeenRead ? "􀆅 Read" : "􀋂 New Books"
                 return ScrollCollectionHeader(
                     sectionLabel: section,
                     indexLabel: String(section.prefix(1)),

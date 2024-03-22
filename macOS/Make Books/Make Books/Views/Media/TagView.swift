@@ -20,36 +20,36 @@ struct TagView: View {
     var body: some View {
         ScrollView {
             BookView(book: tag)
-                if files.isEmpty {
-                    PartsView.NoContentView()
-                } else {
-                    VStack(spacing: 0) {
-                        ForEach(Array(files.enumerated()), id: \.element) { index, file in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(file.title)
-                                    Text(file.url.lastPathComponent)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                Button {
-                                    file.url.openInFinder()
-                                } label: {
-                                    Text("Open in Finder")
-                                }
+            if files.isEmpty {
+                PartsView.NoContentView()
+            } else {
+                VStack(spacing: 0) {
+                    ForEach(Array(files.enumerated()), id: \.element) { index, file in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(file.title)
+                                Text(file.url.lastPathComponent)
+                                    .foregroundStyle(.secondary)
                             }
-                            .padding(.horizontal)
-                            .background {
-                                Color.alternatedList.opacity(index % 2 == 0 ? 1 : 0)
+                            Spacer()
+                            Button {
+                                file.url.openInFinder()
+                            } label: {
+                                Text("Open in Finder")
                             }
+                        }
+                        .padding(.horizontal)
+                        .background {
+                            Color.alternatedList.opacity(index % 2 == 0 ? 1 : 0)
                         }
                     }
                 }
+            }
         }
         .task(id: tag) {
             files = []
-            if let tag = tag.tag {
-                let arguments = "find \'\(UserSetting.getBooksFolder)' -name '*.md' -type f -exec grep -lw '\(tag)' {} + | sort"
+            if !tag.tag.isEmpty {
+                let arguments = "find \'\(UserSetting.getBooksFolder)' -name '*.md' -type f -exec grep -lw '\(tag.tag)' {} + | sort"
                 let result = await Terminal.runInShell(arguments: [arguments])
                 for item in result.standardOutput.components(separatedBy: .newlines) {
                     let fileURL = URL(filePath: item)

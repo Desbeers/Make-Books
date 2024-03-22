@@ -73,7 +73,7 @@ PANDOC_NATIVE := \
 	--lua-filter "$(PANDOC_FILTERS)/desbeers-quotes.lua" \
 	--from=markdown \
 	--to=native \
-	+RTS -K100000000 -RTS \
+	+RTS -K1000000000 -RTS \
 
 #############
 #		 	#

@@ -106,8 +106,8 @@ extension EditBookView {
         return values == book ||
         values.title.isEmpty ||
         values.author.isEmpty ||
-        (values.media == .collection && values.collection == nil) ||
-        (values.media == .tag && values.tag == nil)
+        (values.media == .collection && values.collection.isEmpty) ||
+        (values.media == .tag && values.tag.isEmpty)
     }
 
     /// Create a new book

@@ -14,6 +14,11 @@ struct CollectionView: View {
     var body: some View {
         ScrollView {
             BookView(book: collection.book)
+            Text("Books in this collection:")
+                .fontWeight(.bold)
+                .foregroundStyle(.secondary)
+                .padding(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(collection.books) { book in
@@ -31,7 +36,7 @@ struct CollectionView: View {
                     }
                 }
             }
-            .padding()
+            .padding(.horizontal)
             .buttonStyle(.plain)
         }
     }

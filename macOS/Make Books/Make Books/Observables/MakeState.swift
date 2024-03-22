@@ -9,22 +9,18 @@ import SwiftUI
 import SwiftlyTerminalUtilities
 
 /// The class with the Make state
-final class MakeState: ObservableObject {
+@Observable
+final class MakeState {
     /// List of `make` options
-    @Published var options: [MakeOption] = UserSetting.getMakeOptions
+    var options: [MakeOption] = UserSetting.getMakeOptions
     /// State of zsh scripts
-    @Published var scriptIsRunning = false
+    var scriptIsRunning = false
     /// Log from zsh scripts
-    @Published var log = [Log]()
-    /// User selected font size
-    @AppStorage(UserSetting.font.rawValue)
-    var font: String = UserSetting.FontSize.size11.rawValue
-    /// User selected paper format
-    @AppStorage(UserSetting.paper.rawValue)
-    var paper: String = UserSetting.PaperFormat.ebook.rawValue
-
-    @Published var utilities: [Utility] = []
-    @Published var notAvailable: [String] = []
+    var log = [Log]()
+    /// The utilities to create a book
+    var utilities: [Utility] = []
+    /// List of missing utilities
+    var notAvailable: [String] = []
 }
 
 extension MakeState {
@@ -33,8 +29,8 @@ extension MakeState {
     /// - Returns: A String with all arguments
     var arguments: String {
         var makeArgs = "--gui mac "
-        makeArgs += "--paper " + paper + " "
-        makeArgs += "--font " + font + " "
+        makeArgs += "--paper " + UserSetting.getPaperSetting + " "
+        makeArgs += "--font " + UserSetting.getFontSetting + " "
         makeArgs += "--books \"" + UserSetting.getBooksFolder + "\" "
         makeArgs += "--export \"" + UserSetting.getExportFolder + "\" "
         for option in options where option.isSelected == true {

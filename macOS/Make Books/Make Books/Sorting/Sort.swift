@@ -45,7 +45,7 @@ extension Sort {
             ]
         case .hasBeenReed:
             return [
-                KeyPathComparator(\.hasBeenRead?.comparable, order: sortItem.order.value),
+                KeyPathComparator(\.hasBeenRead.comparable, order: sortItem.order.value),
                 KeyPathComparator(\.sortAuthor, order: .forward),
                 KeyPathComparator(\.sortTitle, order: .forward)
             ]

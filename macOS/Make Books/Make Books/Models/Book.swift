@@ -8,6 +8,25 @@
 import SwiftUI
 import SwiftlyFolderUtilities
 
+extension KeyedEncodingContainer {
+    mutating func encode(_ value: String, forKey key: K) throws {
+        guard !value.isEmpty else { return }
+        try encodeIfPresent(value, forKey: key)
+    }
+    mutating func encode(_ value: Int, forKey key: K) throws {
+        guard !(value == 0) else { return }
+        try encodeIfPresent(value, forKey: key)
+    }
+    mutating func encode(_ value: Bool, forKey key: K) throws {
+        guard !(value == false) else { return }
+        try encodeIfPresent(value, forKey: key)
+    }
+    mutating func encode(_ value: Book.ChapterStyle, forKey key: K) throws {
+        guard !(value == .thatcher) else { return }
+        try encodeIfPresent(value, forKey: key)
+    }
+}
+
 /// The structure of a Book
 struct Book: Identifiable, Hashable, Codable {
     /// The title of the ``Book``
@@ -15,21 +34,21 @@ struct Book: Identifiable, Hashable, Codable {
     /// The Author of the ``Book``
     var author: String = ""
     /// Description of the ``Book``
-    var description: String?
+    var description: String = ""
     /// The date of the ``Book``
-    var date: String?
+    var date: String = ""
     /// The rights of the ``Book``
-    var rights: String?
+    var rights: String = ""
     /// The publisher of the ``Book``
-    var publisher: String?
+    var publisher: String = ""
     /// The language of the ``Book``
-    var language: String?
+    var language: String = ""
     /// The subject of the ``Book``
-    var subject: String?
+    var subject: String = ""
     /// The optional Serie name of the ``Book``
-    var belongsToSerie: String?
+    var belongsToSerie: String = ""
     /// The Position of the optional Serie of the ``Book``
-    var seriePosition: Int?
+    var seriePosition: Int = 0
 
     // MARK: Custom (Not used by Pandoc)
 
@@ -47,17 +66,17 @@ struct Book: Identifiable, Hashable, Codable {
     var status: Status = .new
 
     /// Bool if the ``Book`` has been read
-    var hasBeenRead: Bool?
+    var hasBeenRead: Bool = false
     /// The ``ChapterStyle`` of the ``Book``
-    var chapterStyle: ChapterStyle? = .thatcher
+    var chapterStyle: ChapterStyle = .thatcher
     /// The cover URL of the ``Book``
     var coverURL: URL?
     /// The ``Media`` kind of the ``Book``
     var media: Media = .book
     /// The Tag of the ``Book``if `media = .tag`
-    var tag: String?
+    var tag: String = ""
     /// The name of the ``Book`` Collection if `media = .collection`
-    var collection: String?
+    var collection: String = ""
 
     /// The optional Collections the ``Book`` belongs to
     /// - Note: For the 'collections edit form' only
@@ -66,7 +85,7 @@ struct Book: Identifiable, Hashable, Codable {
     /// Exported version of `collectionItem` struct
     var addToCollection: String?
     /// The revision of the ``Book``
-    var revision: String?
+    var revision: String = ""
 
 
     // MARK: Calculated Variables
@@ -116,10 +135,10 @@ struct Book: Identifiable, Hashable, Codable {
     }
     /// The serie label of the ``Book``
     var serie: String {
-        if let belongsToSerie {
-            return "\(belongsToSerie), part \(seriePosition ?? 1)"
+        if !belongsToSerie.isEmpty {
+            return "\(belongsToSerie), part \(seriePosition)"
         }
-        return Metadata.belongsToSerie.empty
+        return ""
     }
     /// The YAML export of the ``Book``
     var yamlEport: String? {
@@ -132,10 +151,8 @@ struct Book: Identifiable, Hashable, Codable {
             }
             book.addToCollection = items.joined(separator: ";")
         }
-        /// Remove some defaults
-        book.chapterStyle = book.chapterStyle == .thatcher ? nil : book.chapterStyle
         /// Set the serie position if needed
-        if book.belongsToSerie != nil, book.seriePosition == nil {
+        if !book.belongsToSerie.isEmpty, book.seriePosition == 0 {
             book.seriePosition = 1
         }
         /// Compose the YAML data

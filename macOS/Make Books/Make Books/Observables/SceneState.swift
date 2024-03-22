@@ -8,7 +8,8 @@
 import SwiftUI
 
 /// The class with the Scene state
-@Observable final class SceneState {
+@Observable
+final class SceneState {
 
     // MARK: Navigation
 
@@ -18,14 +19,7 @@ import SwiftUI
     var navigationStack: [Router] = []
     /// The detail selection
     var detailSelection: Router = .books
-//    /// The sidebar selection
-//    var sidebarSelection: Router {
-//        if let stack = navigationStack.last {
-//            return stack
-//        }
-//        return mainSelection
-//    }
-
+    /// Bool to show the inspector
     var showInspector: Bool = false
 
     // MARK: Dropped URL
@@ -39,15 +33,30 @@ import SwiftUI
 
     /// Show sheet with Make
     var makeBooksSheet: Bool = false
-//    /// Show sheet to edit a book
-//    @Published var editBook: Book?
     /// Show preview in the inspector
     var previewURL: PreviewURL?
 
     // MARK: Search
 
     /// The search query
-    var searchQuery: String = ""}
+    var searchQuery: String = ""
+
+    // MARK: Languages
+
+    /// All available languages
+    var languages: [String: String] {
+        var result: [String: String] = ["Unkown Language": ""]
+        let available = Locale.availableIdentifiers.sorted()
+        for lang in available {
+            let locale = Locale.current
+            if let label = locale.localizedString(forIdentifier: lang) {
+                result[label] = lang.replacingOccurrences(of: "_", with: "-")
+            }
+        }
+        return result
+    }
+}
+
 
 extension SceneState {
 
