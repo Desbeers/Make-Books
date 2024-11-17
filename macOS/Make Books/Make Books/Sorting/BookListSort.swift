@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyStructCache
 
 /// SwiftUI Views for sorting of Books
 public enum BookListSort {

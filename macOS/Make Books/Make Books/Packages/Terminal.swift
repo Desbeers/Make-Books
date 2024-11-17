@@ -1,0 +1,140 @@
+//
+//  Terminal.swift
+//  SwiftlyTerminalUtilities
+//
+//  Copyright © 2023 Nick Berendsen
+//
+
+import SwiftUI
+
+/// Terminal utilities
+public enum Terminal {
+    // Just a placeholder
+}
+
+public extension Terminal {
+
+    /// Run a script in the shell and return its output
+    /// - Parameter arguments: The arguments to pass to the shell
+    /// - Returns: The output from the shell
+    static func runInShell(arguments: [String]) async -> Output {
+        /// The normal output
+        var allOutput: [String] = []
+        /// The error output
+        var allErrors: [String] = []
+        /// Await the results
+        for await streamedOutput in runInShell(arguments: arguments) {
+            switch streamedOutput {
+            case let .standardOutput(output):
+                allOutput.append(output)
+            case let .standardError(error):
+                allErrors.append(error)
+            }
+        }
+        /// Return the output
+        return Output(
+            standardOutput: allOutput.joined(),
+            standardError: allErrors.joined()
+        )
+    }
+
+    /// Run a script in the shell and return its output
+    /// - Parameter arguments: The arguments to pass to the shell
+    /// - Returns: The output from the shell as a stream
+    static func runInShell(arguments: [String]) -> AsyncStream<StreamedOutput> {
+        /// Create the task
+        let task = Process()
+        task.launchPath = "/bin/zsh"
+        task.arguments = ["--login", "-c"] + arguments
+        /// Standard output
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        /// Error output
+        let errorPipe = Pipe()
+        task.standardError = errorPipe
+        /// Try to run the task
+        do {
+            try task.run()
+        } catch {
+            print(error.localizedDescription)
+        }
+        /// Return the stream
+        return AsyncStream { continuation in
+            pipe.fileHandleForReading.readabilityHandler = { handler in
+                guard let standardOutput = String(data: handler.availableData, encoding: .utf8) else {
+                    return
+                }
+                guard !standardOutput.isEmpty else {
+                    return
+                }
+                continuation.yield(.standardOutput(standardOutput))
+            }
+            errorPipe.fileHandleForReading.readabilityHandler = { handler in
+                guard let errorOutput = String(data: handler.availableData, encoding: .utf8) else {
+                    return
+                }
+                guard !errorOutput.isEmpty else {
+                    return
+                }
+                continuation.yield(.standardError(errorOutput))
+            }
+            /// Finish the stream
+            task.terminationHandler = { _ in
+                continuation.finish()
+            }
+        }
+    }
+}
+
+extension Terminal {
+
+    /// The complete output from the shell
+    public struct Output {
+        public var standardOutput: String
+        public var standardError: String
+    }
+
+    /// The stream output from the shell
+    public enum StreamedOutput {
+        case standardOutput(String)
+        case standardError(String)
+    }
+}
+
+extension Terminal {
+
+    /// Open a URL in the Terminal
+    /// - Parameter url: The URL of the folder
+    public static func openURL(url: URL?) {
+        guard let terminal = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal") else {
+            return
+        }
+        guard let url = url else {
+            print("Not a valid URL")
+            return
+        }
+        let configuration = NSWorkspace.OpenConfiguration()
+        NSWorkspace.shared.open([url], withApplicationAt: terminal, configuration: configuration)
+    }
+}
+
+public extension URL {
+    func openInTerminal() {
+        guard let terminal = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Terminal") else {
+            return
+        }
+        let configuration = NSWorkspace.OpenConfiguration()
+        NSWorkspace.shared.open([self], withApplicationAt: terminal, configuration: configuration)
+    }
+}
+
+extension Terminal {
+
+    public static func which(_ item: String) async -> URL? {
+        let which = await runInShell(arguments: ["\(item)"])
+        if which.standardOutput.contains("/") {
+            return URL(filePath: which.standardOutput.trimmingCharacters(in: .newlines))
+        }
+        return nil
+    }
+}

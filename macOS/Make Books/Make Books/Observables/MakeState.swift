@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyTerminalUtilities
 
 /// The class with the Make state
 @Observable

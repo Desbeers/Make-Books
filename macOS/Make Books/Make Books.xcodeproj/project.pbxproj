@@ -31,6 +31,11 @@
 		D71989B12A704A400040380A /* EditBookView+Submit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71989B02A704A400040380A /* EditBookView+Submit.swift */; };
 		D71989B32A7181E60040380A /* PDFKitRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71989B22A7181E60040380A /* PDFKitRepresentedView.swift */; };
 		D71989B62A755E2A0040380A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71989B52A755E2A0040380A /* SearchView.swift */; };
+		D71EAD5A2CEA01870025ECDF /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EAD592CEA01870025ECDF /* Cache.swift */; };
+		D71EAD5C2CEA01A00025ECDF /* SwiftlyAlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EAD5B2CEA01A00025ECDF /* SwiftlyAlertMessage.swift */; };
+		D71EAD602CEA01B70025ECDF /* FolderBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EAD5D2CEA01B70025ECDF /* FolderBookmark.swift */; };
+		D71EAD622CEA01B70025ECDF /* FolderUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EAD5F2CEA01B70025ECDF /* FolderUtil.swift */; };
+		D71EAD642CEA01D50025ECDF /* Terminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EAD632CEA01D50025ECDF /* Terminal.swift */; };
 		D75323782AA5E78400B9D66B /* BookCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75323772AA5E78400B9D66B /* BookCover.swift */; };
 		D753237A2AA5FB0900B9D66B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75323792AA5FB0900B9D66B /* Status.swift */; };
 		D753237C2AA6040600B9D66B /* EditBookView+general.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753237B2AA6040600B9D66B /* EditBookView+general.swift */; };
@@ -41,11 +46,9 @@
 		D765C1262A7F6ACD00BB6B60 /* Sort+Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = D765C1252A7F6ACD00BB6B60 /* Sort+Order.swift */; };
 		D765C1282A7F6F5600BB6B60 /* BookListSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = D765C1272A7F6F5600BB6B60 /* BookListSort.swift */; };
 		D765C12C2A7F90F400BB6B60 /* Sort+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = D765C12B2A7F90F400BB6B60 /* Sort+Options.swift */; };
-		D765C1312A7FB48500BB6B60 /* SwiftlyStructCache in Frameworks */ = {isa = PBXBuildFile; productRef = D765C1302A7FB48500BB6B60 /* SwiftlyStructCache */; };
 		D765C1332A7FC5CC00BB6B60 /* EditBookView+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D765C1322A7FC5CC00BB6B60 /* EditBookView+Collection.swift */; };
 		D76B8AC72BADA8610006162E /* BookView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76B8AC62BADA8610006162E /* BookView+Header.swift */; };
 		D76CA9AA2A65F38500138EDE /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76CA9A92A65F38500138EDE /* Collection.swift */; };
-		D78C0B5C2AA8692700493550 /* SwiftlyAlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = D78C0B5B2AA8692700493550 /* SwiftlyAlertMessage */; };
 		D78C22A92A80C2B700208AB9 /* ScrollCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78C22A52A80C2B700208AB9 /* ScrollCollectionView.swift */; };
 		D7B83D0B2B090E8600FBDE97 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B83D0A2B090E8600FBDE97 /* CollectionView.swift */; };
 		D7B83D0D2B0A2EDF00FBDE97 /* PartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B83D0C2B0A2EDF00FBDE97 /* PartsView.swift */; };
@@ -58,7 +61,6 @@
 		D7B83D1B2B0A682C00FBDE97 /* texmf in Resources */ = {isa = PBXBuildFile; fileRef = D7B83D142B0A682C00FBDE97 /* texmf */; };
 		D7BCD7E92A66FC79008F134B /* SeriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7E82A66FC79008F134B /* SeriesView.swift */; };
 		D7BCD7EB2A66FD7B008F134B /* Serie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7EA2A66FD7B008F134B /* Serie.swift */; };
-		D7BCD7EE2A670FDF008F134B /* SwiftlyTerminalUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7BCD7ED2A670FDF008F134B /* SwiftlyTerminalUtilities */; };
 		D7BCD7F22A67134E008F134B /* FileDropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BCD7F12A67134E008F134B /* FileDropperView.swift */; };
 		D7E03F912BAC80FE001EFB74 /* FileDropperView+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E03F902BAC80FE001EFB74 /* FileDropperView+Details.swift */; };
 		D7F140292A65432D002D875D /* MakeBooksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F140282A65432D002D875D /* MakeBooksApp.swift */; };
@@ -75,7 +77,6 @@
 		D7F1404D2A65529E002D875D /* Collection+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1404C2A65529E002D875D /* Collection+Item.swift */; };
 		D7F1404F2A655329002D875D /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1404E2A655329002D875D /* Media.swift */; };
 		D7F140512A658409002D875D /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F140502A658409002D875D /* UserSetting.swift */; };
-		D7F140542A65846C002D875D /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7F140532A65846C002D875D /* SwiftlyFolderUtilities */; };
 		D7F140562A658489002D875D /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F140552A658489002D875D /* Buttons.swift */; };
 		D7F1405D2A658C57002D875D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1405C2A658C57002D875D /* Library.swift */; };
 		D7F140652A659264002D875D /* SceneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F140642A659264002D875D /* SceneState.swift */; };
@@ -115,6 +116,11 @@
 		D71989B02A704A400040380A /* EditBookView+Submit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditBookView+Submit.swift"; sourceTree = "<group>"; };
 		D71989B22A7181E60040380A /* PDFKitRepresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitRepresentedView.swift; sourceTree = "<group>"; };
 		D71989B52A755E2A0040380A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		D71EAD592CEA01870025ECDF /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		D71EAD5B2CEA01A00025ECDF /* SwiftlyAlertMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftlyAlertMessage.swift; sourceTree = "<group>"; };
+		D71EAD5D2CEA01B70025ECDF /* FolderBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderBookmark.swift; sourceTree = "<group>"; };
+		D71EAD5F2CEA01B70025ECDF /* FolderUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderUtil.swift; sourceTree = "<group>"; };
+		D71EAD632CEA01D50025ECDF /* Terminal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Terminal.swift; sourceTree = "<group>"; };
 		D75323772AA5E78400B9D66B /* BookCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCover.swift; sourceTree = "<group>"; };
 		D75323792AA5FB0900B9D66B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		D753237B2AA6040600B9D66B /* EditBookView+general.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditBookView+general.swift"; sourceTree = "<group>"; };
@@ -178,10 +184,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7BCD7EE2A670FDF008F134B /* SwiftlyTerminalUtilities in Frameworks */,
-				D7F140542A65846C002D875D /* SwiftlyFolderUtilities in Frameworks */,
-				D78C0B5C2AA8692700493550 /* SwiftlyAlertMessage in Frameworks */,
-				D765C1312A7FB48500BB6B60 /* SwiftlyStructCache in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +233,18 @@
 			path = EditBook;
 			sourceTree = "<group>";
 		};
+		D71EAD582CEA015F0025ECDF /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				D71EAD592CEA01870025ECDF /* Cache.swift */,
+				D71EAD5B2CEA01A00025ECDF /* SwiftlyAlertMessage.swift */,
+				D71EAD5D2CEA01B70025ECDF /* FolderBookmark.swift */,
+				D71EAD5F2CEA01B70025ECDF /* FolderUtil.swift */,
+				D71EAD632CEA01D50025ECDF /* Terminal.swift */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 		D765C1202A7F6A3000BB6B60 /* Sorting */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F1403C2A654498002D875D /* General */,
+				D71EAD582CEA015F0025ECDF /* Packages */,
 				D765C1202A7F6A3000BB6B60 /* Sorting */,
 				D7BCD7F32A6715D4008F134B /* External */,
 				D7F140592A658C38002D875D /* Observables */,
@@ -396,10 +411,6 @@
 			);
 			name = "Make Books";
 			packageProductDependencies = (
-				D7F140532A65846C002D875D /* SwiftlyFolderUtilities */,
-				D7BCD7ED2A670FDF008F134B /* SwiftlyTerminalUtilities */,
-				D765C1302A7FB48500BB6B60 /* SwiftlyStructCache */,
-				D78C0B5B2AA8692700493550 /* SwiftlyAlertMessage */,
 			);
 			productName = "Make Books";
 			productReference = D7F140252A65432D002D875D /* Make Books.app */;
@@ -430,10 +441,6 @@
 			);
 			mainGroup = D7F1401C2A65432D002D875D;
 			packageReferences = (
-				D7F140522A65846C002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */,
-				D7BCD7EC2A670FDF008F134B /* XCRemoteSwiftPackageReference "SwiftlyTerminalUtilities" */,
-				D765C12F2A7FB48400BB6B60 /* XCRemoteSwiftPackageReference "SwiftlyStructCache" */,
-				D78C0B5A2AA8692700493550 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */,
 			);
 			productRefGroup = D7F140262A65432D002D875D /* Products */;
 			projectDirPath = "";
@@ -532,10 +539,13 @@
 				D7F1407F2A65C1A0002D875D /* BookView+Details.swift in Sources */,
 				D7F1404B2A654EDC002D875D /* Author.swift in Sources */,
 				D7F140562A658489002D875D /* Buttons.swift in Sources */,
+				D71EAD622CEA01B70025ECDF /* FolderUtil.swift in Sources */,
 				D75323802AA6051D00B9D66B /* EditBookView+series.swift in Sources */,
 				D7F1406B2A6596FE002D875D /* BooksView+Item.swift in Sources */,
 				D7B83D0D2B0A2EDF00FBDE97 /* PartsView.swift in Sources */,
 				D7F140752A65B2C3002D875D /* TagView.swift in Sources */,
+				D71EAD5A2CEA01870025ECDF /* Cache.swift in Sources */,
+				D71EAD5C2CEA01A00025ECDF /* SwiftlyAlertMessage.swift in Sources */,
 				D714EC4D2A6A8BCC00D0337F /* Modifier+FileDropper.swift in Sources */,
 				D71989952A6EE6DA0040380A /* Debug.swift in Sources */,
 				D7F140492A654ED4002D875D /* Book.swift in Sources */,
@@ -549,11 +559,13 @@
 				D7E03F912BAC80FE001EFB74 /* FileDropperView+Details.swift in Sources */,
 				D719897F2A6BDA960040380A /* MakeView.swift in Sources */,
 				D7F140692A6595D1002D875D /* BooksView.swift in Sources */,
+				D71EAD602CEA01B70025ECDF /* FolderBookmark.swift in Sources */,
 				D765C1332A7FC5CC00BB6B60 /* EditBookView+Collection.swift in Sources */,
 				D714EC3A2A6834B300D0337F /* PreviewView.swift in Sources */,
 				D718205B2A83F07900C5AED6 /* Extensions.swift in Sources */,
 				D76B8AC72BADA8610006162E /* BookView+Header.swift in Sources */,
 				D7F140652A659264002D875D /* SceneState.swift in Sources */,
+				D71EAD642CEA01D50025ECDF /* Terminal.swift in Sources */,
 				D7F1402D2A65432D002D875D /* SidebarView.swift in Sources */,
 				D71989B12A704A400040380A /* EditBookView+Submit.swift in Sources */,
 				D71820662A89330E00C5AED6 /* BooksView+Header.swift in Sources */,
@@ -785,64 +797,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D765C12F2A7FB48400BB6B60 /* XCRemoteSwiftPackageReference "SwiftlyStructCache" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Desbeers/SwiftlyStructCache";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		D78C0B5A2AA8692700493550 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Desbeers/SwiftlyAlertMessage";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		D7BCD7EC2A670FDF008F134B /* XCRemoteSwiftPackageReference "SwiftlyTerminalUtilities" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Desbeers/SwiftlyTerminalUtilities";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		D7F140522A65846C002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D765C1302A7FB48500BB6B60 /* SwiftlyStructCache */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D765C12F2A7FB48400BB6B60 /* XCRemoteSwiftPackageReference "SwiftlyStructCache" */;
-			productName = SwiftlyStructCache;
-		};
-		D78C0B5B2AA8692700493550 /* SwiftlyAlertMessage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D78C0B5A2AA8692700493550 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */;
-			productName = SwiftlyAlertMessage;
-		};
-		D7BCD7ED2A670FDF008F134B /* SwiftlyTerminalUtilities */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D7BCD7EC2A670FDF008F134B /* XCRemoteSwiftPackageReference "SwiftlyTerminalUtilities" */;
-			productName = SwiftlyTerminalUtilities;
-		};
-		D7F140532A65846C002D875D /* SwiftlyFolderUtilities */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D7F140522A65846C002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */;
-			productName = SwiftlyFolderUtilities;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D7F1401D2A65432D002D875D /* Project object */;
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for a ``Book``
 struct BookView: View {

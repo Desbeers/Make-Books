@@ -4,7 +4,6 @@
 //  © 2023 Nick Berendsen
 
 import SwiftUI
-import SwiftlyFolderUtilities
 
 /// SwiftUI View for the settings
 struct SettingsView: View {

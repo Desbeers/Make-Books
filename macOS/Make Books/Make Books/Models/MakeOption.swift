@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import SwiftlyTerminalUtilities
 
 /// The structure of a Make option
 struct MakeOption: Identifiable, Equatable {
     /// The ID of the option
     var id = UUID()
-    /// Tge `make` target
+    /// The `make` target
     var make: String
     /// The utilities needed for the target
     var utilities: [Utility]

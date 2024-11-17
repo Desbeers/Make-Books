@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyTerminalUtilities
 
 /// SwiftUI `View` for a 'tag' ``Book``
 struct TagView: View {
@@ -54,11 +53,8 @@ struct TagView: View {
                 for item in result.standardOutput.components(separatedBy: .newlines) {
                     let fileURL = URL(filePath: item)
                     if
-                        !StaticSetting
-                            .makeBooksConfigFiles
-                            .contains(fileURL.lastPathComponent),
-                        let content = try? String(contentsOf: fileURL, encoding: .utf8)
-                    {
+                        !StaticSetting.makeBooksConfigFiles.contains(fileURL.lastPathComponent),
+                        let content = try? String(contentsOf: fileURL, encoding: .utf8) {
                         files.append(File(title: content.components(separatedBy: .newlines).first ?? item, url: fileURL))
                     }
                 }

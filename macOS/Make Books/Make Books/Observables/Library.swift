@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyFolderUtilities
 
 /// The class with the Library
 @Observable
@@ -134,7 +133,7 @@ extension Library {
             /// The found books
             var books = [Book]()
             /// Get a list of all files
-            try await FolderBookmark.action(bookmark: UserSetting.booksFolder.rawValue) { persistentURL in
+            try FolderBookmark.action(bookmark: UserSetting.booksFolder.rawValue) { persistentURL in
                 if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
                         if StaticSetting.makeBooksConfigFiles.contains(item.lastPathComponent) {

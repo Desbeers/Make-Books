@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyFolderUtilities
-import SwiftlyTerminalUtilities
 
 extension BookView {
 

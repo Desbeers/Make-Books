@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyTerminalUtilities
 
 extension FileDropperView {
 
@@ -74,9 +73,7 @@ extension FileDropperView {
         /// Make a PDF from the dropped Markdown file
         /// - Parameter droppedURL: The URL of the dropped Markdown file
         func makePDF(droppedURL: URL) {
-            guard
-                let script = Bundle.main.url(forResource: Media.makePDF.script, withExtension: nil) else
-            {
+            guard let script = Bundle.main.url(forResource: Media.makePDF.script, withExtension: nil) else {
                 return
             }
             Task { @MainActor in

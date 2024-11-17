@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyTerminalUtilities
 
 /// SwiftUI `View` for details of the dropped Markdown file
 struct FileDropperView: View {

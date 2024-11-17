@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyFolderUtilities
-import SwiftlyAlertMessage
 
 /// SwiftUI `View` for the form to edit metadata for a book
 struct EditBookView: View {

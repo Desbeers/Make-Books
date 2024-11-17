@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyFolderUtilities
 
 /// User settings for Make Books
 enum UserSetting: String {
